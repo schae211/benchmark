@@ -1,0 +1,33 @@
+---
+title: "Synthetic"
+---
+
+# Set up
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Saez/workflowr_projects/benchmark")
+```
+
+Loaded packages.
+
+```{r}
+suppressPackageStartupMessages(library(mistyR))
+suppressPackageStartupMessages(library(future))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(factoextra))
+plan("multisession", workers=14)
+```
+
+Loading data
+
+```{r}
+# TODO
+```
+
+# Introduction
+
+To extend the functionality of MISTy a new API was implemented to model
+the different views which are ultimatively combined in a linear meta model.
+This analysis is supposed to test how these new models work on real-world 
+datasets.

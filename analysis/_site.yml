@@ -5,13 +5,15 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: About
-    href: about.html
-  - text: License
-    href: license.html
+  - text: Synthetic
+    href: synthetic.html
+  - text: MIBI TNBC
+    href: synthetic.html
 output:
   workflowr::wflow_html:
     toc: yes
     toc_float: yes
     theme: cosmo
     highlight: textmate
+    code_folding: hide
+    df_print: paged
