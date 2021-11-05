@@ -5,10 +5,12 @@ navbar:
   left:
   - text: Home
     href: index.html
+  - text: Tutorial
+    href: tutorial.html
   - text: Synthetic
     href: synthetic.html
   - text: MIBI TNBC
-    href: synthetic.html
+    href: mibi.html
 output:
   workflowr::wflow_html:
     toc: yes

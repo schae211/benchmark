@@ -27,7 +27,7 @@ The columns Group and ImmuneGroup in the cell metadata are translated from
 numbers to their actual meaning.
 
 ```{r}
-input <- read_csv("data/cellData.csv", show_col_types=FALSE)
+input <- read_csv("data/mibi_cellData.csv", show_col_types=FALSE)
 
 # See description in Readme
 group.trans <- c("1" = "Unidentified", "2" = "Immune", "3" = "Endothelial", 
@@ -162,14 +162,14 @@ meta %>%
 Patient data provided with the raw data.
 
 ```{r}
-patient.info <- read_csv("data/patient_class.csv",
+patient.info <- read_csv("data/mibi_patient_class.csv",
                          col_names = c("SampleID", "Classification"),
                          show_col_types=FALSE)
 patient.info %>% slice_head(n=6)
 ```
 
 ```{r}
-patient.info.paper <- readxl::read_xlsx("data/mmc2.xlsx", 
+patient.info.paper <- readxl::read_xlsx("data/mibi_mmc2.xlsx", 
                                         skip = 1, col_names = TRUE)
 
 patient.info.paper %>% slice_head(n=6)
@@ -319,47 +319,52 @@ matrix to determine direct neighbors of each cell)
 ```{r}
 # Setting the distance threshold for what is considered a neighbor in the DT.
 neighbor.thr <- 40
-  
-coord.type.smp <- unique(meta$SampleID) %>%
-set_names(paste0("s", .)) %>%
-map(function(id) {
-  meta %>%
-    filter(meta$SampleID == id) %>% 
-    select(row, col, Group) %>%
-    mutate(Group = ifelse(Group == "Keratin-positive tumor", 
-                          "Tumor", Group)) %>%
-    filter(Group %in% c("Tumor", "Immune")) %>%
-    mutate(id = seq_len(nrow(.)))
-})
 
-# helper function for getting direct neighbors
-get_neighbors <- function(ddobj, id) {
-  dplyr::union(
-    ddobj$delsgs$ind1[which(ddobj$delsgs$ind2 == id)],
-    ddobj$delsgs$ind2[which(ddobj$delsgs$ind1 == id)]
-  )
+if ("mibi_tumor.immune.contacts.RDS" %in% list.files("data")) {
+  contacts.smp <- readRDS("data/mibi_tumor.immune.contacts.RDS")
+} else {
+  
+  coord.type.smp <- unique(meta$SampleID) %>%
+  set_names(paste0("s", .)) %>%
+  map(function(id) {
+    meta %>%
+      filter(meta$SampleID == id) %>% 
+      select(row, col, Group) %>%
+      mutate(Group = ifelse(Group == "Keratin-positive tumor", 
+                            "Tumor", Group)) %>%
+      filter(Group %in% c("Tumor", "Immune")) %>%
+      mutate(id = seq_len(nrow(.)))
+  })
+
+  # helper function for getting direct neighbors
+  get_neighbors <- function(ddobj, id) {
+    dplyr::union(
+      ddobj$delsgs$ind1[which(ddobj$delsgs$ind2 == id)],
+      ddobj$delsgs$ind2[which(ddobj$delsgs$ind1 == id)]
+    )
+  }
+
+  contacts.smp <- coord.type.smp %>%
+  set_names() %>%
+  map_dfr(function(smp) {
+    
+    delaunay <- deldir::deldir(as.data.frame(smp %>% select(row, col)))
+    dists <- distances::distances(as.data.frame(smp %>% select(row, col)))
+    ids.to.map <- smp %>% filter(Group == "Immune") %>% pull(id)
+    
+    map(ids.to.map, function(i) {
+      alln <- get_neighbors(delaunay, i)
+      actualn <- alln[which(dists[alln, i] <= neighbor.thr)]
+      
+      smp %>%
+        filter(id %in% actualn) %>%
+        pull(Group)
+      
+    }) %>% 
+      unlist %>%
+      table
+  })
 }
-
-contacts.smp <- coord.type.smp %>%
-set_names() %>%
-map_dfr(function(smp) {
-  
-  delaunay <- deldir::deldir(as.data.frame(smp %>% select(row, col)))
-  dists <- distances::distances(as.data.frame(smp %>% select(row, col)))
-  ids.to.map <- smp %>% filter(Group == "Immune") %>% pull(id)
-  
-  map(ids.to.map, function(i) {
-    alln <- get_neighbors(delaunay, i)
-    actualn <- alln[which(dists[alln, i] <= neighbor.thr)]
-    
-    smp %>%
-      filter(id %in% actualn) %>%
-      pull(Group)
-    
-  }) %>% 
-    unlist %>%
-    table
-})
 
 meta %>%
   group_by(SampleID) %>%
@@ -379,6 +384,18 @@ meta %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = "Sample", y = "Mixing Score") +
   scale_fill_viridis_c()
+```
+
+Looking at the samples with the top mixing score, namely 15, 18, 22, 24, 31, 
+25, 21, 26
+
+```{r fig.width=12, fig.height=6}
+meta %>%
+  filter(SampleID %in% c(15, 18, 22, 24, 31, 25, 21, 26)) %>%
+  ggplot() +
+  geom_point(aes(x = row, y = col, col = Group), size = .1) +
+  facet_wrap(~ SampleID, ncol = 4) + 
+  guides(colour = guide_legend(override.aes = list(size = 4)))
 ```
 
 Looking at the samples with the top mixing score, namely 15, 18, 22, 24, 31, 
@@ -427,7 +444,7 @@ Furthermore, we will look at the tiff.
 ```{r fig.height=6, fig.width=8}
 library(tiff)
 id = 40
-tiff <- readTIFF(paste0("data/raw_tiffs/p", 
+tiff <- readTIFF(paste0("data/mibi_tiffs/p", 
                         id, "_labeledcellData.tiff"), as.is = TRUE)
 ```
 
@@ -756,7 +773,7 @@ to run MISTy:
 
 ```{r}
 if ("mibi_misty_views.RDS" %in% list.files("data")) {
-  misty.views.smp <- readRDS("data/misty_views_smp.RDS")
+  misty.views.smp <- readRDS("data/mibi_misty_views.RDS")
 } else {
   misty.views.smp <- map(expr.smp, coord.smp, function(expr, coord) {
     

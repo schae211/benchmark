@@ -28,6 +28,24 @@ meta.smp <- readRDS("data/mibi_coldata.RDS")
 misty.views.smp <- readRDS("data/mibi_misty_views.RDS")
 ```
 
+```{r hide=TRUE}
+# subsampling
+subsampling <- TRUE
+if (subsampling) {
+  frac <- 0.1
+  misty.views.smp <- map(misty.views.smp, function(misty.view) {
+  sample.index <- sample(1:nrow(misty.view$intraview$data), frac*nrow(misty.view$intraview$data))
+  misty.view$intraview$data <- misty.view$intraview$data[sample.index, ]
+  misty.view$juxtaview.40$data <- misty.view$juxtaview.40$data[sample.index, ]
+  misty.view$paraview.120$data <- misty.view$paraview.120$data[sample.index, ]
+  colvars <- misty.view$intraview$data %>% as.matrix %>% matrixStats::colVars()
+  misty.view$intraview$data <- misty.view$intraview$data[, colvars > 1e-3]
+  misty.view
+})
+}
+```
+
+
 # Introduction
 
 To extend the functionality of MISTy a new API was implemented to model
@@ -43,23 +61,29 @@ The MISTy views were generated with the following parameters:
 - Juxtaview: l = 40
 - Paraview: l = 120, zoi = 40
 
+```{r}
+cv.folds <- 10
+seed <- 42
+```
+
 TOOD - re-run MISTy with proper function calls!
 
 ## Random Forest
 
-```{r}
-if ("mibi_ranger.RDS" %in% list.files("data")) {
-  ranger.results <- readRDS("data/mibi_ranger.RDS")
+```{r warning=FALSE}
+if ("mibi_ranger.RDS" %in% list.files("data/mibi_benchmark")) {
+  ranger.results <- readRDS("data/mibi_benchmark/mibi_ranger.RDS")
 } else {
   cv.folds = 10
   ranger.results.folders <- map2(
     misty.views.smp, names(misty.views.smp), function(smp, name) {
       
       smp %>% run_misty(results.folder = paste0("analysis/results/ranger_", name),
-                        cv.folds = cv.folds)
+                        cv.folds = cv.folds, seed = seed, model.function = ranger_model,
+                        model.name = "ranger")
     })
   ranger.results <- collect_results(ranger.results.folders)
-  saveRDS(ranger.results, "data/mibi_ranger.RDS")
+  saveRDS(ranger.results, "data/mibi_benchmark/mibi_ranger.RDS")
 }
 ```
 
@@ -71,20 +95,21 @@ mistyR::plot_improvement_stats(ranger.results)
 
 Running with MARS as ML algorithm to build the view-specific models.
 
-```{r}
-if ("mibi_earth.RDS" %in% list.files("data")) {
-  earth.results <- readRDS("data/mibi_earth.RDS")
+```{r warning=FALSE}
+if ("mibi_earth.RDS" %in% list.files("data/mibi_benchmark")) {
+  earth.results <- readRDS("data/mibi_benchmark/mibi_earth.RDS")
 } else {
   cv.folds = 10
   earth.results.folders <- map2(
     misty.views.smp, names(misty.views.smp), function(smp, name) {
-      
+    
       smp %>% run_misty(results.folder = paste0("analysis/results/earth_", name),
-                        cv.folds = cv.folds, method = "bag", learner = "earth",
-                        n.learners = 100)
+                        cv.folds = cv.folds, seed = seed, model.function = bagged_earth_model,
+                        model.name = "earth", n.learners = 20)
+      
     })
   earth.results <- collect_results(earth.results.folders)
-  saveRDS(earth.results, "data/mibi_earth.RDS")
+  saveRDS(earth.results, "data/mibi_benchmark/mibi_earth.RDS")
 }
 ```
 
@@ -94,21 +119,21 @@ mistyR::plot_improvement_stats(earth.results)
 
 ## Linear Bagged Model
 
-```{r}
+```{r warning=FALSE}
 plan("multisession", workers = 8)
-if ("mibi_lmbag.RDS" %in% list.files("data")) {
-  lmbag.results <- readRDS("data/mibi_lmbag.RDS")
+if ("mibi_lmbag.RDS" %in% list.files("data/mibi_benchmark")) {
+  lmbag.results <- readRDS("data/mibi_benchmark/mibi_lmbag.RDS")
 } else {
   cv.folds = 10
   lmbag.results.folders <- map2(
     misty.views.smp, names(misty.views.smp), function(smp, name) {
-      
-      smp %>% run_misty(results.folder = paste0("analysis/results/lmbag_", name),
-                        cv.folds = cv.folds, method = "bag", learner = "lm",
-                        n.learners = 200)
+
+      smp %>% run_misty(results.folder = paste0("analysis/results/earth_", name),
+                  cv.folds = cv.folds, seed = seed, model.function = bagged_linear_model,
+                  model.name = "lmbag", n.learners = 20)
     })
   lmbag.results <- collect_results(lmbag.results.folders)
-  saveRDS(lmbag.results, "data/mibi_lmbag.RDS")
+  saveRDS(lmbag.results, "data/mibi_benchmark/mibi_lmbag.RDS")
 }
 ```
 

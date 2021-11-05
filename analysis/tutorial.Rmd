@@ -1,0 +1,84 @@
+---
+title: "Tutorial"
+---
+
+# Set up
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Saez/workflowr_projects/benchmark")
+```
+
+Loaded packages.
+
+```{r}
+suppressPackageStartupMessages(library(mistyR))
+suppressPackageStartupMessages(library(future))
+suppressPackageStartupMessages(library(tidyverse))
+plan("multisession", workers=14)
+```
+
+Loading data
+
+For the sake of this tutorial we will be using the synthetic dataset.
+
+```{r}
+data("synthetic")
+```
+
+Lets first create one MISTy view
+
+```{r}
+expr <- synthetic$synthetic1 %>% select(-c(row, col, type))
+pos <- synthetic$synthetic1 %>% select(c(row, col))
+misty.views <- expr %>%
+  create_initial_view() %>%
+  add_paraview(l = 10, positions = pos)
+```
+
+
+# Introduction
+
+To expand the flexibility of MISTy it is now possible to specify functions
+to model the views
+
+Now we call MISTy like that:
+
+```{r}
+misty.run <- misty.views %>%
+  run_misty(model.function = ranger_model)
+```
+
+And here are the results (just like before).
+
+```{r}
+misty.results <- collect_results(misty.run)
+plot_improvement_stats(misty.results, "gain.R2")
+```
+
+But what is this ranger_model actually doing?
+
+TODO
+- I need to exactly describe what the input and output
+- Make a figure how it fits into the overall MISTy strucutre
+
+# Basic Ranger Implementation
+
+Using the default ranger implementation I will showcase
+
+```{r}
+ranger_model
+```
+
+...
+
+
+Now we could also build a function for boosted trees
+
+```{r}
+cv_boosted_trees_model
+```
+
+
+
+
