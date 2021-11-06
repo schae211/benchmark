@@ -15,7 +15,6 @@ Loaded packages.
 suppressPackageStartupMessages(library(mistyR))
 suppressPackageStartupMessages(library(future))
 suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(factoextra))
 plan("multisession", workers=14)
 ```
 
@@ -30,7 +29,7 @@ misty.views.smp <- readRDS("data/mibi_misty_views.RDS")
 
 ```{r hide=TRUE}
 # subsampling
-subsampling <- TRUE
+subsampling <- FALSE
 if (subsampling) {
   frac <- 0.1
   misty.views.smp <- map(misty.views.smp, function(misty.view) {
@@ -105,7 +104,7 @@ if ("mibi_earth.RDS" %in% list.files("data/mibi_benchmark")) {
     
       smp %>% run_misty(results.folder = paste0("analysis/results/earth_", name),
                         cv.folds = cv.folds, seed = seed, model.function = bagged_earth_model,
-                        model.name = "earth", n.learners = 20)
+                        model.name = "earth", n.learners = 100)
       
     })
   earth.results <- collect_results(earth.results.folders)
@@ -130,7 +129,7 @@ if ("mibi_lmbag.RDS" %in% list.files("data/mibi_benchmark")) {
 
       smp %>% run_misty(results.folder = paste0("analysis/results/earth_", name),
                   cv.folds = cv.folds, seed = seed, model.function = bagged_linear_model,
-                  model.name = "lmbag", n.learners = 20)
+                  model.name = "lmbag", n.learners = 100)
     })
   lmbag.results <- collect_results(lmbag.results.folders)
   saveRDS(lmbag.results, "data/mibi_benchmark/mibi_lmbag.RDS")
