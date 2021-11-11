@@ -72,13 +72,9 @@ misty.run <- misty.views %>%
 
 To make things more explicitly the above call is the same as:
 
-The model.name should be supplied if you want to cache some 
-results (which is not done by default).
-
 ```{r}
 misty.run <- misty.views %>%
-  run_misty(model.function = ranger_model, 
-            model.name = "ranger_model")
+  run_misty(model.function = ranger_model)
 ```
 
 But what is this `ranger_model` actually?
@@ -198,8 +194,7 @@ ranger_model
  
 ```{r}
 misty.views %>%
-  run_misty(model.function = ranger_model, 
-            model.name = "ranger_model") %>%
+  run_misty(model.function = ranger_model) %>%
   collect_results() %>%
   plot_improvement_stats("gain.R2") %>%
   plot_view_contributions() %>%
@@ -226,8 +221,7 @@ bagged_earth_model
  
 ```{r}
 misty.views %>%
-  run_misty(model.function = bagged_earth_model, 
-            model.name = "earth") %>%
+  run_misty(model.function = bagged_earth_model) %>%
   collect_results() %>%
   plot_improvement_stats("gain.R2") %>%
   plot_view_contributions() %>%
@@ -247,8 +241,7 @@ bagged_linear_model
  
 ```{r}
 misty.views %>%
-  run_misty(model.function = bagged_linear_model, 
-            model.name = "lm.bag") %>%
+  run_misty(model.function = bagged_linear_model) %>%
   collect_results() %>%
   plot_improvement_stats("gain.R2") %>%
   plot_view_contributions() %>%
@@ -268,8 +261,7 @@ boosted_trees_model
  
 ```{r}
 misty.views %>%
-  run_misty(model.function = boosted_trees_model, 
-            model.name = "boosted.trees") %>%
+  run_misty(model.function = boosted_trees_model) %>%
   collect_results() %>%
   plot_improvement_stats("gain.R2") %>%
   plot_view_contributions() %>%
@@ -294,8 +286,7 @@ svm_model
  
 ```{r}
 misty.views %>%
-  run_misty(model.function = svm_model, 
-            model.name = "svm") %>%
+  run_misty(model.function = svm_model) %>%
   collect_results() %>%
   plot_improvement_stats("gain.R2") %>%
   plot_view_contributions() %>%
@@ -321,7 +312,6 @@ nn_model
 ```{r}
 misty.views %>%
   run_misty(model.function = nn_model,
-            model.name = "nn_model",
             k = 10, approx.frac = 0.5) %>%
   collect_results() %>%
   plot_improvement_stats("gain.R2") %>%
@@ -345,8 +335,7 @@ linear_model
  
 ```{r}
 misty.views %>%
-  run_misty(model.function = linear_model, 
-            model.name = "lm") %>%
+  run_misty(model.function = linear_model) %>%
   collect_results() %>%
   plot_improvement_stats("gain.R2") %>%
   plot_view_contributions() %>%

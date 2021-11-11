@@ -12,3 +12,7 @@ analysis/site_libs
 *.RDS
 *.csv
 analysis/results
+*.xlsx
+data/mibi_tiffs
+results
+misty_results
