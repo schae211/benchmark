@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>EDA MERFISH Fetal Liver</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">benchmark</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="tutorial.html">Tutorial</a>
+</li>
+<li>
+  <a href="synthetic.html">Synthetic</a>
+</li>
+<li>
+  <a href="mibi.html">MIBI TNBC</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/schae211/benchmark">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">EDA MERFISH Fetal Liver</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-11-10
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
+</p>
+<p>
+<strong>Knit directory:</strong> <code>benchmark/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211105code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211105)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20211105code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20211105)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
+</p>
+</div>
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+~/Saez/workflowr_projects/benchmark
+</td>
+<td style="text-align:left;">
+.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688targetblank2d12fa2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688" target="_blank">2d12fa2</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688targetblank2d12fa2a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688" target="_blank">2d12fa2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    analysis/merfish_prep.html
+    Ignored:    analysis/results/
+    Ignored:    data/coord.RDS
+    Ignored:    data/graph.clusters.RDS
+    Ignored:    data/merfish_benchmark/
+    Ignored:    data/mibi_benchmark/
+    Ignored:    data/mibi_cellData.csv
+    Ignored:    data/mibi_coldata.RDS
+    Ignored:    data/mibi_earth.RDS
+    Ignored:    data/mibi_expression.RDS
+    Ignored:    data/mibi_lmbag.RDS
+    Ignored:    data/mibi_misty_views.RDS
+    Ignored:    data/mibi_mmc2.xlsx
+    Ignored:    data/mibi_patient_class.csv
+    Ignored:    data/mibi_ranger.RDS
+    Ignored:    data/mibi_rowdata.RDS
+    Ignored:    data/mibi_tiffs/
+    Ignored:    data/mibi_tumor.immune.contacts.RDS
+    Ignored:    misty_results/
+
+Untracked files:
+    Untracked:  analysis/merfish_prep.Rmd
+    Untracked:  analysis/merfish_test.Rmd
+
+Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/tutorial.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="set-up" class="section level1">
+<h1>Set up</h1>
+<p>Messages will be hidden and the output collapsed to make the Rmd more clear.</p>
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = &quot;~/Saez/workflowr_projects/benchmark&quot;)</code></pre>
+<p>Loaded Packages.</p>
+<pre class="r"><code>suppressPackageStartupMessages(library(mistyR))
+suppressPackageStartupMessages(library(future))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(R.matlab))
+plan(&quot;multisession&quot;, workers=12)</code></pre>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The data originate from the following study:</p>
+<p>Lu, Y. et al. Spatial transcriptome profiling by MERFISH reveals fetal liver hematopoietic stem cell niche architecture. Cell Discov 7, 47 (2021).</p>
+</div>
+<div id="wt-data" class="section level1">
+<h1>WT Data</h1>
+<div id="gene-information" class="section level2">
+<h2>Gene Information</h2>
+<pre class="r"><code>gene.tibble &lt;- readxl::read_xlsx(
+  &quot;/home/philipp/data/saez/merfish/Supplement/41421_2021_266_MOESM1_ESM.xlsx&quot;, 
+  skip = 1
+  )
+genes &lt;- gene.tibble$`Gene name`
+gene.tibble %&gt;% slice_head(n=6)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Gene name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Purpose/function"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Isoform name"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Gene FPKM from bulk RNA-seq"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Codebook"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"Fstl1","2":"AEC marker","3":"ENSMUST00000114763.2","4":"8.36362","5":"'0000110011000000'"},{"1":"Col4a1","2":"AEC marker","3":"ENSMUST00000033898.9","4":"12.89720","5":"'1000000001100001'"},{"1":"Pdgfra","2":"AEC marker","3":"ENSMUST00000000476.14","4":"1.86086","5":"'0000101101000000'"},{"1":"Hgf","2":"Basophil marker","3":"ENSMUST00000030683.7","4":"1.76942","5":"'0011000000110000'"},{"1":"Mki67","2":"Cell cycle","3":"ENSMUST00000033310.8","4":"214.98100","5":"'0000000001111000'"},{"1":"Mpp1","2":"Cell cycle","3":"ENSMUST00000114091.7","4":"98.58550","5":"'0000000111100000'"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="cell-data" class="section level2">
+<h2>Cell Data</h2>
+<p>Raw Data:</p>
+<pre class="r"><code>wt.samples &lt;- list.files(&quot;/home/philipp/data/saez/merfish/Data/WT CellList&quot;)
+sample.names &lt;- str_extract(wt.samples, &quot;CellID_[0-9]+&quot;)
+
+if (&quot;merfish.raw.data.RDS&quot; %in% list.files(&quot;data/merfish_benchmark&quot;)) {
+  raw.data &lt;- readRDS(&quot;data/merfish_benchmark/merfish.raw.data.RDS&quot;)
+} else {
+
+  raw.data &lt;- map(wt.samples, function(file) {
+  readMat(paste0(&quot;/home/philipp/data/saez/merfish/Data/WT CellList/&quot;,
+                             file))$CellList
+  }) %&gt;% setNames(sample.names)
+  
+  saveRDS(raw.data, &quot;data/merfish_benchmark/merfish.raw.data.RDS&quot;)
+}</code></pre>
+<pre class="r"><code>sample.names</code></pre>
+<pre><code>[1] &quot;CellID_190411&quot; &quot;CellID_190510&quot; &quot;CellID_190517&quot; &quot;CellID_190718&quot;</code></pre>
+<p>Cell Metadata:</p>
+<pre class="r"><code>cell.data &lt;- map(raw.data, function(smp.data) {
+  smp.cell.data &lt;- map_dfr(seq.int(1, dim(smp.data)[3]), function(i) {
+    cell_i &lt;- smp.data[1:8, 1, i]
+    tibble::tibble(id = cell_i$CellID, fov = cell_i$FOV, x = cell_i$Center[1, 1],
+                   y = cell_i$Center[1, 2], total.rna.copy = cell_i$TotalRNACopyNumber[1, 1], 
+           edge = cell_i$OnEdge[1, 1], type = cell_i$CellType, num.pixel = dim(cell_i$PixelList)[1])
+  })
+}) %&gt;% setNames(sample.names)</code></pre>
+<pre class="r"><code>cell.data$CellID_190411 %&gt;% slice_head(n=6)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["dbl[,1]"],"align":["right"]},{"label":["fov"],"name":[2],"type":["dbl[,1]"],"align":["right"]},{"label":["x"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["y"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["total.rna.copy"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["edge"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["type"],"name":[7],"type":["dbl[,1]"],"align":["right"]},{"label":["num.pixel"],"name":[8],"type":["int"],"align":["right"]}],"data":[{"1":"540411","2":"0","3":"73.46548","4":"1076.5241","5":"12","6":"0","7":"8","8":"5953"},{"1":"580411","2":"0","3":"107.22688","4":"267.6237","5":"23","6":"0","7":"7","8":"11279"},{"1":"590411","2":"0","3":"115.04508","4":"146.1814","5":"17","6":"0","7":"8","8":"5524"},{"1":"640411","2":"0","3":"104.34859","4":"1184.1945","5":"12","6":"0","7":"7","8":"7952"},{"1":"660411","2":"0","3":"133.82248","4":"475.5308","5":"13","6":"0","7":"8","8":"5543"},{"1":"680411","2":"0","3":"160.28219","4":"991.8364","5":"10","6":"0","7":"7","8":"12148"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>#cell.data$CellID_190411 %&gt;% distinct(fov, .keep_all= TRUE)
+
+#cell.data$CellID_190411 %&gt;% group_by(fov) %&gt;% count</code></pre>
+<p>Merging Cell Data</p>
+<pre class="r"><code>cell.meta &lt;- cell.data %&gt;% map2_dfr(names(cell.data), function(smp.data, name) {
+  smp.data %&gt;% mutate(sample = name)
+}) %&gt;%
+  mutate(type_name = case_when(
+  type == 1 ~ &quot;Arterial.Endothelial.Cells&quot;,
+  type == 2 ~ &quot;Sinusoidal.Endothelial.Cells&quot;, 
+  type == 3 ~ &quot;Megakaryocytes&quot;,
+  type == 4 ~ &quot;Hepatocyte&quot;,
+  type == 5 ~ &quot;Macrophage&quot;,
+  type == 6 ~ &quot;Myeloid&quot;,
+  type == 7 ~ &quot;Erythroid.Progenitor&quot;,
+  type == 8 ~ &quot;Erythroid.Cell&quot;,
+  type == 9 ~ &quot;Unknown&quot;
+))
+cell.meta %&gt;% slice_head(n=6)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["dbl[,1]"],"align":["right"]},{"label":["fov"],"name":[2],"type":["dbl[,1]"],"align":["right"]},{"label":["x"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["y"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["total.rna.copy"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["edge"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["type"],"name":[7],"type":["dbl[,1]"],"align":["right"]},{"label":["num.pixel"],"name":[8],"type":["int"],"align":["right"]},{"label":["sample"],"name":[9],"type":["chr"],"align":["left"]},{"label":["type_name"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"540411","2":"0","3":"73.46548","4":"1076.5241","5":"12","6":"0","7":"8","8":"5953","9":"CellID_190411","10":"Erythroid.Cell"},{"1":"580411","2":"0","3":"107.22688","4":"267.6237","5":"23","6":"0","7":"7","8":"11279","9":"CellID_190411","10":"Erythroid.Progenitor"},{"1":"590411","2":"0","3":"115.04508","4":"146.1814","5":"17","6":"0","7":"8","8":"5524","9":"CellID_190411","10":"Erythroid.Cell"},{"1":"640411","2":"0","3":"104.34859","4":"1184.1945","5":"12","6":"0","7":"7","8":"7952","9":"CellID_190411","10":"Erythroid.Progenitor"},{"1":"660411","2":"0","3":"133.82248","4":"475.5308","5":"13","6":"0","7":"8","8":"5543","9":"CellID_190411","10":"Erythroid.Cell"},{"1":"680411","2":"0","3":"160.28219","4":"991.8364","5":"10","6":"0","7":"7","8":"12148","9":"CellID_190411","10":"Erythroid.Progenitor"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Expression Data:</p>
+<pre class="r"><code>expr.data &lt;- map(raw.data, function(smp.data) {
+  smp.expr.data &lt;- map_dfr(seq.int(1, dim(smp.data)[3]), function(i) {
+    cell_i &lt;- smp.data[1:8, 1, i]
+    cell_i$CellID
+    expr &lt;- cell_i$RNACopyNumber %&gt;% as.vector
+    names(expr) &lt;- genes
+    c(id = cell_i$CellID, expr)
+  })
+})</code></pre>
+<pre class="r"><code>expr.data$CellID_190411 %&gt;% slice_head(n=6)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Fstl1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Col4a1"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Pdgfra"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Hgf"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Mki67"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Mpp1"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Lyve1"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["Meis2"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["Cdh11"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["Lox"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["E2f2"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["Fam46c"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["Slc25a37"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["Tfrc"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["Tmod1"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["Abcb4"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["Ammecr1"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["Myh10"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["Podxl"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["Tmem56"],"name":[21],"type":["dbl"],"align":["right"]},{"label":["Cxadr"],"name":[22],"type":["dbl"],"align":["right"]},{"label":["Gpd1"],"name":[23],"type":["dbl"],"align":["right"]},{"label":["Hc"],"name":[24],"type":["dbl"],"align":["right"]},{"label":["Proz"],"name":[25],"type":["dbl"],"align":["right"]},{"label":["Pzp"],"name":[26],"type":["dbl"],"align":["right"]},{"label":["Sardh"],"name":[27],"type":["dbl"],"align":["right"]},{"label":["Cd48"],"name":[28],"type":["dbl"],"align":["right"]},{"label":["Ddx4"],"name":[29],"type":["dbl"],"align":["right"]},{"label":["Flt3"],"name":[30],"type":["dbl"],"align":["right"]},{"label":["Kit"],"name":[31],"type":["dbl"],"align":["right"]},{"label":["Mecom"],"name":[32],"type":["dbl"],"align":["right"]},{"label":["Procr"],"name":[33],"type":["dbl"],"align":["right"]},{"label":["Runx1"],"name":[34],"type":["dbl"],"align":["right"]},{"label":["Slamf1"],"name":[35],"type":["dbl"],"align":["right"]},{"label":["Abcc3"],"name":[36],"type":["dbl"],"align":["right"]},{"label":["Adgre1"],"name":[37],"type":["dbl"],"align":["right"]},{"label":["Itgam"],"name":[38],"type":["dbl"],"align":["right"]},{"label":["Mertk"],"name":[39],"type":["dbl"],"align":["right"]},{"label":["Mrc1"],"name":[40],"type":["dbl"],"align":["right"]},{"label":["Sdc3"],"name":[41],"type":["dbl"],"align":["right"]},{"label":["Vcam1"],"name":[42],"type":["dbl"],"align":["right"]},{"label":["Gnaz"],"name":[43],"type":["dbl"],"align":["right"]},{"label":["Mmrn1"],"name":[44],"type":["dbl"],"align":["right"]},{"label":["Mrvi1"],"name":[45],"type":["dbl"],"align":["right"]},{"label":["Timp3"],"name":[46],"type":["dbl"],"align":["right"]},{"label":["Vwf"],"name":[47],"type":["dbl"],"align":["right"]},{"label":["Cd34"],"name":[48],"type":["dbl"],"align":["right"]},{"label":["Rassf4"],"name":[49],"type":["dbl"],"align":["right"]},{"label":["Arsb"],"name":[50],"type":["dbl"],"align":["right"]},{"label":["B4galt6"],"name":[51],"type":["dbl"],"align":["right"]},{"label":["Gca"],"name":[52],"type":["dbl"],"align":["right"]},{"label":["Olr1"],"name":[53],"type":["dbl"],"align":["right"]},{"label":["Sgms2"],"name":[54],"type":["dbl"],"align":["right"]},{"label":["Epcam"],"name":[55],"type":["dbl"],"align":["right"]},{"label":["Efnb2"],"name":[56],"type":["dbl"],"align":["right"]},{"label":["Nrp1"],"name":[57],"type":["dbl"],"align":["right"]},{"label":["Cdh5"],"name":[58],"type":["dbl"],"align":["right"]},{"label":["Pecam1"],"name":[59],"type":["dbl"],"align":["right"]},{"label":["Pdpn"],"name":[60],"type":["dbl"],"align":["right"]},{"label":["Angpt1"],"name":[61],"type":["dbl"],"align":["right"]},{"label":["Angptl2"],"name":[62],"type":["dbl"],"align":["right"]},{"label":["Angpt2"],"name":[63],"type":["dbl"],"align":["right"]},{"label":["Cxcl12"],"name":[64],"type":["dbl"],"align":["right"]},{"label":["Egr1"],"name":[65],"type":["dbl"],"align":["right"]},{"label":["Eng"],"name":[66],"type":["dbl"],"align":["right"]},{"label":["Fgf1"],"name":[67],"type":["dbl"],"align":["right"]},{"label":["Fgf2"],"name":[68],"type":["dbl"],"align":["right"]},{"label":["Gfap"],"name":[69],"type":["dbl"],"align":["right"]},{"label":["Icam1"],"name":[70],"type":["dbl"],"align":["right"]},{"label":["Igf1"],"name":[71],"type":["dbl"],"align":["right"]},{"label":["Il6"],"name":[72],"type":["dbl"],"align":["right"]},{"label":["Il7r"],"name":[73],"type":["dbl"],"align":["right"]},{"label":["Kitl"],"name":[74],"type":["dbl"],"align":["right"]},{"label":["Lepr"],"name":[75],"type":["dbl"],"align":["right"]},{"label":["Mpl"],"name":[76],"type":["dbl"],"align":["right"]},{"label":["Ndn"],"name":[77],"type":["dbl"],"align":["right"]},{"label":["Selp"],"name":[78],"type":["dbl"],"align":["right"]},{"label":["Tgfb2"],"name":[79],"type":["dbl"],"align":["right"]},{"label":["Egfr"],"name":[80],"type":["dbl"],"align":["right"]},{"label":["Cspg4"],"name":[81],"type":["dbl"],"align":["right"]},{"label":["Nes"],"name":[82],"type":["dbl"],"align":["right"]},{"label":["Ephb4"],"name":[83],"type":["dbl"],"align":["right"]},{"label":["Gata3"],"name":[84],"type":["dbl"],"align":["right"]},{"label":["Meis1"],"name":[85],"type":["dbl"],"align":["right"]},{"label":["Tet1"],"name":[86],"type":["dbl"],"align":["right"]},{"label":["Tet2"],"name":[87],"type":["dbl"],"align":["right"]},{"label":["Ep300"],"name":[88],"type":["dbl"],"align":["right"]},{"label":["Fbxw7"],"name":[89],"type":["dbl"],"align":["right"]},{"label":["Maml1"],"name":[90],"type":["dbl"],"align":["right"]},{"label":["Notch1"],"name":[91],"type":["dbl"],"align":["right"]},{"label":["Notch2"],"name":[92],"type":["dbl"],"align":["right"]},{"label":["Notch3"],"name":[93],"type":["dbl"],"align":["right"]},{"label":["Notch4"],"name":[94],"type":["dbl"],"align":["right"]},{"label":["Rbpj"],"name":[95],"type":["dbl"],"align":["right"]},{"label":["Dll1"],"name":[96],"type":["dbl"],"align":["right"]},{"label":["Dll4"],"name":[97],"type":["dbl"],"align":["right"]},{"label":["Jag1"],"name":[98],"type":["dbl"],"align":["right"]},{"label":["Jag2"],"name":[99],"type":["dbl"],"align":["right"]},{"label":["Ctnnal1"],"name":[100],"type":["dbl"],"align":["right"]},{"label":["Hoxb4"],"name":[101],"type":["dbl"],"align":["right"]},{"label":["Hoxb5"],"name":[102],"type":["dbl"],"align":["right"]},{"label":["Itga2b"],"name":[103],"type":["dbl"],"align":["right"]},{"label":["Vav1"],"name":[104],"type":["dbl"],"align":["right"]},{"label":["Pou2af1"],"name":[105],"type":["dbl"],"align":["right"]},{"label":["Cd93"],"name":[106],"type":["dbl"],"align":["right"]},{"label":["Elk3"],"name":[107],"type":["dbl"],"align":["right"]},{"label":["Satb1"],"name":[108],"type":["dbl"],"align":["right"]},{"label":["Tox"],"name":[109],"type":["dbl"],"align":["right"]},{"label":["Eif3a"],"name":[110],"type":["dbl"],"align":["right"]},{"label":["Tek"],"name":[111],"type":["dbl"],"align":["right"]},{"label":["Clec14a"],"name":[112],"type":["dbl"],"align":["right"]},{"label":["Stab2"],"name":[113],"type":["dbl"],"align":["right"]},{"label":["Flt4"],"name":[114],"type":["dbl"],"align":["right"]},{"label":["Kdr"],"name":[115],"type":["dbl"],"align":["right"]},{"label":["Axin2"],"name":[116],"type":["dbl"],"align":["right"]},{"label":["Celsr2"],"name":[117],"type":["dbl"],"align":["right"]},{"label":["Lef1"],"name":[118],"type":["dbl"],"align":["right"]},{"label":["Nkd2"],"name":[119],"type":["dbl"],"align":["right"]},{"label":["Prickle2"],"name":[120],"type":["dbl"],"align":["right"]},{"label":["Sfrp1"],"name":[121],"type":["dbl"],"align":["right"]},{"label":["Sfrp2"],"name":[122],"type":["dbl"],"align":["right"]},{"label":["Tcf7"],"name":[123],"type":["dbl"],"align":["right"]},{"label":["Tcf7l1"],"name":[124],"type":["dbl"],"align":["right"]},{"label":["Tcf7l2"],"name":[125],"type":["dbl"],"align":["right"]},{"label":["Vangl2"],"name":[126],"type":["dbl"],"align":["right"]},{"label":["Wnt2"],"name":[127],"type":["dbl"],"align":["right"]},{"label":["Wnt4"],"name":[128],"type":["dbl"],"align":["right"]},{"label":["Dkk1"],"name":[129],"type":["dbl"],"align":["right"]},{"label":["Dkk2"],"name":[130],"type":["dbl"],"align":["right"]},{"label":["Dkk3"],"name":[131],"type":["dbl"],"align":["right"]},{"label":["Fzd1"],"name":[132],"type":["dbl"],"align":["right"]},{"label":["Fzd2"],"name":[133],"type":["dbl"],"align":["right"]},{"label":["Fzd3"],"name":[134],"type":["dbl"],"align":["right"]},{"label":["Fzd4"],"name":[135],"type":["dbl"],"align":["right"]},{"label":["Fzd5"],"name":[136],"type":["dbl"],"align":["right"]},{"label":["Fzd7"],"name":[137],"type":["dbl"],"align":["right"]},{"label":["Fzd8"],"name":[138],"type":["dbl"],"align":["right"]},{"label":["Bmp2"],"name":[139],"type":["dbl"],"align":["right"]},{"label":["Bmp5"],"name":[140],"type":["dbl"],"align":["right"]},{"label":["Bmp7"],"name":[141],"type":["dbl"],"align":["right"]}],"data":[{"1":"540411","2":"1","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"1","27":"1","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"0","37":"1","38":"1","39":"0","40":"0","41":"0","42":"0","43":"0","44":"0","45":"0","46":"0","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"0","61":"0","62":"0","63":"0","64":"1","65":"0","66":"1","67":"2","68":"0","69":"0","70":"0","71":"0","72":"0","73":"0","74":"0","75":"0","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"0","90":"1","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"0","119":"0","120":"0","121":"0","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"0","134":"0","135":"0","136":"0","137":"2","138":"0","139":"0","140":"0","141":"0"},{"1":"580411","2":"0","3":"5","4":"0","5":"0","6":"0","7":"0","8":"0","9":"1","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"1","37":"1","38":"3","39":"0","40":"2","41":"0","42":"0","43":"0","44":"0","45":"0","46":"1","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"1","61":"0","62":"0","63":"0","64":"0","65":"0","66":"0","67":"0","68":"0","69":"0","70":"0","71":"0","72":"2","73":"0","74":"0","75":"0","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"3","90":"1","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"1","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"0","119":"0","120":"0","121":"0","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"1","134":"0","135":"0","136":"0","137":"0","138":"0","139":"0","140":"0","141":"0"},{"1":"590411","2":"0","3":"4","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"1","13":"0","14":"0","15":"0","16":"0","17":"0","18":"1","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"1","37":"1","38":"2","39":"0","40":"1","41":"0","42":"0","43":"0","44":"0","45":"0","46":"0","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"0","61":"0","62":"0","63":"0","64":"0","65":"0","66":"2","67":"1","68":"0","69":"0","70":"0","71":"0","72":"0","73":"0","74":"0","75":"0","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"0","90":"0","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"1","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"1","119":"0","120":"0","121":"0","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"0","134":"0","135":"0","136":"1","137":"0","138":"0","139":"0","140":"0","141":"0"},{"1":"640411","2":"2","3":"1","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"1","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"1","37":"1","38":"0","39":"0","40":"0","41":"0","42":"0","43":"0","44":"0","45":"0","46":"0","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"0","61":"0","62":"0","63":"0","64":"1","65":"0","66":"0","67":"1","68":"0","69":"0","70":"0","71":"0","72":"2","73":"0","74":"0","75":"0","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"1","90":"0","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"0","119":"0","120":"0","121":"1","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"0","134":"0","135":"0","136":"0","137":"0","138":"0","139":"0","140":"0","141":"0"},{"1":"660411","2":"0","3":"1","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"1","11":"1","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"2","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"2","37":"1","38":"1","39":"1","40":"0","41":"0","42":"0","43":"0","44":"0","45":"0","46":"0","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"0","61":"0","62":"0","63":"0","64":"0","65":"0","66":"1","67":"0","68":"0","69":"1","70":"0","71":"0","72":"0","73":"0","74":"0","75":"1","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"0","90":"0","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"0","119":"0","120":"0","121":"0","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"0","134":"0","135":"0","136":"0","137":"0","138":"0","139":"0","140":"0","141":"0"},{"1":"680411","2":"0","3":"3","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"2","37":"0","38":"1","39":"0","40":"0","41":"0","42":"0","43":"0","44":"0","45":"0","46":"0","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"0","61":"0","62":"0","63":"0","64":"1","65":"0","66":"1","67":"0","68":"0","69":"0","70":"0","71":"0","72":"1","73":"0","74":"0","75":"0","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"1","90":"0","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"0","119":"0","120":"0","121":"0","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"0","134":"0","135":"0","136":"0","137":"0","138":"0","139":"0","140":"0","141":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Normalizing the expression data.</p>
+<p>We divide each count by the sum of counts in the cell and then multiply by 1000 (just as they did it in the paper).</p>
+<pre class="r"><code>expr.data.norm &lt;- map(expr.data, function(sample) {
+  cell.totals &lt;- sample %&gt;%
+    pivot_longer(cols = 2:141) %&gt;%
+    group_by(id) %&gt;%
+    summarise(cell.sum = sum(value))
+  
+  sample %&gt;%
+    left_join(cell.totals, by=&quot;id&quot;) %&gt;%
+    pivot_longer(cols = 2:141) %&gt;%
+    mutate(normalized = value / cell.sum * 1000) %&gt;%
+    select(-c(cell.sum, value)) %&gt;%
+    pivot_wider(names_from = name, values_from = normalized)
+})</code></pre>
+<pre class="r"><code>expr.data.norm$CellID_190411 %&gt;% slice_head(n = 6)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Fstl1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Col4a1"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Pdgfra"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Hgf"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Mki67"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Mpp1"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Lyve1"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["Meis2"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["Cdh11"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["Lox"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["E2f2"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["Fam46c"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["Slc25a37"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["Tfrc"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["Tmod1"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["Abcb4"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["Ammecr1"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["Myh10"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["Podxl"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["Tmem56"],"name":[21],"type":["dbl"],"align":["right"]},{"label":["Cxadr"],"name":[22],"type":["dbl"],"align":["right"]},{"label":["Gpd1"],"name":[23],"type":["dbl"],"align":["right"]},{"label":["Hc"],"name":[24],"type":["dbl"],"align":["right"]},{"label":["Proz"],"name":[25],"type":["dbl"],"align":["right"]},{"label":["Pzp"],"name":[26],"type":["dbl"],"align":["right"]},{"label":["Sardh"],"name":[27],"type":["dbl"],"align":["right"]},{"label":["Cd48"],"name":[28],"type":["dbl"],"align":["right"]},{"label":["Ddx4"],"name":[29],"type":["dbl"],"align":["right"]},{"label":["Flt3"],"name":[30],"type":["dbl"],"align":["right"]},{"label":["Kit"],"name":[31],"type":["dbl"],"align":["right"]},{"label":["Mecom"],"name":[32],"type":["dbl"],"align":["right"]},{"label":["Procr"],"name":[33],"type":["dbl"],"align":["right"]},{"label":["Runx1"],"name":[34],"type":["dbl"],"align":["right"]},{"label":["Slamf1"],"name":[35],"type":["dbl"],"align":["right"]},{"label":["Abcc3"],"name":[36],"type":["dbl"],"align":["right"]},{"label":["Adgre1"],"name":[37],"type":["dbl"],"align":["right"]},{"label":["Itgam"],"name":[38],"type":["dbl"],"align":["right"]},{"label":["Mertk"],"name":[39],"type":["dbl"],"align":["right"]},{"label":["Mrc1"],"name":[40],"type":["dbl"],"align":["right"]},{"label":["Sdc3"],"name":[41],"type":["dbl"],"align":["right"]},{"label":["Vcam1"],"name":[42],"type":["dbl"],"align":["right"]},{"label":["Gnaz"],"name":[43],"type":["dbl"],"align":["right"]},{"label":["Mmrn1"],"name":[44],"type":["dbl"],"align":["right"]},{"label":["Mrvi1"],"name":[45],"type":["dbl"],"align":["right"]},{"label":["Timp3"],"name":[46],"type":["dbl"],"align":["right"]},{"label":["Vwf"],"name":[47],"type":["dbl"],"align":["right"]},{"label":["Cd34"],"name":[48],"type":["dbl"],"align":["right"]},{"label":["Rassf4"],"name":[49],"type":["dbl"],"align":["right"]},{"label":["Arsb"],"name":[50],"type":["dbl"],"align":["right"]},{"label":["B4galt6"],"name":[51],"type":["dbl"],"align":["right"]},{"label":["Gca"],"name":[52],"type":["dbl"],"align":["right"]},{"label":["Olr1"],"name":[53],"type":["dbl"],"align":["right"]},{"label":["Sgms2"],"name":[54],"type":["dbl"],"align":["right"]},{"label":["Epcam"],"name":[55],"type":["dbl"],"align":["right"]},{"label":["Efnb2"],"name":[56],"type":["dbl"],"align":["right"]},{"label":["Nrp1"],"name":[57],"type":["dbl"],"align":["right"]},{"label":["Cdh5"],"name":[58],"type":["dbl"],"align":["right"]},{"label":["Pecam1"],"name":[59],"type":["dbl"],"align":["right"]},{"label":["Pdpn"],"name":[60],"type":["dbl"],"align":["right"]},{"label":["Angpt1"],"name":[61],"type":["dbl"],"align":["right"]},{"label":["Angptl2"],"name":[62],"type":["dbl"],"align":["right"]},{"label":["Angpt2"],"name":[63],"type":["dbl"],"align":["right"]},{"label":["Cxcl12"],"name":[64],"type":["dbl"],"align":["right"]},{"label":["Egr1"],"name":[65],"type":["dbl"],"align":["right"]},{"label":["Eng"],"name":[66],"type":["dbl"],"align":["right"]},{"label":["Fgf1"],"name":[67],"type":["dbl"],"align":["right"]},{"label":["Fgf2"],"name":[68],"type":["dbl"],"align":["right"]},{"label":["Gfap"],"name":[69],"type":["dbl"],"align":["right"]},{"label":["Icam1"],"name":[70],"type":["dbl"],"align":["right"]},{"label":["Igf1"],"name":[71],"type":["dbl"],"align":["right"]},{"label":["Il6"],"name":[72],"type":["dbl"],"align":["right"]},{"label":["Il7r"],"name":[73],"type":["dbl"],"align":["right"]},{"label":["Kitl"],"name":[74],"type":["dbl"],"align":["right"]},{"label":["Lepr"],"name":[75],"type":["dbl"],"align":["right"]},{"label":["Mpl"],"name":[76],"type":["dbl"],"align":["right"]},{"label":["Ndn"],"name":[77],"type":["dbl"],"align":["right"]},{"label":["Selp"],"name":[78],"type":["dbl"],"align":["right"]},{"label":["Tgfb2"],"name":[79],"type":["dbl"],"align":["right"]},{"label":["Egfr"],"name":[80],"type":["dbl"],"align":["right"]},{"label":["Cspg4"],"name":[81],"type":["dbl"],"align":["right"]},{"label":["Nes"],"name":[82],"type":["dbl"],"align":["right"]},{"label":["Ephb4"],"name":[83],"type":["dbl"],"align":["right"]},{"label":["Gata3"],"name":[84],"type":["dbl"],"align":["right"]},{"label":["Meis1"],"name":[85],"type":["dbl"],"align":["right"]},{"label":["Tet1"],"name":[86],"type":["dbl"],"align":["right"]},{"label":["Tet2"],"name":[87],"type":["dbl"],"align":["right"]},{"label":["Ep300"],"name":[88],"type":["dbl"],"align":["right"]},{"label":["Fbxw7"],"name":[89],"type":["dbl"],"align":["right"]},{"label":["Maml1"],"name":[90],"type":["dbl"],"align":["right"]},{"label":["Notch1"],"name":[91],"type":["dbl"],"align":["right"]},{"label":["Notch2"],"name":[92],"type":["dbl"],"align":["right"]},{"label":["Notch3"],"name":[93],"type":["dbl"],"align":["right"]},{"label":["Notch4"],"name":[94],"type":["dbl"],"align":["right"]},{"label":["Rbpj"],"name":[95],"type":["dbl"],"align":["right"]},{"label":["Dll1"],"name":[96],"type":["dbl"],"align":["right"]},{"label":["Dll4"],"name":[97],"type":["dbl"],"align":["right"]},{"label":["Jag1"],"name":[98],"type":["dbl"],"align":["right"]},{"label":["Jag2"],"name":[99],"type":["dbl"],"align":["right"]},{"label":["Ctnnal1"],"name":[100],"type":["dbl"],"align":["right"]},{"label":["Hoxb4"],"name":[101],"type":["dbl"],"align":["right"]},{"label":["Hoxb5"],"name":[102],"type":["dbl"],"align":["right"]},{"label":["Itga2b"],"name":[103],"type":["dbl"],"align":["right"]},{"label":["Vav1"],"name":[104],"type":["dbl"],"align":["right"]},{"label":["Pou2af1"],"name":[105],"type":["dbl"],"align":["right"]},{"label":["Cd93"],"name":[106],"type":["dbl"],"align":["right"]},{"label":["Elk3"],"name":[107],"type":["dbl"],"align":["right"]},{"label":["Satb1"],"name":[108],"type":["dbl"],"align":["right"]},{"label":["Tox"],"name":[109],"type":["dbl"],"align":["right"]},{"label":["Eif3a"],"name":[110],"type":["dbl"],"align":["right"]},{"label":["Tek"],"name":[111],"type":["dbl"],"align":["right"]},{"label":["Clec14a"],"name":[112],"type":["dbl"],"align":["right"]},{"label":["Stab2"],"name":[113],"type":["dbl"],"align":["right"]},{"label":["Flt4"],"name":[114],"type":["dbl"],"align":["right"]},{"label":["Kdr"],"name":[115],"type":["dbl"],"align":["right"]},{"label":["Axin2"],"name":[116],"type":["dbl"],"align":["right"]},{"label":["Celsr2"],"name":[117],"type":["dbl"],"align":["right"]},{"label":["Lef1"],"name":[118],"type":["dbl"],"align":["right"]},{"label":["Nkd2"],"name":[119],"type":["dbl"],"align":["right"]},{"label":["Prickle2"],"name":[120],"type":["dbl"],"align":["right"]},{"label":["Sfrp1"],"name":[121],"type":["dbl"],"align":["right"]},{"label":["Sfrp2"],"name":[122],"type":["dbl"],"align":["right"]},{"label":["Tcf7"],"name":[123],"type":["dbl"],"align":["right"]},{"label":["Tcf7l1"],"name":[124],"type":["dbl"],"align":["right"]},{"label":["Tcf7l2"],"name":[125],"type":["dbl"],"align":["right"]},{"label":["Vangl2"],"name":[126],"type":["dbl"],"align":["right"]},{"label":["Wnt2"],"name":[127],"type":["dbl"],"align":["right"]},{"label":["Wnt4"],"name":[128],"type":["dbl"],"align":["right"]},{"label":["Dkk1"],"name":[129],"type":["dbl"],"align":["right"]},{"label":["Dkk2"],"name":[130],"type":["dbl"],"align":["right"]},{"label":["Dkk3"],"name":[131],"type":["dbl"],"align":["right"]},{"label":["Fzd1"],"name":[132],"type":["dbl"],"align":["right"]},{"label":["Fzd2"],"name":[133],"type":["dbl"],"align":["right"]},{"label":["Fzd3"],"name":[134],"type":["dbl"],"align":["right"]},{"label":["Fzd4"],"name":[135],"type":["dbl"],"align":["right"]},{"label":["Fzd5"],"name":[136],"type":["dbl"],"align":["right"]},{"label":["Fzd7"],"name":[137],"type":["dbl"],"align":["right"]},{"label":["Fzd8"],"name":[138],"type":["dbl"],"align":["right"]},{"label":["Bmp2"],"name":[139],"type":["dbl"],"align":["right"]},{"label":["Bmp5"],"name":[140],"type":["dbl"],"align":["right"]},{"label":["Bmp7"],"name":[141],"type":["dbl"],"align":["right"]}],"data":[{"1":"540411","2":"83.33333","3":"0.00000","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0.00000","10":"0.00000","11":"0.00000","12":"0.00000","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0.00000","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"83.33333","27":"83.33333","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"0.00000","37":"83.33333","38":"83.33333","39":"0.00000","40":"0.00000","41":"0","42":"0","43":"0","44":"0","45":"0","46":"0.00000","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"0.00000","61":"0","62":"0","63":"0","64":"83.33333","65":"0","66":"83.33333","67":"166.66667","68":"0","69":"0.00000","70":"0","71":"0","72":"0.00000","73":"0","74":"0","75":"0.00000","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"0.00000","90":"83.33333","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0.00000","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"0.00000","119":"0","120":"0","121":"0.00000","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"0.00000","134":"0","135":"0","136":"0.00000","137":"166.6667","138":"0","139":"0","140":"0","141":"0"},{"1":"580411","2":"0.00000","3":"217.39130","4":"0","5":"0","6":"0","7":"0","8":"0","9":"43.47826","10":"0.00000","11":"0.00000","12":"0.00000","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0.00000","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0.00000","27":"0.00000","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"43.47826","37":"43.47826","38":"130.43478","39":"0.00000","40":"86.95652","41":"0","42":"0","43":"0","44":"0","45":"0","46":"43.47826","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"43.47826","61":"0","62":"0","63":"0","64":"0.00000","65":"0","66":"0.00000","67":"0.00000","68":"0","69":"0.00000","70":"0","71":"0","72":"86.95652","73":"0","74":"0","75":"0.00000","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"130.43478","90":"43.47826","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"43.47826","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"0.00000","119":"0","120":"0","121":"0.00000","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"43.47826","134":"0","135":"0","136":"0.00000","137":"0.0000","138":"0","139":"0","140":"0","141":"0"},{"1":"590411","2":"0.00000","3":"235.29412","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0.00000","10":"0.00000","11":"0.00000","12":"58.82353","13":"0","14":"0","15":"0","16":"0","17":"0","18":"58.82353","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0.00000","27":"0.00000","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"58.82353","37":"58.82353","38":"117.64706","39":"0.00000","40":"58.82353","41":"0","42":"0","43":"0","44":"0","45":"0","46":"0.00000","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"0.00000","61":"0","62":"0","63":"0","64":"0.00000","65":"0","66":"117.64706","67":"58.82353","68":"0","69":"0.00000","70":"0","71":"0","72":"0.00000","73":"0","74":"0","75":"0.00000","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"0.00000","90":"0.00000","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"58.82353","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"58.82353","119":"0","120":"0","121":"0.00000","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"0.00000","134":"0","135":"0","136":"58.82353","137":"0.0000","138":"0","139":"0","140":"0","141":"0"},{"1":"640411","2":"166.66667","3":"83.33333","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0.00000","10":"0.00000","11":"83.33333","12":"0.00000","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0.00000","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0.00000","27":"0.00000","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"83.33333","37":"83.33333","38":"0.00000","39":"0.00000","40":"0.00000","41":"0","42":"0","43":"0","44":"0","45":"0","46":"0.00000","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"0.00000","61":"0","62":"0","63":"0","64":"83.33333","65":"0","66":"0.00000","67":"83.33333","68":"0","69":"0.00000","70":"0","71":"0","72":"166.66667","73":"0","74":"0","75":"0.00000","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"83.33333","90":"0.00000","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0.00000","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"0.00000","119":"0","120":"0","121":"83.33333","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"0.00000","134":"0","135":"0","136":"0.00000","137":"0.0000","138":"0","139":"0","140":"0","141":"0"},{"1":"660411","2":"0.00000","3":"76.92308","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0.00000","10":"76.92308","11":"76.92308","12":"0.00000","13":"0","14":"0","15":"0","16":"0","17":"0","18":"153.84615","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0.00000","27":"0.00000","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"153.84615","37":"76.92308","38":"76.92308","39":"76.92308","40":"0.00000","41":"0","42":"0","43":"0","44":"0","45":"0","46":"0.00000","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"0.00000","61":"0","62":"0","63":"0","64":"0.00000","65":"0","66":"76.92308","67":"0.00000","68":"0","69":"76.92308","70":"0","71":"0","72":"0.00000","73":"0","74":"0","75":"76.92308","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"0.00000","90":"0.00000","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0.00000","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"0.00000","119":"0","120":"0","121":"0.00000","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"0.00000","134":"0","135":"0","136":"0.00000","137":"0.0000","138":"0","139":"0","140":"0","141":"0"},{"1":"680411","2":"0.00000","3":"300.00000","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0.00000","10":"0.00000","11":"0.00000","12":"0.00000","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0.00000","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0.00000","27":"0.00000","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"200.00000","37":"0.00000","38":"100.00000","39":"0.00000","40":"0.00000","41":"0","42":"0","43":"0","44":"0","45":"0","46":"0.00000","47":"0","48":"0","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0","57":"0","58":"0","59":"0","60":"0.00000","61":"0","62":"0","63":"0","64":"100.00000","65":"0","66":"100.00000","67":"0.00000","68":"0","69":"0.00000","70":"0","71":"0","72":"100.00000","73":"0","74":"0","75":"0.00000","76":"0","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0","84":"0","85":"0","86":"0","87":"0","88":"0","89":"100.00000","90":"0.00000","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0.00000","98":"0","99":"0","100":"0","101":"0","102":"0","103":"0","104":"0","105":"0","106":"0","107":"0","108":"0","109":"0","110":"0","111":"0","112":"0","113":"0","114":"0","115":"0","116":"0","117":"0","118":"0.00000","119":"0","120":"0","121":"0.00000","122":"0","123":"0","124":"0","125":"0","126":"0","127":"0","128":"0","129":"0","130":"0","131":"0","132":"0","133":"0.00000","134":"0","135":"0","136":"0.00000","137":"0.0000","138":"0","139":"0","140":"0","141":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Looking at the distribution for the top 36 markers by sum of expression. And even for these markers we mostly have zero counts.</p>
+<pre class="r"><code>expr.data$CellID_190411 %&gt;%
+  select(- id) %&gt;%
+  pivot_longer(cols = everything()) %&gt;%
+  group_by(name) %&gt;%
+  mutate(sum.marker = sum(value)) %&gt;%
+  ungroup() %&gt;%
+  slice_max(order_by = sum.marker, n = 23700*36) %&gt;%
+  ggplot() +
+  geom_histogram(aes(value), bins = 30) +
+  facet_wrap(~ name, ncol=6, nrow=6, scales=&quot;free&quot;)</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-12-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<p>Cell Types per Sample</p>
+<pre class="r"><code>cell.meta %&gt;%
+  count(sample, type_name) %&gt;%
+  ggplot() +
+  geom_bar(aes(y = type_name, x = n), stat=&quot;identity&quot;) +
+  facet_wrap(~ sample) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Visualization of a Part of the Sample</p>
+<p>The visualization are now based on the assumption that the images are 1536 x 1536 (all these things were not quite documented at all!).</p>
+<pre class="r"><code>if (&quot;CellID_190411.pixels.RDS&quot; %in% list.files(&quot;data/merfish_benchmark&quot;)) {
+  CellID_190411.pixels &lt;- readRDS(&quot;data/merfish_benchmark/CellID_190411.pixels.RDS&quot;)
+} else {
+  img.size &lt;- 1536
+  CellID_190411.pixels &lt;- map_dfr(seq.int(1, dim(raw.data$CellID_190411)[3]), function(i) {
+    cell_i &lt;- raw.data$CellID_190411[1:8, 1, i]
+    tibble::tibble(id = cell_i$CellID, type = cell_i$CellType, fov = cell_i$FOV, 
+                   pixels = cell_i$PixelList)
+  }) %&gt;%
+  mutate(type = factor(type)) %&gt;%
+  mutate(id = factor(id)) %&gt;%
+  mutate(y = pixels %% img.size, x = ceiling(pixels / img.size))
+  
+  saveRDS(CellID_190411.pixels, &quot;data/merfish_benchmark/CellID_190411.pixels.RDS&quot;)
+}
+rm(raw.data)</code></pre>
+<p>Verification of the right image size.</p>
+<p>Example field of view 5.</p>
+<pre class="r"><code>CellID_190411.pixels %&gt;%
+  filter(fov == 5) %&gt;%
+  ggplot() +
+  geom_point(aes(x=x, y=y, col=id), size=.1) +
+  theme(legend.position = &quot;none&quot;) +
+  scale_color_manual(values=rep(c(&quot;dodgerblue&quot;, &quot;brown&quot;, &quot;purple&quot;, &quot;blue&quot;,
+                                  &quot;seagreen&quot;, &quot;gold&quot;, &quot;tomato&quot;, &quot;turquoise&quot;,
+                                  &quot;magenta&quot;, &quot;springgreen&quot;), 250)) +
+  coord_equal()</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Example field of view 1.</p>
+<pre class="r"><code>CellID_190411.pixels %&gt;%
+  filter(fov == 1) %&gt;%
+  ggplot() +
+  geom_point(aes(x=x, y=y, col=id), size=.1) +
+  theme(legend.position = &quot;none&quot;) +
+  scale_color_manual(values=rep(c(&quot;dodgerblue&quot;, &quot;brown&quot;, &quot;purple&quot;, &quot;blue&quot;,
+                                  &quot;seagreen&quot;, &quot;gold&quot;, &quot;tomato&quot;, &quot;turquoise&quot;,
+                                  &quot;magenta&quot;, &quot;springgreen&quot;), 250)) +
+  coord_equal()</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Check wether the center of mass makes sense. It looks very good.</p>
+<pre class="r"><code>center.mass &lt;- cell.data$CellID_190411 %&gt;%
+  filter(fov == 5) %&gt;%
+  mutate(id = factor(id)) %&gt;%
+  mutate(center_x = x, center_y = y) %&gt;%
+  select(c(id, fov, center_x, center_y))
+
+CellID_190411.pixels %&gt;%
+  filter(fov == 5) %&gt;%
+  left_join(center.mass, by=&quot;id&quot;) %&gt;%
+  ggplot() +
+  geom_point(aes(x=x, y=y, col=id), size=.1, alpha=0.01) +
+  geom_point(aes(x=center_x, y=center_y, col=id), size=2) +
+  coord_equal()</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now the next question is, could we stitch together the images?</p>
+<p>How many field of views do we have per sample? Looking at the maximum index and the number of fovs which are present.</p>
+<pre class="r"><code>cell.meta %&gt;% group_by(sample) %&gt;% distinct(fov, .keep_all = TRUE) %&gt;%
+  summarise(max(fov))</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sample"],"name":[1],"type":["chr"],"align":["left"]},{"label":["max(fov)"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"CellID_190411","2":"120"},{"1":"CellID_190510","2":"155"},{"1":"CellID_190517","2":"143"},{"1":"CellID_190718","2":"143"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>cell.meta %&gt;% group_by(sample) %&gt;% distinct(fov, .keep_all = TRUE) %&gt;% 
+  summarise(n())</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sample"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n()"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"CellID_190411","2":"111"},{"1":"CellID_190510","2":"126"},{"1":"CellID_190517","2":"140"},{"1":"CellID_190718","2":"143"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Looking more closely at CellID_190411.</p>
+<p>For example plot the first 4 fields of views in a row.</p>
+<p>From looking at these images I would assume that we are looking at the left side of the image actually. And thus we need to stitch along the y-axis.</p>
+<pre class="r"><code>CellID_190411.pixels %&gt;%
+  filter(fov %in% seq.int(0, 3)) %&gt;%
+  ggplot() +
+  geom_point(aes(x=x, y=y, col=id), size=.1) +
+  theme(legend.position = &quot;none&quot;) +
+  scale_color_manual(values=rep(c(&quot;dodgerblue&quot;, &quot;brown&quot;, &quot;purple&quot;, &quot;blue&quot;,
+                                  &quot;seagreen&quot;, &quot;gold&quot;, &quot;tomato&quot;, &quot;turquoise&quot;,
+                                  &quot;magenta&quot;, &quot;springgreen&quot;), 250)) +
+  facet_wrap(~ fov, ncol=4) +
+  coord_equal()</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-19-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<p>What if we look at last 4 fovs?</p>
+<pre class="r"><code>CellID_190411.pixels %&gt;%
+  filter(fov %in% seq.int(117, 120)) %&gt;%
+  ggplot() +
+  geom_point(aes(x=x, y=y, col=id), size=.1) +
+  theme(legend.position = &quot;none&quot;) +
+  scale_color_manual(values=rep(c(&quot;dodgerblue&quot;, &quot;brown&quot;, &quot;purple&quot;, &quot;blue&quot;,
+                                  &quot;seagreen&quot;, &quot;gold&quot;, &quot;tomato&quot;, &quot;turquoise&quot;,
+                                  &quot;magenta&quot;, &quot;springgreen&quot;), 250)) +
+  facet_wrap(~ fov, ncol=4) +
+  coord_equal()</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-20-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<p>So all in all I have no clue how I would have to stitch them together!</p>
+<p>These are some hints from the Matlab code</p>
+<pre class="r"><code>ImageSize = 1536 # number of pxls
+StepSize = 1394 # 150/0.1076
+# overlap -&gt; 142
+XSteps = 13
+YSteps = 15
+EndFrame = 40
+StartFrame =18
+NFOV = 144 # number of fields of views</code></pre>
+<p>If there is in fact a certain overlap between the images I would assume that we have the same cell ID in different field of views. Is this true?</p>
+<p>No each cell ID is only in one field of view. Still this could be an artifact of removing all cell which were on the edge from the data.</p>
+<pre class="r"><code>cell.data$CellID_190411 %&gt;% 
+  group_by(id) %&gt;% 
+  summarise(n = length(unique(fov))) %&gt;%
+  summary(n)</code></pre>
+<pre><code>        id.V1              n    
+ Min.   :   540411   Min.   :1  
+ 1st Qu.:136767911   1st Qu.:1  
+ Median :290650411   Median :1  
+ Mean   :298473728   Mean   :1  
+ 3rd Qu.:451232911   3rd Qu.:1  
+ Max.   :603150411   Max.   :1  </code></pre>
+<p>We could assume one model for the first sample where we move the microscope from bottom left to the top, go back, one to the right and to the top again.</p>
+<p>This could be reasonable, but it is quite impossible to say wether it is right.</p>
+<pre class="r"><code>xsteps &lt;- 11
+
+fovs &lt;- CellID_190411.pixels$fov %&gt;% unique %&gt;% as.vector()
+#fovs
+
+model_1 &lt;- fovs %&gt;% map_dfr(function(fov) {
+  y &lt;- floor(fov / xsteps)
+  x &lt;- fov - y*xsteps
+  tibble::tibble(fov = fov, xstep = x, ystep = y)
+})
+#model_1
+
+xdict &lt;- model_1$xstep %&gt;% setNames(model_1$fov)
+ydict &lt;- model_1$ystep %&gt;% setNames(model_1$fov)
+
+# now I need to add values to the x and y coordinates based on the steps
+# (where in the global image we are)
+ImageSize = 1536
+StepSize = 1394
+
+subsampled &lt;- sample(1:nrow(CellID_190411.pixels), 0.01*nrow(CellID_190411.pixels))
+
+#test &lt;- CellID_190411.pixels %&gt;%
+#  slice(subsampled) %&gt;%
+#  rowwise() %&gt;%
+#  mutate(newx = x + xdict[fov]*StepSize,
+#         newy = y + ydict[fov]*StepSize)
+
+# use some vectorized approch to deal with the pixels.
+
+prep &lt;- CellID_190411.pixels %&gt;%
+  slice(subsampled)
+
+# checke whether we have all
+#prep$fov %&gt;% unique() %&gt;% sort == names(xdict) %&gt;% as.numeric() %&gt;% sort
+
+sx &lt;- xdict[prep$fov %&gt;% as.character]
+sy &lt;- ydict[prep$fov %&gt;% as.character]
+
+test &lt;- cbind(prep, sx, sy) %&gt;%
+  mutate(
+    newx = x + sx*StepSize,
+    newy = y + sy*StepSize
+  )
+
+test %&gt;%
+  ggplot() +
+  geom_point(aes(x = newx, y=newy, col=type), size=.1) +
+  #theme(legend.position = &quot;none&quot;) +
+  scale_color_manual(values=rep(c(&quot;dodgerblue&quot;, &quot;brown&quot;, &quot;purple&quot;, &quot;blue&quot;,
+                                  &quot;seagreen&quot;, &quot;gold&quot;, &quot;tomato&quot;, &quot;turquoise&quot;,
+                                  &quot;magenta&quot;, &quot;springgreen&quot;), 1000000)) +
+  coord_equal() +
+  scale_x_continuous(name=&quot;Speed of cars&quot;, limits=c(0, 16000), breaks = )</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-23-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<p>What about another test if we change x and y.</p>
+<p>This just looks super wrong!</p>
+<pre class="r"><code>xsteps &lt;- 11
+
+fovs &lt;- CellID_190411.pixels$fov %&gt;% unique %&gt;% as.vector()
+#fovs
+
+model_1 &lt;- fovs %&gt;% map_dfr(function(fov) {
+  x &lt;- floor(fov / xsteps)
+  y &lt;- fov - x*xsteps
+  tibble::tibble(fov = fov, xstep = x, ystep = y)
+})
+#model_1
+
+xdict &lt;- model_1$xstep %&gt;% setNames(model_1$fov)
+ydict &lt;- model_1$ystep %&gt;% setNames(model_1$fov)
+
+# now I need to add values to the x and y coordinates based on the steps
+# (where in the global image we are)
+ImageSize = 1536
+StepSize = 1394
+
+subsampled &lt;- sample(1:nrow(CellID_190411.pixels), 0.01*nrow(CellID_190411.pixels))
+
+#test &lt;- CellID_190411.pixels %&gt;%
+#  slice(subsampled) %&gt;%
+#  rowwise() %&gt;%
+#  mutate(newx = x + xdict[fov]*StepSize,
+#         newy = y + ydict[fov]*StepSize)
+
+# use some vectorized approch to deal with the pixels.
+
+prep &lt;- CellID_190411.pixels %&gt;%
+  slice(subsampled)
+
+# checke whether we have all
+#prep$fov %&gt;% unique() %&gt;% sort == names(xdict) %&gt;% as.numeric() %&gt;% sort
+
+sx &lt;- xdict[prep$fov %&gt;% as.character]
+sy &lt;- ydict[prep$fov %&gt;% as.character]
+
+test &lt;- cbind(prep, sx, sy) %&gt;%
+  mutate(
+    newx = x + sx*StepSize,
+    newy = y + sy*StepSize
+  )
+
+test %&gt;%
+  ggplot() +
+  geom_point(aes(x = newx, y=newy, col=type), size=.1) +
+  #theme(legend.position = &quot;none&quot;) +
+  scale_color_manual(values=rep(c(&quot;dodgerblue&quot;, &quot;brown&quot;, &quot;purple&quot;, &quot;blue&quot;,
+                                  &quot;seagreen&quot;, &quot;gold&quot;, &quot;tomato&quot;, &quot;turquoise&quot;,
+                                  &quot;magenta&quot;, &quot;springgreen&quot;), 1000000)) +
+  coord_equal()</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-24-1.png" width="1536" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="misty-views" class="section level1">
+<h1>MISTy views</h1>
+<p>Since once cannot really say how and whether it makes sense to stitch those images together, we will run MISTy on each sample on each field of view.</p>
+<p>But first we will remove all the FOVs which have too few cells.</p>
+<pre class="r"><code>map2_dfr(cell.data, names(cell.data), function(smp, name) {
+  smp %&gt;%
+    group_by(fov) %&gt;%
+    summarise(n = n()) %&gt;%
+    mutate(sample = name)
+}) %&gt;%
+  ggplot() +
+  geom_histogram(aes(n), bins=50, col=&quot;black&quot;, fill=&quot;blue&quot;) +
+  facet_wrap(~ sample) +
+  geom_vline(xintercept = 125, col=&quot;red&quot;)</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Removing every FOV with fewer than 125 cells</p>
+<pre class="r"><code>keep.smp &lt;- map(cell.data, function(smp) {
+  smp %&gt;%
+  group_by(fov) %&gt;%
+  summarise(n = n()) %&gt;%
+  filter(n &gt;= 125) %&gt;%
+  pull(fov) %&gt;%
+  as.numeric()
+})
+
+map_dbl(keep.smp, ~ length(.x))</code></pre>
+<pre><code>CellID_190411 CellID_190510 CellID_190517 CellID_190718 
+           98            94           138            92 </code></pre>
+<p>Let’s look at the average distance to the direct neighbors per cell per field of view (per sample).</p>
+<pre class="r"><code># helper function for nearest neighbors
+dist_k_nn &lt;- function(sample, k) {
+  nn &lt;- RANN::nn2(sample, eps=0.0, k = k)
+  map_dbl(seq_len(nrow(sample)), function(n) {
+    mean(nn$nn.dists[n, ])
+  })
+}
+
+# helper function for getting direct neighbors
+get_neighbors &lt;- function(ddobj, id) {
+  dplyr::union(
+    ddobj$delsgs$ind1[which(ddobj$delsgs$ind2 == id)],
+    ddobj$delsgs$ind2[which(ddobj$delsgs$ind1 == id)]
+  )
+}</code></pre>
+<p>So the best threshold for the juxtaview may be 100.</p>
+<pre class="r"><code># map over FOV in each sample
+mean.dists.direct.neighbors.smp &lt;- map2(keep.smp, names(keep.smp), function(keep, name) {
+  map(keep, function(test.fov) {
+    coords &lt;- cell.data[[name]] %&gt;% filter(fov == test.fov) %&gt;%
+    select(c(x, y)) %&gt;% as.data.frame
+    delaunay &lt;- deldir::deldir(coords)
+    dists &lt;- distances::distances(coords)
+    map_dbl(seq_len(nrow(coords)), function(id) {
+      nn &lt;- get_neighbors(delaunay, id)
+      mean(dists[nn, id])
+    })
+  })
+})
+
+map2_dfr(mean.dists.direct.neighbors.smp, names(mean.dists.direct.neighbors.smp), function(dists, name) {
+  tibble::tibble(dist = unlist(dists), sample = name)
+}) %&gt;%
+  ggplot() +
+  geom_histogram(aes(dist), bins = 100) +
+  lims(x = c(0,200)) +
+  geom_vline(xintercept = 100, col = &quot;blue&quot;) +
+  facet_wrap(~ sample)</code></pre>
+<pre><code>Warning: Removed 5188 rows containing non-finite values (stat_bin).</code></pre>
+<pre><code>Warning: Removed 8 rows containing missing values (geom_bar).</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Furthermore we will look at the distribution of the mean distances to the 10 -, 20 -, 30 -, and 40 closest cells to get a feeling for which cutoff will be used to generate the paraview (just for the first sample!)</p>
+<p>It seems like a distance of 180 for the paraview generation might be reasonable.</p>
+<pre class="r"><code>neighbor.dists &lt;- map_dfr(keep.smp$CellID_190411, function(test.fov) {
+  
+  coords &lt;- cell.data$CellID_190411 %&gt;% filter(fov == test.fov) %&gt;%
+    select(c(x, y)) %&gt;% as.data.frame
+  
+  c(10, 15, 20, 30) %&gt;%
+    set_names() %&gt;%
+    map_dfc(function(k) {
+  dist_k_nn(coords, k)
+    }) %&gt;%
+  set_names(paste0(&quot;dist_to_&quot;, c(&quot;10&quot;, &quot;15&quot;, &quot;20&quot;, &quot;30&quot;)))
+  
+})
+
+neighbor.dists %&gt;%
+  pivot_longer(cols = everything()) %&gt;%
+  mutate(name = factor(name, 
+                       levels = paste0(&quot;dist_to_&quot;, c(&quot;10&quot;, &quot;15&quot;, &quot;20&quot;, &quot;30&quot;)))) %&gt;%
+  ggplot() +
+  geom_histogram(aes(value), bins = 100) +
+  facet_wrap(~ name) +
+  lims(x = c(0, 300)) +
+  geom_vline(xintercept = 180, col = &quot;blue&quot;)</code></pre>
+<pre><code>Warning: Removed 1204 rows containing non-finite values (stat_bin).</code></pre>
+<pre><code>Warning: Removed 8 rows containing missing values (geom_bar).</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Calculate the views.</p>
+<p>As always we need to make sure that we delete markers with zero variance in each view.</p>
+<pre class="r"><code>if (&quot;misty_views.RDS&quot; %in% list.files(&quot;data/merfish_benchmark&quot;)) {
+  misty.views.smp &lt;- readRDS(&quot;data/merfish_benchmark/misty_views.RDS&quot;)
+} else {
+  misty.views.smp &lt;- map2(keep.smp, names(keep.smp), function(keep, name) {
+    
+    misty.views &lt;- map(keep, function(test.fov) {
+        
+      cell.meta &lt;- cell.data[[name]] %&gt;%
+      filter(fov == test.fov)
+    
+      coords &lt;- cell.meta %&gt;% select(x, y)
+    
+      ids &lt;- cell.meta$id
+    
+      expr &lt;- expr.data.norm[[name]][(expr.data.norm[[name]] %&gt;% pull(id)) %in% ids, ] %&gt;%
+        select(-id)
+    
+      # calculate variance per gene
+      expr.clean &lt;- expr[, matrixStats::colVars(expr %&gt;% as.matrix) != 0]
+    
+      create_initial_view(expr.clean) %&gt;%
+        add_juxtaview(positions = coords, neighbor.thr = 100) %&gt;%
+        add_paraview(positions = coords, l = 180, zoi = 100)
+    })
+    
+    names(misty.views) &lt;- paste0(name, &quot;_fov_&quot;, keep)
+    
+    misty.views
+  }) %&gt;%
+    unlist(recursive = FALSE)
+
+  saveRDS(misty.views.smp, &quot;data/merfish_benchmark/misty_views.RDS&quot;)
+}</code></pre>
+<pre class="r"><code>length(misty.views.smp)</code></pre>
+<pre><code>[1] 444</code></pre>
+<p>To run MISTy we will only use the 40 most variable genes (controlling for the mean).</p>
+<pre class="r"><code>var.genes &lt;- map_dfr(expr.data.norm, function(expr) {
+  expr %&gt;% select(-id)
+}) %&gt;%
+  pivot_longer(cols = everything()) %&gt;%
+  group_by(name) %&gt;%
+  summarise(mean = mean(value), var = var(value)) %&gt;%
+  mutate(ratio = var / mean) %&gt;%
+  slice_max(order_by = ratio, n = 40) %&gt;%
+  pull(name)
+var.genes</code></pre>
+<pre><code> [1] &quot;Fstl1&quot;   &quot;Itga2b&quot;  &quot;Eng&quot;     &quot;Il6&quot;     &quot;Hc&quot;      &quot;Vav1&quot;    &quot;Pou2af1&quot;
+ [8] &quot;Timp3&quot;   &quot;Abcc3&quot;   &quot;B4galt6&quot; &quot;Col4a1&quot;  &quot;Fbxw7&quot;   &quot;Mpp1&quot;    &quot;Pzp&quot;    
+[15] &quot;Efnb2&quot;   &quot;Hoxb4&quot;   &quot;Vwf&quot;     &quot;Egr1&quot;    &quot;Nrp1&quot;    &quot;Eif3a&quot;   &quot;Gnaz&quot;   
+[22] &quot;Ammecr1&quot; &quot;Fgf1&quot;    &quot;Olr1&quot;    &quot;Mrvi1&quot;   &quot;Dll4&quot;    &quot;Cxcl12&quot;  &quot;Lox&quot;    
+[29] &quot;Meis2&quot;   &quot;Itgam&quot;   &quot;Fam46c&quot;  &quot;Mmrn1&quot;   &quot;Tet1&quot;    &quot;Cd34&quot;    &quot;Sgms2&quot;  
+[36] &quot;Fzd5&quot;    &quot;Gca&quot;     &quot;Ctnnal1&quot; &quot;Procr&quot;   &quot;Ddx4&quot;   </code></pre>
+<p>Running MISTy</p>
+<pre class="r"><code>if (&quot;ranger_results.RDS&quot; %in% list.files(&quot;data/merfish_benchmark&quot;)) {
+  ranger.results &lt;- readRDS(&quot;data/merfish_benchmark/ranger_results.RDS&quot;)
+} else {
+  cv.folds = 10
+  ranger.results.folders &lt;- map2(
+    misty.views.smp, names(misty.views.smp), function(smp, name) {
+      
+      sel.genes &lt;- var.genes[var.genes %in% colnames(smp$intraview$data)]
+      
+      smp %&gt;% run_misty(results.folder = paste0(&quot;misty_results/merfish/ranger_&quot;, name),
+                        cv.folds = cv.folds, model.function = ranger_model, 
+                        target.subset = sel.genes)
+   })
+  ranger.results &lt;- collect_results(ranger.results.folders)
+  saveRDS(ranger.results, &quot;data/merfish_benchmark/ranger_results.RDS&quot;)
+}</code></pre>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<p>What can we actually explain:</p>
+<pre class="r"><code>plot_improvement_stats(ranger.results, measure = &quot;multi.R2&quot;)</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-34-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<p>And for which markers to we gain explained variance if we incorporate the spatial context?</p>
+<pre class="r"><code>plot_improvement_stats(ranger.results, measure = &quot;gain.R2&quot;)</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-35-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_view_contributions(ranger.results)</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-36-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_interaction_heatmap(ranger.results, view = &quot;para.180&quot;, clean = TRUE, cutoff = 0.3)</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="appendix" class="section level1">
+<h1>Appendix</h1>
+<p>Did we chose the right image size?</p>
+<p>Are the cells really overlapping? One possible explanation is that we have different field of views</p>
+<pre class="r"><code>walk(c(1400, 1500, 1536, 1600), function(img.size) {
+  plot &lt;- CellID_190411.pixels %&gt;%
+    mutate(x = pixels %% img.size, y = ceiling(pixels / img.size)) %&gt;%
+    filter(id %in% c(148290411, 46540411, 52020411)) %&gt;%
+    mutate(id = factor(id)) %&gt;%
+    ggplot() +
+      geom_point(aes(x=x, y=y, col=id), size=.1)
+  print(plot)
+})</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/merfish_prep.Rmd/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/merfish_prep.Rmd/unnamed-chunk-38-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/merfish_prep.Rmd/unnamed-chunk-38-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now plot the center of mass on top to check whether this can actually be right.</p>
+<pre class="r"><code>center.mass &lt;- cell.data$CellID_190411 %&gt;%
+  filter(id %in% c(148290411, 46540411, 52020411)) %&gt;%
+  mutate(id = factor(id)) %&gt;%
+  mutate(center_x = x, center_y = y) %&gt;%
+  select(c(id, fov, center_x, center_y))
+
+img.size &lt;- 1536
+CellID_190411.pixels %&gt;%
+  filter(id %in% c(148290411, 46540411, 52020411)) %&gt;%
+  mutate(id = factor(id)) %&gt;%
+  left_join(center.mass, by=&quot;id&quot;) %&gt;%
+  ggplot() +
+    geom_point(aes(x=x, y=y, col=id), size=.1) +
+    geom_point(aes(x=center_x, y=center_y, col=id), size=5)</code></pre>
+<p><img src="figure/merfish_prep.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="matlab-code" class="section level1">
+<h1>Matlab Code</h1>
+<pre class="r"><code>clear all
+close all
+ImageSize = 1536; % number of pxls
+StepSize = 1394; %pxl; 150/0.1076
+XSteps = 13;
+YSteps = 15;
+EndFrame = 40;
+StartFrame =18;
+NFOV = 144; % number of fields of views
+FileNameForWGA = &#39;sequential/Cy3_00_&#39;;
+%%
+StartPxl = (ImageSize-StepSize)/2+1; %(1536-1394)/2+1=72
+EndPxl = ImageSize-StartPxl+1; % ImageSize-71;
+TotalImage = zeros(StepSize*XSteps, StepSize*YSteps);
+X = 1-StepSize;
+Y = 1;
+
+for jj = 0:NFOV-1
+    if NFOV&lt;=10
+        FOVid = num2str(jj);
+    elseif NFOV&gt;10 &amp;&amp; NFOV&lt;=100
+        if jj&lt;10
+            FOVid = [&#39;0&#39; num2str(jj)];
+        else
+            FOVid = [num2str(jj)];
+        end
+    elseif NFOV&gt;100
+        if jj&lt;10
+            FOVid = [&#39;00&#39; num2str(jj)];
+        elseif jj&lt;100
+            FOVid = [&#39;0&#39; num2str(jj)];
+        else
+            FOVid = [num2str(jj)];
+        end
+    end        
+    FileName1 = [FileNameForWGA FOVid];
+    [MovieFP, InfoFile] = ReadDax([FileName1, &#39;.dax&#39;],&#39;startFrame&#39;, StartFrame, &#39;endFrame&#39;, EndFrame);
+    Image1 = mean(MovieFP,3);
+    % use adaptive thresholding to get more uniform intensity across filed of view
+    Image1 = double(Image1);
+    Image1 = Image1 - min(min(Image1));
+    Image1 = Image1/max(max(Image1));
+    T = adaptthresh(Image1, 0.7,&#39;NeighborhoodSize&#39;,33);
+    Image1 = Image1./T;
+    Min = quantile(Image1(:), 0.4);
+    Max = quantile(Image1(:), 0.99);
+    Image1 = (Image1-Min)/(Max-Min)*255;
+    Image1(find(Image1&lt;0)) = 0;
+    Image1(find(Image1&gt;255)) = 255;
+
+    % adjust image oreintation so that they can be correctly stiched
+    % together
+    Image1(:,1:end) = Image1(:,end:-1:1);
+    Image1 = Image1&#39;;
+    if mod(jj,2*XSteps) == 0 || mod(jj,2*XSteps) == XSteps
+        X = X + StepSize;
+    elseif mod(jj,2*XSteps) &gt;= 1 &amp;&amp; mod(jj,2*XSteps) &lt;= XSteps-1 
+        Y = Y + StepSize;
+    else
+        Y = Y - StepSize;
+    end
+    Image1 = Image1(StartPxl:EndPxl,StartPxl:EndPxl);
+
+    TotalImage(Y:Y+StepSize-1, X:X+StepSize-1) = Image1;
+end
+
+TotalImage = uint8(TotalImage);
+figure(1)
+imagesc(TotalImage);
+axis equal
+colormap gray
+imwrite(TotalImage,&#39;TotalImage.png&#39;)
+save(&#39;TotalImage.mat&#39;,&#39;TotalImage&#39;);</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.1.2 (2021-11-01)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 20.04.3 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] R.matlab_3.6.2  forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7    
+ [5] purrr_0.3.4     readr_2.0.2     tidyr_1.1.4     tibble_3.1.5   
+ [9] ggplot2_3.3.5   tidyverse_1.3.1 future_1.22.1   mistyR_1.3.1   
+
+loaded via a namespace (and not attached):
+ [1] httr_1.4.2         sass_0.4.0         jsonlite_1.7.2     R.utils_2.11.0    
+ [5] modelr_0.1.8       bslib_0.3.1        assertthat_0.2.1   highr_0.9         
+ [9] cellranger_1.1.0   yaml_2.2.1         globals_0.14.0     pillar_1.6.3      
+[13] backports_1.3.0    glue_1.4.2         digest_0.6.28      RColorBrewer_1.1-2
+[17] promises_1.2.0.1   rvest_1.0.1        colorspace_2.0-2   htmltools_0.5.2   
+[21] httpuv_1.6.3       R.oo_1.24.0        pkgconfig_2.0.3    broom_0.7.9       
+[25] listenv_0.8.0      haven_2.4.3        scales_1.1.1       RANN_2.6.1        
+[29] later_1.3.0        tzdb_0.1.2         git2r_0.28.0       generics_0.1.0    
+[33] farver_2.1.0       ellipsis_0.3.2     withr_2.4.2        cli_3.0.1         
+[37] magrittr_2.0.1     crayon_1.4.1       readxl_1.3.1       deldir_1.0-5      
+[41] evaluate_0.14      R.methodsS3_1.8.1  fs_1.5.0           fansi_0.5.0       
+[45] parallelly_1.28.1  xml2_1.3.2         distances_0.1.8    tools_4.1.2       
+[49] hms_1.1.1          lifecycle_1.0.1    munsell_0.5.0      reprex_2.0.1      
+[53] compiler_4.1.2     jquerylib_0.1.4    rlang_0.4.12       grid_4.1.2        
+[57] rstudioapi_0.13    labeling_0.4.2     rmarkdown_2.11     gtable_0.3.0      
+[61] codetools_0.2-18   DBI_1.1.1          R6_2.5.1           lubridate_1.8.0   
+[65] knitr_1.36         fastmap_1.1.0      utf8_1.2.2         workflowr_1.6.2   
+[69] rprojroot_2.0.2    stringi_1.7.5      parallel_4.1.2     Rcpp_1.0.7        
+[73] vctrs_0.3.8        dbplyr_2.1.1       tidyselect_1.1.1   xfun_0.26         </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

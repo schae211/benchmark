@@ -4,3 +4,9 @@ site: workflowr::wflow_site
 ---
 
 Comparing different view-specific models for MISTy
+
+Here are the Preprocessing and EDA files corresponding to the Benchmarks.
+
+[MIBI TNBC EDA](mibi_prep.html)
+
+[MERFISH Fetal Liver EDA](mibi_prep.html)

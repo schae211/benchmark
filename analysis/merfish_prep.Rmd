@@ -1,0 +1,786 @@
+---
+title: "EDA MERFISH Fetal Liver"
+---
+
+# Set up
+
+Messages will be hidden and the output collapsed to make the Rmd more clear.
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Saez/workflowr_projects/benchmark")
+```
+
+Loaded Packages.
+
+```{r}
+suppressPackageStartupMessages(library(mistyR))
+suppressPackageStartupMessages(library(future))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(R.matlab))
+plan("multisession", workers=12)
+```
+
+# Introduction
+
+The data originate from the following study: 
+
+Lu, Y. et al. Spatial transcriptome profiling by MERFISH reveals fetal liver 
+hematopoietic stem cell niche architecture. Cell Discov 7, 47 (2021).
+
+# WT Data
+
+## Gene Information
+
+```{r}
+gene.tibble <- readxl::read_xlsx(
+  "/home/philipp/data/saez/merfish/Supplement/41421_2021_266_MOESM1_ESM.xlsx", 
+  skip = 1
+  )
+genes <- gene.tibble$`Gene name`
+gene.tibble %>% slice_head(n=6)
+```
+
+## Cell Data
+
+Raw Data:
+
+```{r}
+wt.samples <- list.files("/home/philipp/data/saez/merfish/Data/WT CellList")
+sample.names <- str_extract(wt.samples, "CellID_[0-9]+")
+
+if ("merfish.raw.data.RDS" %in% list.files("data/merfish_benchmark")) {
+  raw.data <- readRDS("data/merfish_benchmark/merfish.raw.data.RDS")
+} else {
+
+  raw.data <- map(wt.samples, function(file) {
+  readMat(paste0("/home/philipp/data/saez/merfish/Data/WT CellList/",
+                             file))$CellList
+  }) %>% setNames(sample.names)
+  
+  saveRDS(raw.data, "data/merfish_benchmark/merfish.raw.data.RDS")
+}
+```
+
+```{r}
+sample.names
+```
+
+Cell Metadata:
+
+```{r}
+cell.data <- map(raw.data, function(smp.data) {
+  smp.cell.data <- map_dfr(seq.int(1, dim(smp.data)[3]), function(i) {
+    cell_i <- smp.data[1:8, 1, i]
+    tibble::tibble(id = cell_i$CellID, fov = cell_i$FOV, x = cell_i$Center[1, 1],
+                   y = cell_i$Center[1, 2], total.rna.copy = cell_i$TotalRNACopyNumber[1, 1], 
+           edge = cell_i$OnEdge[1, 1], type = cell_i$CellType, num.pixel = dim(cell_i$PixelList)[1])
+  })
+}) %>% setNames(sample.names)
+```
+
+```{r}
+cell.data$CellID_190411 %>% slice_head(n=6)
+
+#cell.data$CellID_190411 %>% distinct(fov, .keep_all= TRUE)
+
+#cell.data$CellID_190411 %>% group_by(fov) %>% count
+```
+
+Merging Cell Data
+
+```{r}
+cell.meta <- cell.data %>% map2_dfr(names(cell.data), function(smp.data, name) {
+  smp.data %>% mutate(sample = name)
+}) %>%
+  mutate(type_name = case_when(
+  type == 1 ~ "Arterial.Endothelial.Cells",
+  type == 2 ~ "Sinusoidal.Endothelial.Cells", 
+  type == 3 ~ "Megakaryocytes",
+  type == 4 ~ "Hepatocyte",
+  type == 5 ~ "Macrophage",
+  type == 6 ~ "Myeloid",
+  type == 7 ~ "Erythroid.Progenitor",
+  type == 8 ~ "Erythroid.Cell",
+  type == 9 ~ "Unknown"
+))
+cell.meta %>% slice_head(n=6)
+```
+
+Expression Data:
+
+```{r}
+expr.data <- map(raw.data, function(smp.data) {
+  smp.expr.data <- map_dfr(seq.int(1, dim(smp.data)[3]), function(i) {
+    cell_i <- smp.data[1:8, 1, i]
+    cell_i$CellID
+    expr <- cell_i$RNACopyNumber %>% as.vector
+    names(expr) <- genes
+    c(id = cell_i$CellID, expr)
+  })
+})
+```
+
+```{r}
+expr.data$CellID_190411 %>% slice_head(n=6)
+```
+
+Normalizing the expression data.
+
+We divide each count by the sum of counts in the cell and then multiply by 1000
+(just as they did it in the paper).
+
+```{r}
+expr.data.norm <- map(expr.data, function(sample) {
+  cell.totals <- sample %>%
+    pivot_longer(cols = 2:141) %>%
+    group_by(id) %>%
+    summarise(cell.sum = sum(value))
+  
+  sample %>%
+    left_join(cell.totals, by="id") %>%
+    pivot_longer(cols = 2:141) %>%
+    mutate(normalized = value / cell.sum * 1000) %>%
+    select(-c(cell.sum, value)) %>%
+    pivot_wider(names_from = name, values_from = normalized)
+})
+```
+
+```{r}
+expr.data.norm$CellID_190411 %>% slice_head(n = 6)
+```
+
+Looking at the distribution for the top 36 markers by sum of expression. And
+even for these markers we mostly have zero counts.
+
+```{r fig.width=14, fig.height=10}
+expr.data$CellID_190411 %>%
+  select(- id) %>%
+  pivot_longer(cols = everything()) %>%
+  group_by(name) %>%
+  mutate(sum.marker = sum(value)) %>%
+  ungroup() %>%
+  slice_max(order_by = sum.marker, n = 23700*36) %>%
+  ggplot() +
+  geom_histogram(aes(value), bins = 30) +
+  facet_wrap(~ name, ncol=6, nrow=6, scales="free")
+```
+
+Cell Types per Sample
+
+```{r}
+cell.meta %>%
+  count(sample, type_name) %>%
+  ggplot() +
+  geom_bar(aes(y = type_name, x = n), stat="identity") +
+  facet_wrap(~ sample) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+Visualization of a Part of the Sample
+
+The visualization are now based on the assumption that the images are
+1536 x 1536 (all these things were not quite documented at all!).
+
+```{r}
+if ("CellID_190411.pixels.RDS" %in% list.files("data/merfish_benchmark")) {
+  CellID_190411.pixels <- readRDS("data/merfish_benchmark/CellID_190411.pixels.RDS")
+} else {
+  img.size <- 1536
+  CellID_190411.pixels <- map_dfr(seq.int(1, dim(raw.data$CellID_190411)[3]), function(i) {
+    cell_i <- raw.data$CellID_190411[1:8, 1, i]
+    tibble::tibble(id = cell_i$CellID, type = cell_i$CellType, fov = cell_i$FOV, 
+                   pixels = cell_i$PixelList)
+  }) %>%
+  mutate(type = factor(type)) %>%
+  mutate(id = factor(id)) %>%
+  mutate(y = pixels %% img.size, x = ceiling(pixels / img.size))
+  
+  saveRDS(CellID_190411.pixels, "data/merfish_benchmark/CellID_190411.pixels.RDS")
+}
+rm(raw.data)
+```
+
+Verification of the right image size.
+
+Example field of view 5.
+
+```{r}
+CellID_190411.pixels %>%
+  filter(fov == 5) %>%
+  ggplot() +
+  geom_point(aes(x=x, y=y, col=id), size=.1) +
+  theme(legend.position = "none") +
+  scale_color_manual(values=rep(c("dodgerblue", "brown", "purple", "blue",
+                                  "seagreen", "gold", "tomato", "turquoise",
+                                  "magenta", "springgreen"), 250)) +
+  coord_equal()
+```
+
+Example field of view 1.
+
+```{r}
+CellID_190411.pixels %>%
+  filter(fov == 1) %>%
+  ggplot() +
+  geom_point(aes(x=x, y=y, col=id), size=.1) +
+  theme(legend.position = "none") +
+  scale_color_manual(values=rep(c("dodgerblue", "brown", "purple", "blue",
+                                  "seagreen", "gold", "tomato", "turquoise",
+                                  "magenta", "springgreen"), 250)) +
+  coord_equal()
+```
+
+Check wether the center of mass makes sense. It looks very good.
+
+```{r}
+center.mass <- cell.data$CellID_190411 %>%
+  filter(fov == 5) %>%
+  mutate(id = factor(id)) %>%
+  mutate(center_x = x, center_y = y) %>%
+  select(c(id, fov, center_x, center_y))
+
+CellID_190411.pixels %>%
+  filter(fov == 5) %>%
+  left_join(center.mass, by="id") %>%
+  ggplot() +
+  geom_point(aes(x=x, y=y, col=id), size=.1, alpha=0.01) +
+  geom_point(aes(x=center_x, y=center_y, col=id), size=2) +
+  coord_equal()
+```
+
+Now the next question is, could we stitch together the images?
+
+How many field of views do we have per sample? Looking at the maximum
+index and the number of fovs which are present.
+
+```{r}
+cell.meta %>% group_by(sample) %>% distinct(fov, .keep_all = TRUE) %>%
+  summarise(max(fov))
+
+cell.meta %>% group_by(sample) %>% distinct(fov, .keep_all = TRUE) %>% 
+  summarise(n())
+```
+
+Looking more closely at CellID_190411.
+
+For example plot the first 4 fields of views in a row.
+
+From looking at these images I would assume that we are looking at the left
+side of the image actually. And thus we need to stitch along the y-axis.
+
+```{r fig.width=16, fig.height=6}
+CellID_190411.pixels %>%
+  filter(fov %in% seq.int(0, 3)) %>%
+  ggplot() +
+  geom_point(aes(x=x, y=y, col=id), size=.1) +
+  theme(legend.position = "none") +
+  scale_color_manual(values=rep(c("dodgerblue", "brown", "purple", "blue",
+                                  "seagreen", "gold", "tomato", "turquoise",
+                                  "magenta", "springgreen"), 250)) +
+  facet_wrap(~ fov, ncol=4) +
+  coord_equal()
+```
+
+What if we look at last 4 fovs?
+
+```{r fig.width=16, fig.height=6}
+CellID_190411.pixels %>%
+  filter(fov %in% seq.int(117, 120)) %>%
+  ggplot() +
+  geom_point(aes(x=x, y=y, col=id), size=.1) +
+  theme(legend.position = "none") +
+  scale_color_manual(values=rep(c("dodgerblue", "brown", "purple", "blue",
+                                  "seagreen", "gold", "tomato", "turquoise",
+                                  "magenta", "springgreen"), 250)) +
+  facet_wrap(~ fov, ncol=4) +
+  coord_equal()
+```
+
+So all in all I have no clue how I would have to stitch them together!
+
+These are some hints from the Matlab code
+
+```{r eval = FALSE}
+ImageSize = 1536 # number of pxls
+StepSize = 1394 # 150/0.1076
+# overlap -> 142
+XSteps = 13
+YSteps = 15
+EndFrame = 40
+StartFrame =18
+NFOV = 144 # number of fields of views
+```
+
+If there is in fact a certain overlap between the images I would assume
+that we have the same cell ID in different field of views. Is this true?
+
+No each cell ID is only in one field of view. Still this could be an artifact
+of removing all cell which were on the edge from the data.
+
+```{r}
+cell.data$CellID_190411 %>% 
+  group_by(id) %>% 
+  summarise(n = length(unique(fov))) %>%
+  summary(n)
+```
+
+We could assume one model for the first sample where we move the microscope 
+from bottom left to the top, go back, one to the right and to the top again.
+
+This could be reasonable, but it is quite impossible to say wether it is right.
+
+```{r fig.width=16, fig.height=16}
+xsteps <- 11
+
+fovs <- CellID_190411.pixels$fov %>% unique %>% as.vector()
+#fovs
+
+model_1 <- fovs %>% map_dfr(function(fov) {
+  y <- floor(fov / xsteps)
+  x <- fov - y*xsteps
+  tibble::tibble(fov = fov, xstep = x, ystep = y)
+})
+#model_1
+
+xdict <- model_1$xstep %>% setNames(model_1$fov)
+ydict <- model_1$ystep %>% setNames(model_1$fov)
+
+# now I need to add values to the x and y coordinates based on the steps
+# (where in the global image we are)
+ImageSize = 1536
+StepSize = 1394
+
+subsampled <- sample(1:nrow(CellID_190411.pixels), 0.01*nrow(CellID_190411.pixels))
+
+#test <- CellID_190411.pixels %>%
+#  slice(subsampled) %>%
+#  rowwise() %>%
+#  mutate(newx = x + xdict[fov]*StepSize,
+#         newy = y + ydict[fov]*StepSize)
+
+# use some vectorized approch to deal with the pixels.
+
+prep <- CellID_190411.pixels %>%
+  slice(subsampled)
+
+# checke whether we have all
+#prep$fov %>% unique() %>% sort == names(xdict) %>% as.numeric() %>% sort
+
+sx <- xdict[prep$fov %>% as.character]
+sy <- ydict[prep$fov %>% as.character]
+
+test <- cbind(prep, sx, sy) %>%
+  mutate(
+    newx = x + sx*StepSize,
+    newy = y + sy*StepSize
+  )
+
+test %>%
+  ggplot() +
+  geom_point(aes(x = newx, y=newy, col=type), size=.1) +
+  #theme(legend.position = "none") +
+  scale_color_manual(values=rep(c("dodgerblue", "brown", "purple", "blue",
+                                  "seagreen", "gold", "tomato", "turquoise",
+                                  "magenta", "springgreen"), 1000000)) +
+  coord_equal() +
+  scale_x_continuous(name="Speed of cars", limits=c(0, 16000), breaks = )
+```
+
+What about another test if we change x and y.
+
+This just looks super wrong!
+
+```{r fig.width=16, fig.height=16}
+xsteps <- 11
+
+fovs <- CellID_190411.pixels$fov %>% unique %>% as.vector()
+#fovs
+
+model_1 <- fovs %>% map_dfr(function(fov) {
+  x <- floor(fov / xsteps)
+  y <- fov - x*xsteps
+  tibble::tibble(fov = fov, xstep = x, ystep = y)
+})
+#model_1
+
+xdict <- model_1$xstep %>% setNames(model_1$fov)
+ydict <- model_1$ystep %>% setNames(model_1$fov)
+
+# now I need to add values to the x and y coordinates based on the steps
+# (where in the global image we are)
+ImageSize = 1536
+StepSize = 1394
+
+subsampled <- sample(1:nrow(CellID_190411.pixels), 0.01*nrow(CellID_190411.pixels))
+
+#test <- CellID_190411.pixels %>%
+#  slice(subsampled) %>%
+#  rowwise() %>%
+#  mutate(newx = x + xdict[fov]*StepSize,
+#         newy = y + ydict[fov]*StepSize)
+
+# use some vectorized approch to deal with the pixels.
+
+prep <- CellID_190411.pixels %>%
+  slice(subsampled)
+
+# checke whether we have all
+#prep$fov %>% unique() %>% sort == names(xdict) %>% as.numeric() %>% sort
+
+sx <- xdict[prep$fov %>% as.character]
+sy <- ydict[prep$fov %>% as.character]
+
+test <- cbind(prep, sx, sy) %>%
+  mutate(
+    newx = x + sx*StepSize,
+    newy = y + sy*StepSize
+  )
+
+test %>%
+  ggplot() +
+  geom_point(aes(x = newx, y=newy, col=type), size=.1) +
+  #theme(legend.position = "none") +
+  scale_color_manual(values=rep(c("dodgerblue", "brown", "purple", "blue",
+                                  "seagreen", "gold", "tomato", "turquoise",
+                                  "magenta", "springgreen"), 1000000)) +
+  coord_equal()
+```
+
+# MISTy views
+
+Since once cannot really say how and whether it makes sense to stitch those
+images together, we will run MISTy on each sample on each field of view.
+
+But first we will remove all the FOVs which have too few cells.
+
+```{r}
+map2_dfr(cell.data, names(cell.data), function(smp, name) {
+  smp %>%
+    group_by(fov) %>%
+    summarise(n = n()) %>%
+    mutate(sample = name)
+}) %>%
+  ggplot() +
+  geom_histogram(aes(n), bins=50, col="black", fill="blue") +
+  facet_wrap(~ sample) +
+  geom_vline(xintercept = 125, col="red")
+```
+
+Removing every FOV with fewer than 125 cells
+
+```{r}
+keep.smp <- map(cell.data, function(smp) {
+  smp %>%
+  group_by(fov) %>%
+  summarise(n = n()) %>%
+  filter(n >= 125) %>%
+  pull(fov) %>%
+  as.numeric()
+})
+
+map_dbl(keep.smp, ~ length(.x))
+```
+
+Let's look at the average distance to the direct neighbors per cell per field of view
+(per sample).
+
+```{r}
+# helper function for nearest neighbors
+dist_k_nn <- function(sample, k) {
+  nn <- RANN::nn2(sample, eps=0.0, k = k)
+  map_dbl(seq_len(nrow(sample)), function(n) {
+    mean(nn$nn.dists[n, ])
+  })
+}
+
+# helper function for getting direct neighbors
+get_neighbors <- function(ddobj, id) {
+  dplyr::union(
+    ddobj$delsgs$ind1[which(ddobj$delsgs$ind2 == id)],
+    ddobj$delsgs$ind2[which(ddobj$delsgs$ind1 == id)]
+  )
+}
+```
+
+So the best threshold for the juxtaview may be 100.
+
+```{r}
+# map over FOV in each sample
+mean.dists.direct.neighbors.smp <- map2(keep.smp, names(keep.smp), function(keep, name) {
+  map(keep, function(test.fov) {
+    coords <- cell.data[[name]] %>% filter(fov == test.fov) %>%
+    select(c(x, y)) %>% as.data.frame
+    delaunay <- deldir::deldir(coords)
+    dists <- distances::distances(coords)
+    map_dbl(seq_len(nrow(coords)), function(id) {
+      nn <- get_neighbors(delaunay, id)
+      mean(dists[nn, id])
+    })
+  })
+})
+
+map2_dfr(mean.dists.direct.neighbors.smp, names(mean.dists.direct.neighbors.smp), function(dists, name) {
+  tibble::tibble(dist = unlist(dists), sample = name)
+}) %>%
+  ggplot() +
+  geom_histogram(aes(dist), bins = 100) +
+  lims(x = c(0,200)) +
+  geom_vline(xintercept = 100, col = "blue") +
+  facet_wrap(~ sample)
+```
+
+Furthermore we will look at the distribution of the mean distances to the 
+10 -, 20 -, 30 -, and 40 closest cells to get a feeling for which cutoff 
+will be used to generate the paraview (just for the first sample!)
+
+It seems like a distance of 180 for the paraview generation might be 
+reasonable.
+
+```{r}
+neighbor.dists <- map_dfr(keep.smp$CellID_190411, function(test.fov) {
+  
+  coords <- cell.data$CellID_190411 %>% filter(fov == test.fov) %>%
+    select(c(x, y)) %>% as.data.frame
+  
+  c(10, 15, 20, 30) %>%
+    set_names() %>%
+    map_dfc(function(k) {
+  dist_k_nn(coords, k)
+    }) %>%
+  set_names(paste0("dist_to_", c("10", "15", "20", "30")))
+  
+})
+
+neighbor.dists %>%
+  pivot_longer(cols = everything()) %>%
+  mutate(name = factor(name, 
+                       levels = paste0("dist_to_", c("10", "15", "20", "30")))) %>%
+  ggplot() +
+  geom_histogram(aes(value), bins = 100) +
+  facet_wrap(~ name) +
+  lims(x = c(0, 300)) +
+  geom_vline(xintercept = 180, col = "blue")
+```
+
+Calculate the views.
+
+As always we need to make sure that we delete markers with zero variance 
+in each view.
+
+```{r}
+if ("misty_views.RDS" %in% list.files("data/merfish_benchmark")) {
+  misty.views.smp <- readRDS("data/merfish_benchmark/misty_views.RDS")
+} else {
+  misty.views.smp <- map2(keep.smp, names(keep.smp), function(keep, name) {
+    
+    misty.views <- map(keep, function(test.fov) {
+        
+      cell.meta <- cell.data[[name]] %>%
+      filter(fov == test.fov)
+    
+      coords <- cell.meta %>% select(x, y)
+    
+      ids <- cell.meta$id
+    
+      expr <- expr.data.norm[[name]][(expr.data.norm[[name]] %>% pull(id)) %in% ids, ] %>%
+        select(-id)
+    
+      # calculate variance per gene
+      expr.clean <- expr[, matrixStats::colVars(expr %>% as.matrix) != 0]
+    
+      create_initial_view(expr.clean) %>%
+        add_juxtaview(positions = coords, neighbor.thr = 100) %>%
+        add_paraview(positions = coords, l = 180, zoi = 100)
+    })
+    
+    names(misty.views) <- paste0(name, "_fov_", keep)
+    
+    misty.views
+  }) %>%
+    unlist(recursive = FALSE)
+
+  saveRDS(misty.views.smp, "data/merfish_benchmark/misty_views.RDS")
+}
+```
+
+```{r}
+length(misty.views.smp)
+```
+
+To run MISTy we will only use the 40 most variable genes (controlling for the mean).
+
+```{r}
+var.genes <- map_dfr(expr.data.norm, function(expr) {
+  expr %>% select(-id)
+}) %>%
+  pivot_longer(cols = everything()) %>%
+  group_by(name) %>%
+  summarise(mean = mean(value), var = var(value)) %>%
+  mutate(ratio = var / mean) %>%
+  slice_max(order_by = ratio, n = 40) %>%
+  pull(name)
+var.genes
+```
+
+Running MISTy
+
+```{r}
+if ("ranger_results.RDS" %in% list.files("data/merfish_benchmark")) {
+  ranger.results <- readRDS("data/merfish_benchmark/ranger_results.RDS")
+} else {
+  cv.folds = 10
+  ranger.results.folders <- map2(
+    misty.views.smp, names(misty.views.smp), function(smp, name) {
+      
+      sel.genes <- var.genes[var.genes %in% colnames(smp$intraview$data)]
+      
+      smp %>% run_misty(results.folder = paste0("misty_results/merfish/ranger_", name),
+                        cv.folds = cv.folds, model.function = ranger_model, 
+                        target.subset = sel.genes)
+   })
+  ranger.results <- collect_results(ranger.results.folders)
+  saveRDS(ranger.results, "data/merfish_benchmark/ranger_results.RDS")
+}
+```
+
+# Results
+
+What can we actually explain:
+
+```{r fig.width=16}
+plot_improvement_stats(ranger.results, measure = "multi.R2")
+```
+
+And for which markers to we gain explained variance if we incorporate the
+spatial context?
+
+```{r fig.width=16}
+plot_improvement_stats(ranger.results, measure = "gain.R2")
+```
+
+```{r fig.width=16}
+plot_view_contributions(ranger.results)
+```
+
+```{r}
+plot_interaction_heatmap(ranger.results, view = "para.180", clean = TRUE, cutoff = 0.3)
+```
+
+
+# Appendix
+
+Did we chose the right image size?
+
+Are the cells really overlapping? One possible explanation is that we
+have different field of views
+
+```{r}
+walk(c(1400, 1500, 1536, 1600), function(img.size) {
+  plot <- CellID_190411.pixels %>%
+    mutate(x = pixels %% img.size, y = ceiling(pixels / img.size)) %>%
+    filter(id %in% c(148290411, 46540411, 52020411)) %>%
+    mutate(id = factor(id)) %>%
+    ggplot() +
+      geom_point(aes(x=x, y=y, col=id), size=.1)
+  print(plot)
+})
+```
+
+Now plot the center of mass on top to check whether this can actually be right.
+
+```{r}
+center.mass <- cell.data$CellID_190411 %>%
+  filter(id %in% c(148290411, 46540411, 52020411)) %>%
+  mutate(id = factor(id)) %>%
+  mutate(center_x = x, center_y = y) %>%
+  select(c(id, fov, center_x, center_y))
+
+img.size <- 1536
+CellID_190411.pixels %>%
+  filter(id %in% c(148290411, 46540411, 52020411)) %>%
+  mutate(id = factor(id)) %>%
+  left_join(center.mass, by="id") %>%
+  ggplot() +
+    geom_point(aes(x=x, y=y, col=id), size=.1) +
+    geom_point(aes(x=center_x, y=center_y, col=id), size=5)
+```
+
+# Matlab Code
+
+```{r eval=FALSE}
+clear all
+close all
+ImageSize = 1536; % number of pxls
+StepSize = 1394; %pxl; 150/0.1076
+XSteps = 13;
+YSteps = 15;
+EndFrame = 40;
+StartFrame =18;
+NFOV = 144; % number of fields of views
+FileNameForWGA = 'sequential/Cy3_00_';
+%%
+StartPxl = (ImageSize-StepSize)/2+1; %(1536-1394)/2+1=72
+EndPxl = ImageSize-StartPxl+1; % ImageSize-71;
+TotalImage = zeros(StepSize*XSteps, StepSize*YSteps);
+X = 1-StepSize;
+Y = 1;
+
+for jj = 0:NFOV-1
+    if NFOV<=10
+        FOVid = num2str(jj);
+    elseif NFOV>10 && NFOV<=100
+        if jj<10
+            FOVid = ['0' num2str(jj)];
+        else
+            FOVid = [num2str(jj)];
+        end
+    elseif NFOV>100
+        if jj<10
+            FOVid = ['00' num2str(jj)];
+        elseif jj<100
+            FOVid = ['0' num2str(jj)];
+        else
+            FOVid = [num2str(jj)];
+        end
+    end        
+    FileName1 = [FileNameForWGA FOVid];
+    [MovieFP, InfoFile] = ReadDax([FileName1, '.dax'],'startFrame', StartFrame, 'endFrame', EndFrame);
+    Image1 = mean(MovieFP,3);
+    % use adaptive thresholding to get more uniform intensity across filed of view
+    Image1 = double(Image1);
+    Image1 = Image1 - min(min(Image1));
+    Image1 = Image1/max(max(Image1));
+    T = adaptthresh(Image1, 0.7,'NeighborhoodSize',33);
+    Image1 = Image1./T;
+    Min = quantile(Image1(:), 0.4);
+    Max = quantile(Image1(:), 0.99);
+    Image1 = (Image1-Min)/(Max-Min)*255;
+    Image1(find(Image1<0)) = 0;
+    Image1(find(Image1>255)) = 255;
+
+    % adjust image oreintation so that they can be correctly stiched
+    % together
+    Image1(:,1:end) = Image1(:,end:-1:1);
+    Image1 = Image1';
+    if mod(jj,2*XSteps) == 0 || mod(jj,2*XSteps) == XSteps
+        X = X + StepSize;
+    elseif mod(jj,2*XSteps) >= 1 && mod(jj,2*XSteps) <= XSteps-1 
+        Y = Y + StepSize;
+    else
+        Y = Y - StepSize;
+    end
+    Image1 = Image1(StartPxl:EndPxl,StartPxl:EndPxl);
+
+    TotalImage(Y:Y+StepSize-1, X:X+StepSize-1) = Image1;
+end
+
+TotalImage = uint8(TotalImage);
+figure(1)
+imagesc(TotalImage);
+axis equal
+colormap gray
+imwrite(TotalImage,'TotalImage.png')
+save('TotalImage.mat','TotalImage');
+
+```

@@ -1,0 +1,128 @@
+---
+title: "Untitled"
+author: "PSLS"
+date: "08/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(R.matlab)
+library(tidyverse)
+library(rhdf5)
+```
+
+```{r}
+foo <- read.table("/home/philipp/data/saez/merfish/Codes/genes.fpkm_tracking", header = TRUE)
+foo
+
+a <- readMat("/home/philipp/data/saez/merfish/Codes/All gene set remove bad.mat")
+str(a)
+a[[3]][, 1:6]
+
+b <- readMat("/home/philipp/data/saez/merfish/Codes/Genes132new.mat")
+str(b)
+b[[3]][, 1:6]
+
+c <- readMat("/home/philipp/data/saez/merfish/Codes/Markerlist.mat")
+str(c)
+c[[3]][, 1:6]
+
+d <- readMat("/home/philipp/data/saez/merfish/Codes/Ordered genes.mat")
+str(d)
+d[[3]][, 1:6]
+
+e <- readMat("/home/philipp/data/saez/merfish/Codes/")
+str(d)
+d[[3]][, 1:6]
+
+library(rhdf5)
+h5ls("/home/philipp/data/saez/merfish/Data/FinalClusteringResults 190517 WT.mat") %>%
+  head
+```
+
+```{r}
+gene.tibble <- readxl::read_xlsx("/home/philipp/data/saez/merfish/Supplement/41421_2021_266_MOESM1_ESM.xlsx", skip = 1)
+genes <- gene.tibble$`Gene name`
+```
+
+
+
+```{r}
+test <- readMat("/home/philipp/data/saez/merfish/Data/WT CellList/")
+
+x <- readMat("/home/philipp/data/saez/merfish/Data/WT CellList/CellList_New_CellID_190411.mat")
+
+bar <- readMat("/home/philipp/data/saez/merfish/Codes/Ordered genes.mat")
+dim(bar)
+str(bar)
+
+foo <- read.table("/home/philipp/data/saez/merfish/Codes/genes.fpkm_tracking")
+
+str(x$CellList)
+
+t <- x$CellList
+x$CellList
+dim(t)
+
+t[1:8, 1, 1:4]
+
+cell_i <- t[1:8, 1, 1]
+cell_i$Center
+
+tibble(cell_i)
+names(cell_i)
+
+test.tibble <- map_dfr(seq.int(1, dim(t)[3]), function(i) {
+  cell_i <- t[1:8, 1, i]
+  tibble::tibble(id = cell_i$CellID, fov = cell_i$FOV, x = cell_i$Center[1, 1],
+                 y = cell_i$Center[1, 2], total.rna.copy = cell_i$TotalRNACopyNumber[1, 1], 
+         edge = cell_i$OnEdge[1, 1], type = cell_i$CellType)
+})
+test.tibble
+
+test.expression <- map(seq.int(1, dim(t)[3]), function(i) {
+  cell_i <- t[1:8, 1, i]
+  cell_i$RNACopyNumber %>% as.vector
+}) %>% do.call(rbind, .) %>% t
+
+dim(test.expression)
+test.expression[1:6, 1:6]
+test.tibble$id
+colnames(test.expression) <- test.tibble$id
+```
+
+Where do I get the gene names from?
+
+```{r}
+x$CellList[,,1]
+```
+
+
+```{r}
+test.tibble
+```
+
+```{r}
+colSums(test.expression)[1:10]
+```
+
+
+```{r}
+y <- readMat("/home/philipp/data/saez/merfish/Data/WT niche/190411WT_131680411.mat")
+y <- y$CellListIndNiche200
+str(y)
+y[1:8, , 1]
+
+
+y <- readMat("/home/philipp/data/saez/merfish/Codes/")
+
+
+```
+
+
+
+

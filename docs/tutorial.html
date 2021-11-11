@@ -11,7 +11,7 @@
 
 
 
-<title>Tutorial</title>
+<title>Tutorial New Features</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -38,6 +38,8 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -347,7 +349,13 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/schae211/benchmark">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -365,7 +373,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Tutorial</h1>
+<h1 class="title toc-ignore">Tutorial New Features</h1>
 
 </div>
 
@@ -390,10 +398,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-05
+<strong>Last updated:</strong> 2021-11-11
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>benchmark/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -409,12 +417,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -505,24 +513,27 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongba02018"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> ba02018 </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688targetblank2d12fa2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688" target="_blank">2d12fa2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongba02018" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688targetblank2d12fa2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version ba02018. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688" target="_blank">2d12fa2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/figure/
+    Ignored:    analysis/results/
     Ignored:    data/coord.RDS
     Ignored:    data/graph.clusters.RDS
+    Ignored:    data/merfish_benchmark/
     Ignored:    data/mibi_benchmark/
     Ignored:    data/mibi_cellData.csv
     Ignored:    data/mibi_coldata.RDS
@@ -530,15 +541,23 @@ Ignored files:
     Ignored:    data/mibi_expression.RDS
     Ignored:    data/mibi_lmbag.RDS
     Ignored:    data/mibi_misty_views.RDS
+    Ignored:    data/mibi_mmc2.xlsx
     Ignored:    data/mibi_patient_class.csv
     Ignored:    data/mibi_ranger.RDS
     Ignored:    data/mibi_rowdata.RDS
+    Ignored:    data/mibi_tiffs/
     Ignored:    data/mibi_tumor.immune.contacts.RDS
+    Ignored:    misty_results/
+    Ignored:    results/
 
 Untracked files:
-    Untracked:  data/mibi_mmc2.xlsx
-    Untracked:  data/mibi_tiffs/
-    Untracked:  results/
+    Untracked:  analysis/merfish_prep.Rmd
+    Untracked:  analysis/merfish_test.Rmd
+
+Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/tutorial.Rmd
 
 </code></pre>
 <p>
@@ -579,10 +598,27 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/schae211/benchmark/f6f12c0a7dbb12d724ae0d755f4919ff7a0ee6c4/docs/tutorial.html" target="_blank">f6f12c0</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
-00e1725
+<a href="https://github.com/schae211/benchmark/blob/00e1725703a918b1033bbb16530a21dbffa4503c/analysis/tutorial.Rmd" target="_blank">00e1725</a>
 </td>
 <td>
 schae211
@@ -601,8 +637,7 @@ added tutorial
 </div>
 </div>
 </div>
-<div id="set-up" class="section level1">
-<h1>Set up</h1>
+<p>Setup.</p>
 <pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_knit$set(root.dir = &quot;~/Saez/workflowr_projects/benchmark&quot;)</code></pre>
 <p>Loaded packages.</p>
@@ -610,45 +645,42 @@ knitr::opts_knit$set(root.dir = &quot;~/Saez/workflowr_projects/benchmark&quot;)
 suppressPackageStartupMessages(library(future))
 suppressPackageStartupMessages(library(tidyverse))
 plan(&quot;multisession&quot;, workers=14)</code></pre>
-<p>Loading data</p>
-<p>For the sake of this tutorial we will be using the synthetic dataset.</p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In this tutorial, I will briefly explain how I envision the new MISTy workflow. Instead of only offering a pre-defined set of ML algorithms to model each view, I refactored the code such that users can supply their own function if they would like. If not, we ship MISTy with several implemented functions that can simply be plugged into the model. More details can be found below.</p>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>For the sake of this tutorial we will be using the synthetic dataset supplied in the MISTy package. As explained in the <a href="https://saezlab.github.io/mistyR/articles/mistyR.html">Get Started Vignette</a>, this dataset is based on a two-dimensional cellular automata model which models the production, diffusion, degradation and interactions of 11 molecular species in 4 different cell types.</p>
+<p>In total there are 10 tibbles, each of which contains about 4000 cells and their corresponding expresssion of the markers, position in a 100x100 grid (randomly assigned) as well as the cell type identity. (For more information see <code>help("synthetic")</code>).</p>
 <pre class="r"><code>data(&quot;synthetic&quot;)</code></pre>
-<p>Lets first create one MISTy view</p>
-<pre class="r"><code>expr &lt;- synthetic$synthetic1 %&gt;% select(-c(row, col, type))
-pos &lt;- synthetic$synthetic1 %&gt;% select(c(row, col))
+</div>
+<div id="misty-views" class="section level2">
+<h2>MISTy Views</h2>
+<p>For the sake of keeping things simply, we will only look at the first instance of the synthetic dataset for now.</p>
+<p>We will start by creating two MISTy views: a) Intraview and b) Paraview with a Gaussian kernel (default) and a radius of 10.</p>
+<pre class="r"><code>expr &lt;- synthetic$synthetic1 %&gt;% dplyr::select(-c(row, col, type))
+pos &lt;- synthetic$synthetic1 %&gt;% dplyr::select(c(row, col))
 misty.views &lt;- expr %&gt;%
   create_initial_view() %&gt;%
   add_paraview(l = 10, positions = pos)</code></pre>
 <pre><code>
 Generating paraview</code></pre>
 </div>
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
-<p>To expand the flexibility of MISTy it is now possible to specify functions to model the views</p>
-<p>Now we call MISTy like that:</p>
+<div id="running-misty" class="section level2">
+<h2>Running MISty</h2>
+<p>The default ML algorithm is still random forest and thus we do not even have to specify it.</p>
 <pre class="r"><code>misty.run &lt;- misty.views %&gt;%
-  run_misty(model.function = ranger_model)</code></pre>
+  run_misty()</code></pre>
 <pre><code>
 Training models</code></pre>
-<p>And here are the results (just like before).</p>
-<pre class="r"><code>misty.results &lt;- collect_results(misty.run)</code></pre>
+<p>To make things more explicitly the above call is the same as:</p>
+<p>The model.name should be supplied if you want to cache some results (which is not done by default).</p>
+<pre class="r"><code>misty.run &lt;- misty.views %&gt;%
+  run_misty(model.function = ranger_model, 
+            model.name = &quot;ranger_model&quot;)</code></pre>
 <pre><code>
-Collecting improvements</code></pre>
-<pre><code>
-Collecting contributions</code></pre>
-<pre><code>
-Collecting importances</code></pre>
-<pre><code>
-Aggregating</code></pre>
-<pre class="r"><code>plot_improvement_stats(misty.results, &quot;gain.R2&quot;)</code></pre>
-<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
-<p><img src="figure/tutorial.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>But what is this ranger_model actually doing?</p>
-<p>TODO - I need to exactly describe what the input and output - Make a figure how it fits into the overall MISTy strucutre</p>
-</div>
-<div id="basic-ranger-implementation" class="section level1">
-<h1>Basic Ranger Implementation</h1>
-<p>Using the default ranger implementation I will showcase</p>
+Training models</code></pre>
+<p>But what is this <code>ranger_model</code> actually?</p>
 <pre class="r"><code>ranger_model</code></pre>
 <pre><code>function(view_data, target, seed, ...) {
   
@@ -677,18 +709,373 @@ Aggregating</code></pre>
   list(unbiased.predictions = predictions, 
        importances = model$variable.importance)
 }
-&lt;bytecode: 0x55e4d2f1b3d8&gt;
+&lt;bytecode: 0x5645bab84148&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
-<p>…</p>
-<p>Now we could also build a function for boosted trees</p>
-<pre class="r"><code>cv_boosted_trees_model</code></pre>
+<p>It is a function that takes in the data of a single view, for example the <code>paraview</code> -</p>
+<pre class="r"><code>misty.views$paraview.10$data %&gt;% slice_head(n=6)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ECM"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["ligA"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["ligB"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["ligC"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["ligD"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["protE"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["protF"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["prodA"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["prodB"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["prodC"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["prodD"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"6.979321","2":"13.15935","3":"1.285712","4":"9.557256","5":"17.04973","6":"13.97745","7":"28.12211","8":"4.366114","9":"0.8159148","10":"3.870546","11":"5.637949"},{"1":"15.047960","2":"12.93732","3":"2.314226","4":"18.517582","5":"15.10552","6":"26.59867","7":"27.74473","8":"5.238444","9":"1.6585141","10":"7.287498","11":"6.013656"},{"1":"17.366190","2":"13.57398","3":"2.782903","4":"20.417886","5":"16.08916","6":"28.14198","7":"29.03742","8":"5.041102","9":"1.9478960","10":"8.227380","11":"5.975769"},{"1":"18.401444","2":"14.27625","3":"3.002274","4":"20.974014","5":"16.90832","6":"31.49055","7":"30.87604","8":"5.614053","9":"2.0930029","10":"8.001041","11":"6.506692"},{"1":"19.932558","2":"14.73801","3":"3.163228","4":"21.988465","5":"17.54009","6":"33.20876","7":"32.66920","8":"5.689368","9":"2.0762916","10":"8.614926","11":"6.644928"},{"1":"26.260790","2":"15.73162","3":"4.316208","4":"25.595469","5":"19.70285","6":"41.80724","7":"35.88199","8":"5.734761","9":"2.8539163","10":"9.239076","11":"7.115921"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>and models the target variable with the RF algorithm. Importantly, within the <code>run_misty</code> function before the <code>view_data</code> are supplied to the ranger_model, the target column is replaced by the actual values from the <code>intraview</code>.</p>
+<p>So assuming the target is “ECM” the following happens within the MISTy framework.</p>
+<pre class="r"><code>target &lt;- &quot;ECM&quot;
+expr &lt;- misty.views$intraview$data
+target.vector &lt;- expr %&gt;% dplyr::pull(target)
+view_data &lt;- misty.views$paraview.10$data %&gt;%
+  mutate(!!target := target.vector)
+# compare to the above
+view_data %&gt;% slice_head(n=6)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ECM"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["ligA"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["ligB"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["ligC"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["ligD"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["protE"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["protF"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["prodA"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["prodB"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["prodC"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["prodD"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.03854680","2":"13.15935","3":"1.285712","4":"9.557256","5":"17.04973","6":"13.97745","7":"28.12211","8":"4.366114","9":"0.8159148","10":"3.870546","11":"5.637949"},{"1":"0.03266024","2":"12.93732","3":"2.314226","4":"18.517582","5":"15.10552","6":"26.59867","7":"27.74473","8":"5.238444","9":"1.6585141","10":"7.287498","11":"6.013656"},{"1":"0.14441839","2":"13.57398","3":"2.782903","4":"20.417886","5":"16.08916","6":"28.14198","7":"29.03742","8":"5.041102","9":"1.9478960","10":"8.227380","11":"5.975769"},{"1":"0.38700715","2":"14.27625","3":"3.002274","4":"20.974014","5":"16.90832","6":"31.49055","7":"30.87604","8":"5.614053","9":"2.0930029","10":"8.001041","11":"6.506692"},{"1":"0.16346509","2":"14.73801","3":"3.163228","4":"21.988465","5":"17.54009","6":"33.20876","7":"32.66920","8":"5.689368","9":"2.0762916","10":"8.614926","11":"6.644928"},{"1":"0.20329497","2":"15.73162","3":"4.316208","4":"25.595469","5":"19.70285","6":"41.80724","7":"35.88199","8":"5.734761","9":"2.8539163","10":"9.239076","11":"7.115921"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>And then the RF algorithm is called with the default algorithms merged with the additional ellipsis arguments.</p>
+<pre class="r"><code>seed &lt;- 42 # default
+
+ellipsis.args &lt;- list() # assume no ellipsis arguments were given
+
+# default ranger arguments
+algo.arguments &lt;- list(
+  formula = stats::as.formula(paste0(target, &quot; ~ .&quot;)),
+  data = view_data,
+  num.trees = 100,
+  importance = &quot;impurity&quot;,
+  mtry = NULL, 
+  verbose = FALSE, 
+  num.threads = 1,
+  seed = seed)
+
+if (!(length(ellipsis.args) == 0)) {
+  algo.arguments &lt;- merge_2(algo.arguments, ellipsis.args)
+}
+
+model &lt;- do.call(ranger::ranger, algo.arguments)
+
+predictions &lt;- tibble::tibble(index = seq_len(nrow(view_data)), 
+                              prediction = model$predictions)
+
+list(unbiased.predictions = predictions, 
+     importances = model$variable.importance) %&gt;%
+  str() # add str here to show output</code></pre>
+<pre><code>List of 2
+ $ unbiased.predictions: tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
+  ..$ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ prediction: num [1:4205] 0.141 0.115 0.266 0.673 0.494 ...
+ $ importances         : Named num [1:10] 54.1 60.9 60.3 49.9 69 ...
+  ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;ligA&quot; &quot;ligB&quot; &quot;ligC&quot; &quot;ligD&quot; ...</code></pre>
+<p>(Note that <code>merge_2</code> is a function that is also exported by <code>mistyR</code>)</p>
+<p>As seen above, we can also easily supply arguments to the <code>ranger</code> RF implementation. Say we would like to increase the number of trees and use another splitrule. Let’s compare the runtime for example (should be higher with more trees).</p>
+<pre class="r"><code>tictoc::tic()
+misty.run &lt;- misty.views %&gt;%
+  run_misty(model.function = ranger_model, num.trees = 500, 
+            splitrule = &quot;extratrees&quot;)</code></pre>
+<pre><code>
+Training models</code></pre>
+<pre class="r"><code>tictoc::toc()</code></pre>
+<pre><code>4.591 sec elapsed</code></pre>
+<pre class="r"><code>tictoc::tic()
+misty.run &lt;- misty.views %&gt;%
+  run_misty(model.function = ranger_model, num.trees = 100, 
+            splitrule = &quot;extratrees&quot;)</code></pre>
+<pre><code>
+Training models</code></pre>
+<pre class="r"><code>tictoc::toc()</code></pre>
+<pre><code>1.384 sec elapsed</code></pre>
+</div>
+<div id="misty-results" class="section level2">
+<h2>MISTy results</h2>
+<p>On the side of processing and plotting the results nothing has changed.</p>
+<pre class="r"><code>misty.results &lt;- collect_results(misty.run)</code></pre>
+<pre><code>
+Collecting improvements</code></pre>
+<pre><code>
+Collecting contributions</code></pre>
+<pre><code>
+Collecting importances</code></pre>
+<pre><code>
+Aggregating</code></pre>
+<pre class="r"><code>misty.results %&gt;%
+  plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
+  plot_view_contributions() %&gt;%
+  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
+<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Below all the supplied function will be desribed in more detail.</p>
+</div>
+</div>
+<div id="all-supplied-functions" class="section level1 tabset">
+<h1 class="tabset">All Supplied Functions</h1>
+<div id="random-forest" class="section level2">
+<h2>Random Forest</h2>
+<ul>
+<li>Unbiased predictions are based on OOB predictions.</li>
+</ul>
+<pre class="r"><code>ranger_model</code></pre>
 <pre><code>function(view_data, target, seed, ...) {
   
   ellipsis.args &lt;- list(...)
   
+  # default ranger arguments
+  algo.arguments &lt;- list(
+    formula = stats::as.formula(paste0(target, &quot; ~ .&quot;)),
+    data = view_data,
+    num.trees = 100,
+    importance = &quot;impurity&quot;,
+    mtry = NULL, 
+    verbose = FALSE, 
+    num.threads = 1,
+    seed = seed)
+  
+  if (!(length(ellipsis.args) == 0)) {
+    algo.arguments &lt;- merge_2(algo.arguments, ellipsis.args)
+  }
+  
+  model &lt;- do.call(ranger::ranger, algo.arguments)
+  
+  predictions &lt;- tibble::tibble(index = seq_len(nrow(view_data)), 
+                                prediction = model$predictions)
+  
+  list(unbiased.predictions = predictions, 
+       importances = model$variable.importance)
+}
+&lt;bytecode: 0x5645bab84148&gt;
+&lt;environment: namespace:mistyR&gt;</code></pre>
+<ul>
+<li>Running the model</li>
+</ul>
+<pre class="r"><code>misty.views %&gt;%
+  run_misty(model.function = ranger_model, 
+            model.name = &quot;ranger_model&quot;) %&gt;%
+  collect_results() %&gt;%
+  plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
+  plot_view_contributions() %&gt;%
+  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
+<pre><code>
+Training models</code></pre>
+<pre><code>
+Collecting improvements</code></pre>
+<pre><code>
+Collecting contributions</code></pre>
+<pre><code>
+Collecting importances</code></pre>
+<pre><code>
+Aggregating</code></pre>
+<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-15-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="bagged-mars" class="section level2">
+<h2>Bagged MARS</h2>
+<ul>
+<li><p>MARS: Multivariate Adaptive Regression Splines</p></li>
+<li><p>Unbiased predictions are based on OOB predictions.</p></li>
+<li><p>The name <code>bagged_earth_model</code> comes from the fact that the name mars is protected and thus the implementation of the algorithm is called <code>earth</code> (by Stephen Milborrow, derived from mda::mars by Trevor Hastie and Robert Tibshirani)</p></li>
+</ul>
+<pre class="r"><code>bagged_earth_model</code></pre>
+<pre><code>function(view_data, target, seed, n.vars = NULL, 
+                               n.learners = 100, ...) {
+  
+  ellipsis.args &lt;- list(...)
+  
+  # get ellipsis arguments
+  if (&quot;n.vars&quot; %in% ellipsis.args) n.vars &lt;- ellipsis.args$n.vars
+  
+  if (&quot;n.learners&quot; %in% ellipsis.args) n.learners &lt;- ellipsis.args$n.learners
+  
+  # how many predictors and how many variables to consider for each bag
+  n.vars &lt;- ifelse(is.null(n.vars), ncol(view_data)-1, n.vars)
+  predictors &lt;- colnames(view_data)[colnames(view_data) != target]
+  
+  # generate the bags
+  bags &lt;- withr::with_seed(
+    seed,
+    caret::createResample(1:nrow(view_data), times = n.learners)
+  )
+  
+  # build one model for each bag, return oob predictions and importances
+  models &lt;- purrr::map(bags, function(bag) {
+    
+    vars &lt;- sample(predictors, n.vars)
+    
+    algo.arguments &lt;- list(
+      formula = stats::as.formula(paste0(target, &quot; ~ .&quot;)),
+      data = view_data[bag, c(target, vars)]
+    )
+    
+    if (!(length(ellipsis.args) == 0)) {
+      algo.arguments &lt;- merge_2(algo.arguments, ellipsis.args)
+    }
+    
+    model &lt;- do.call(earth::earth, algo.arguments)
+    
+    oob &lt;- seq.int(1, nrow(view_data))[!(seq.int(1, nrow(view_data)) %in% bag)]
+    
+    pred &lt;- predict(model, view_data[oob, vars])
+    list(model = model, 
+         prediction = tibble::tibble(index = oob, prediction = as.vector(pred)))
+  })
+  
+  # Generate the OOB predictions, using the average for each sample
+  predictions &lt;- purrr::map_dfr(models, function(model) {
+    tibble::tibble(model$prediction)
+  }) %&gt;% 
+    dplyr::group_by(index) %&gt;%
+    dplyr::summarise(prediction = mean(prediction)) %&gt;%
+    dplyr::arrange(index)
+  
+  assertthat::assert_that(nrow(predictions) == nrow(view_data),
+      msg = &quot;There are too few bags to get OOB predictions for all observations.
+      Consider increasing the number of bags or using CV.&quot;)
+  
+  importances &lt;- purrr::map_dfr(models, function(model) {
+    coefs &lt;- earth::evimp(model$model, trim = FALSE, sqrt. = TRUE)[, 6] 
+    names(coefs) &lt;- stringr::str_remove(names(coefs), &quot;-unused&quot;)
+    coefs
+  }) %&gt;% colMeans(na.rm = TRUE)
+  
+  
+  list(unbiased.predictions = predictions, 
+       importances = importances)
+}
+&lt;bytecode: 0x5645c04cc380&gt;
+&lt;environment: namespace:mistyR&gt;</code></pre>
+<ul>
+<li>Running the model:</li>
+</ul>
+<pre class="r"><code>misty.views %&gt;%
+  run_misty(model.function = bagged_earth_model, 
+            model.name = &quot;earth&quot;) %&gt;%
+  collect_results() %&gt;%
+  plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
+  plot_view_contributions() %&gt;%
+  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
+<pre><code>
+Training models</code></pre>
+<pre><code>
+Collecting improvements</code></pre>
+<pre><code>
+Collecting contributions</code></pre>
+<pre><code>
+Collecting importances</code></pre>
+<pre><code>
+Aggregating</code></pre>
+<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-17-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-17-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="bagged-linear-model" class="section level2">
+<h2>Bagged Linear Model</h2>
+<ul>
+<li>Unbiased predictions are based on OOB predictions.</li>
+</ul>
+<pre class="r"><code>bagged_linear_model</code></pre>
+<pre><code>function(view_data, target, seed, n.vars = NULL, 
+                               n.learners = 100, ...) {
+  
+  ellipsis.args &lt;- list(...)
+  
+  # get ellipsis arguments
+  if (&quot;n.vars&quot; %in% ellipsis.args) n.vars &lt;- ellipsis.args$n.vars
+  if (&quot;n.learners&quot; %in% ellipsis.args) n.learners &lt;- ellipsis.args$n.learners
+  
+  # how many predictors and how many variables to consider for each bag
+  n.vars &lt;- ifelse(is.null(n.vars), ncol(view_data)-1, n.vars)
+  predictors &lt;- colnames(view_data)[colnames(view_data) != target]
+  
+  # generate the bags
+  bags &lt;- withr::with_seed(
+    seed,
+    caret::createResample(1:nrow(view_data), times = n.learners)
+  )
+  
+  # build one model for each bag, return oob predictions and importances
+  models &lt;- purrr::map(bags, function(bag) {
+    
+    vars &lt;- sample(predictors, n.vars)
+    
+    algo.arguments &lt;- list(
+      formula = stats::as.formula(paste0(target, &quot; ~ .&quot;)),
+      data = view_data[bag, c(target, vars)]
+    )
+    
+    if (!(length(ellipsis.args) == 0)) {
+      algo.arguments &lt;- merge_2(algo.arguments, ellipsis.args)
+    }
+    
+    model &lt;- do.call(stats::lm, algo.arguments)
+    
+    oob &lt;- seq.int(1, nrow(view_data))[!(seq.int(1, nrow(view_data)) %in% bag)]
+    
+    pred &lt;- predict.lm(model, view_data[oob, vars])
+    
+    list(model = model, 
+         prediction = tibble::tibble(index = oob, prediction = as.vector(pred)))
+  })
+  
+  # Generate the OOB predictions, using the average for each sample
+  predictions &lt;- purrr::map_dfr(models, function(model) {
+    tibble::tibble(model$prediction)
+  }) %&gt;% 
+    dplyr::group_by(index) %&gt;%
+    dplyr::summarise(prediction = mean(prediction)) %&gt;%
+    dplyr::arrange(index)
+  
+  assertthat::assert_that(nrow(predictions) == nrow(view_data),
+      msg = &quot;There are too few bags to get OOB predictions for all observations.
+      Consider increasing the number of bags or using CV.&quot;)
+  
+  importances &lt;- purrr::map_dfr(models, function(model) {
+    coefs &lt;- purrr::map_dfr(models, function(model) {
+      model$model$coefficients }) %&gt;%
+      colMeans(na.rm = TRUE)
+    coefs[names(coefs) != &quot;(Intercept)&quot;]
+  }) %&gt;% colMeans(na.rm = TRUE)
+  
+  
+  list(unbiased.predictions = predictions, 
+       importances = importances)
+}
+&lt;bytecode: 0x5645bf4f91b8&gt;
+&lt;environment: namespace:mistyR&gt;</code></pre>
+<ul>
+<li>Running the model:</li>
+</ul>
+<pre class="r"><code>misty.views %&gt;%
+  run_misty(model.function = bagged_linear_model, 
+            model.name = &quot;lm.bag&quot;) %&gt;%
+  collect_results() %&gt;%
+  plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
+  plot_view_contributions() %&gt;%
+  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
+<pre><code>
+Training models</code></pre>
+<pre><code>
+Collecting improvements</code></pre>
+<pre><code>
+Collecting contributions</code></pre>
+<pre><code>
+Collecting importances</code></pre>
+<pre><code>
+Aggregating</code></pre>
+<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-19-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="boosted-trees" class="section level2">
+<h2>Boosted Trees</h2>
+<ul>
+<li>Unbiased predictions are based on k-fold cross-validation (aggregarted predictions for the holdout sets)</li>
+</ul>
+<pre class="r"><code>boosted_trees_model</code></pre>
+<pre><code>function(view_data, target, seed, k = 10, ...) {
+  
+  ellipsis.args &lt;- list(...)
+  
+  if (&quot;k&quot; %in% ellipsis.args) k &lt;- ellipsis.args$k
+  
   folds &lt;- withr::with_seed(
     seed,
-    caret::createFolds(seq.int(1, nrow(view_data)), k = 10)
+    caret::createFolds(seq.int(1, nrow(view_data)), k = k)
   )
   
   holdout.predictions &lt;- purrr::map_dfr(folds, function(holdout) {
@@ -754,8 +1141,751 @@ Aggregating</code></pre>
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x55e4d2571848&gt;
+&lt;bytecode: 0x5645b955c388&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
+<ul>
+<li>Running the model:</li>
+</ul>
+<pre class="r"><code>misty.views %&gt;%
+  run_misty(model.function = boosted_trees_model, 
+            model.name = &quot;boosted.trees&quot;) %&gt;%
+  collect_results() %&gt;%
+  plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
+  plot_view_contributions() %&gt;%
+  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
+<pre><code>
+Training models</code></pre>
+<pre><code>
+Collecting improvements</code></pre>
+<pre><code>
+Collecting contributions</code></pre>
+<pre><code>
+Collecting importances</code></pre>
+<pre><code>
+Aggregating</code></pre>
+<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-21-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="support-vector-machine" class="section level2">
+<h2>Support Vector Machine</h2>
+<ul>
+<li><p>Unbiased predictions are based on k-fold cross-validation (aggregarted predictions for the holdout sets)</p></li>
+<li><p>Importantly, we added an approximation argument to the implementation which basically says at what fraction of the training instances the SVM will be trained on. This drastically decreases the training time and does not really effect the performance.</p></li>
+</ul>
+<pre class="r"><code>svm_model</code></pre>
+<pre><code>function(view_data, target, seed, approx = TRUE, 
+                        approx.frac = 0.2, k = 10, ...) {
+  
+  ellipsis.args &lt;- list(...)
+  
+  # get these parameters from the ellipsis
+  if (&quot;k&quot; %in% ellipsis.args) k &lt;- ellipsis.args$k
+  if (&quot;approx.frac&quot; %in% ellipsis.args) approx.frac &lt;- ellipsis.args$approx.frac
+  if (&quot;frac&quot; %in% ellipsis.args) frac &lt;- ellipsis.args$frac
+  
+  folds &lt;- withr::with_seed(
+    seed,
+    caret::createFolds(seq.int(1, nrow(view_data)), k = k)
+  )
+  
+  holdout.predictions &lt;- purrr::map_dfr(folds, function(holdout) {
+    
+    in.fold &lt;- seq.int(1, nrow(view_data))[!(seq.int(1, nrow(view_data)) %in% holdout)]
+    
+    # subsampling to reduce the computational cost
+    if (approx) in.fold &lt;- in.fold[sample(1:length(in.fold), 
+                                          length(in.fold)*approx.frac)]
+    
+    algo.arguments &lt;- list(
+      x = stats::as.formula(paste0(target, &quot; ~ .&quot;)),
+      data = view_data[in.fold, ],
+      kernel = &quot;vanilladot&quot;,
+      C = 1,
+      type = &quot;eps-svr&quot;,
+      kpar = list() # no hyperparameters for linear kernel
+    )
+    
+    if (!(length(ellipsis.args) == 0)) {
+      algo.arguments &lt;- merge_2(algo.arguments, ellipsis.args)
+    }
+    
+    model &lt;- do.call(kernlab::ksvm, algo.arguments)
+    
+    pred &lt;- kernlab::predict(model, view_data[holdout, ])
+    
+    tibble::tibble(index = holdout, prediction = as.vector(pred))
+  }) %&gt;% dplyr::arrange(index)
+  
+  algo.arguments.wm &lt;- list(
+    x = stats::as.formula(paste0(target, &quot; ~ .&quot;)),
+    data = view_data,
+    kernel = &quot;vanilladot&quot;,
+    C = 1,
+    type = &quot;eps-svr&quot;,
+    kpar = list() # no hyperparameters for linear kernel
+  )
+  
+  if (!(length(ellipsis.args) == 0)) {
+    algo.arguments.wm &lt;- merge_2(algo.arguments.wm, ellipsis.args)
+  }
+  
+  whole.model &lt;- do.call(kernlab::ksvm, algo.arguments.wm)
+  
+  importances &lt;- (t(whole.model@coef) %*% whole.model@xmatrix)[1,]
+  
+  list(unbiased.predictions = holdout.predictions, 
+       importances = importances)
+}
+&lt;bytecode: 0x5645b6fa7ff8&gt;
+&lt;environment: namespace:mistyR&gt;</code></pre>
+<ul>
+<li>Running the model:</li>
+</ul>
+<pre class="r"><code>misty.views %&gt;%
+  run_misty(model.function = svm_model, 
+            model.name = &quot;svm&quot;) %&gt;%
+  collect_results() %&gt;%
+  plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
+  plot_view_contributions() %&gt;%
+  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
+<pre><code>
+Training models</code></pre>
+<pre><code>
+Collecting improvements</code></pre>
+<pre><code>
+Collecting contributions</code></pre>
+<pre><code>
+Collecting importances</code></pre>
+<pre><code>
+Aggregating</code></pre>
+<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-23-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="neural-network" class="section level2">
+<h2>Neural Network</h2>
+<ul>
+<li><p>Unbiased predictions are based on k-fold cross-validation (aggregarted predictions for the holdout sets)</p></li>
+<li><p>Importantly, the feature importances is here calculated based on a global model agnostic method. More specifically each feature is permuated (one at a time) and then the reduction in preditive performance is used as measure for the variable importance.</p></li>
+</ul>
+<pre class="r"><code>nn_model</code></pre>
+<pre><code>function(view_data, target, seed, approx = TRUE, 
+                         approx.frac = 0.2, k = 10, ...) {
+  
+  ellipsis.args &lt;- list(...)
+  
+  if (&quot;k&quot; %in% ellipsis.args) k &lt;- ellipsis.args[&quot;k&quot;]
+  if (&quot;approx&quot; %in% ellipsis.args) frac &lt;- ellipsis.args[&quot;approx&quot;]
+  if (&quot;approx.frac&quot; %in% ellipsis.args) approx.frac &lt;- ellipsis.args[&quot;approx.frac&quot;]
+  
+  #print(paste(k, approx, approx.frac))
+  
+  folds &lt;- withr::with_seed(
+    seed,
+    caret::createFolds(seq.int(1, nrow(view_data)), k = k)
+  )
+  
+  predictors &lt;- colnames(view_data)[colnames(view_data) != target]
+  X &lt;- view_data %&gt;% dplyr::select(tidyselect::all_of(predictors)) %&gt;% as.matrix()
+  Y &lt;- view_data %&gt;% dplyr::pull(target)
+  
+  # made this an imap to track the folds!
+  holdout.predictions &lt;- purrr::map_dfr(folds, function(holdout) {
+    
+    in.fold &lt;- seq.int(1, nrow(view_data))[!(seq.int(1, nrow(view_data)) %in% holdout)]
+    
+    # subsampling to reduce the computational cost
+    if (approx) in.fold &lt;- in.fold[sample(1:length(in.fold), 
+                                          length(in.fold)*approx.frac)]
+    
+    X_train &lt;- X[in.fold, ]
+    Y_train &lt;- Y[in.fold]
+    
+    X_test &lt;- X[holdout, ]
+    Y_test &lt;- Y[holdout]
+    
+    algo.arguments &lt;- list(
+      x = X_train,
+      y = Y_train,
+      size = c(10)
+    )
+    
+    if (!(length(ellipsis.args) == 0)) {
+      algo.arguments &lt;- merge_2(algo.arguments, ellipsis.args)
+    }
+    
+    model &lt;- do.call(RSNNS::mlp, algo.arguments)
+    
+    label.hat &lt;- predict(model, X_test)
+    
+    tibble::tibble(index = holdout, prediction = label.hat)
+  }) %&gt;% dplyr::arrange(index)
+  
+  algo.arguments.wm &lt;- list(
+    x = X,
+    y = Y,
+    size = c(10)
+  )
+  
+  if (!(length(ellipsis.args) == 0)) {
+    algo.arguments.wm &lt;- merge_2(algo.arguments.wm, ellipsis.args)
+  }
+  
+  whole.model &lt;- do.call(RSNNS::mlp, algo.arguments.wm)
+  
+  predictor &lt;- iml::Predictor$new(
+    model = whole.model, 
+    data = as.data.frame(X), 
+    y = Y)
+  
+  imp &lt;- iml::FeatureImp$new(predictor, loss = &quot;mse&quot;)$results
+  importances &lt;- imp$importance
+  names(importances) &lt;- imp$feature
+  
+  list(unbiased.predictions = holdout.predictions, 
+       importances = importances)
+}
+&lt;bytecode: 0x5645b7f962a8&gt;
+&lt;environment: namespace:mistyR&gt;</code></pre>
+<ul>
+<li>Running the model:</li>
+</ul>
+<pre class="r"><code>misty.views %&gt;%
+  run_misty(model.function = nn_model,
+            model.name = &quot;nn_model&quot;,
+            k = 10, approx.frac = 0.5) %&gt;%
+  collect_results() %&gt;%
+  plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
+  plot_view_contributions() %&gt;%
+  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
+<pre><code>
+Training models</code></pre>
+<pre><code>
+Collecting improvements</code></pre>
+<pre><code>
+Collecting contributions</code></pre>
+<pre><code>
+Collecting importances</code></pre>
+<pre><code>
+Aggregating</code></pre>
+<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-25-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="linear-model" class="section level2">
+<h2>Linear Model</h2>
+<ul>
+<li><p>Unbiased predictions are based on k-fold cross-validation (aggregated predictions for the holdout sets)</p></li>
+<li><p>In particular this model was supplied to understand more easily, how a view-specifc model based on cross-validation can be constructed</p></li>
+</ul>
+<pre class="r"><code>linear_model</code></pre>
+<pre><code>function(view_data, target, seed, k = 10, ...) {
+  
+  ellipsis.args &lt;- list(...)
+  
+  if (&quot;k&quot; %in% ellipsis.args) k &lt;- ellipsis.args$k
+  
+  folds &lt;- withr::with_seed(
+    seed,
+    caret::createFolds(seq.int(1, nrow(view_data)), k = k)
+  )
+  
+  holdout.predictions &lt;- purrr::map_dfr(folds, function(holdout) {
+    
+    in.fold &lt;- seq.int(1, nrow(view_data))[!(seq.int(1, nrow(view_data)) %in% holdout)]
+    
+    algo.arguments &lt;- list(
+      formula = stats::as.formula(paste0(target, &quot; ~ .&quot;)),
+      data = view_data[in.fold, ]
+    )
+    
+    if (!(length(ellipsis.args) == 0)) {
+      algo.arguments &lt;- merge_2(algo.arguments, ellipsis.args)
+    }
+    
+    model &lt;- do.call(stats::lm, algo.arguments)
+    
+    pred &lt;- predict.lm(model, view_data[holdout, ])
+    
+    tibble::tibble(index = holdout, prediction = as.vector(pred))
+  }) %&gt;% dplyr::arrange(index)
+  
+  algo.arguments.wm &lt;- list(
+    formula = stats::as.formula(paste0(target, &quot; ~ .&quot;)),
+    data = view_data
+  )
+  
+  if (!(length(ellipsis.args) == 0)) {
+    algo.arguments.wm &lt;- merge_2(algo.arguments.wm, ellipsis.args)
+  }
+  
+  whole.model &lt;- do.call(stats::lm, algo.arguments.wm)
+  
+  importances &lt;- whole.model$coefficients[names(whole.model$coefficients) != &quot;(Intercept)&quot;]
+  
+  list(unbiased.predictions = holdout.predictions, 
+       importances = importances)
+}
+&lt;bytecode: 0x5645b81ce358&gt;
+&lt;environment: namespace:mistyR&gt;</code></pre>
+<ul>
+<li>Running the model:</li>
+</ul>
+<pre class="r"><code>misty.views %&gt;%
+  run_misty(model.function = linear_model, 
+            model.name = &quot;lm&quot;) %&gt;%
+  collect_results() %&gt;%
+  plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
+  plot_view_contributions() %&gt;%
+  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
+<pre><code>
+Training models</code></pre>
+<pre><code>
+Collecting improvements</code></pre>
+<pre><code>
+Collecting contributions</code></pre>
+<pre><code>
+Collecting importances</code></pre>
+<pre><code>
+Aggregating</code></pre>
+<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-27-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="how-to-construct-you-own-function" class="section level1">
+<h1>How to construct you own function</h1>
+<ol style="list-style-type: decimal">
+<li>To construct a view-specific function we need to clearly state the expected input and output to the function.</li>
+</ol>
+<div id="input" class="section level2">
+<h2>Input</h2>
+<p>The input will be:</p>
+<ol style="list-style-type: decimal">
+<li><code>view_data</code>: A tibble with each row corresponding to a spatial unit (e.g. Visium spot or single cell) and each column corresponding to a marker.</li>
+</ol>
+<p>Based on the assert statements in <code>run_misty</code>, one can be sure that the variance of each target is non-zero.</p>
+<p>For example the intraview from above.</p>
+<pre class="r"><code>misty.views$intraview$data %&gt;% slice_head(n=6)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ECM"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["ligA"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["ligB"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["ligC"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["ligD"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["protE"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["protF"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["prodA"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["prodB"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["prodC"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["prodD"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.03854680","2":"0.8339939","3":"0.01573892","4":"0.2356239","5":"1.1827223","6":"1.177839","7":"2.5472407","8":"0.3821445","9":"0.000000","10":"0.0000000","11":"0.5879969"},{"1":"0.03266024","2":"0.1187827","3":"0.01039155","4":"0.8042649","5":"0.1005138","6":"0.000000","7":"0.3860302","8":"0.0000000","9":"0.000000","10":"0.5358052","11":"0.0000000"},{"1":"0.14441839","2":"0.5245439","3":"0.01404577","4":"0.3339515","5":"0.4337909","6":"1.669298","7":"1.6137109","8":"0.4721953","9":"0.000000","10":"0.0000000","11":"0.3789962"},{"1":"0.38700715","2":"0.2689383","3":"0.03673178","4":"0.5020253","5":"0.2409168","6":"0.000000","7":"0.9125841","8":"0.0000000","9":"0.000000","10":"0.4184349","11":"0.0000000"},{"1":"0.16346509","2":"0.1953178","3":"0.11758953","4":"0.2321609","5":"0.2029005","6":"0.000000","7":"0.1623442","8":"0.0000000","9":"0.160016","10":"0.0000000","11":"0.0000000"},{"1":"0.20329497","2":"0.1777069","3":"0.02467047","4":"0.7384428","5":"0.2362814","6":"0.000000","7":"0.6030203","8":"0.0000000","9":"0.000000","10":"0.5554705","11":"0.0000000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li><code>target</code>: String corresponding to the marker which should be modeled.</li>
+</ol>
+<p>For example “ECM”</p>
+<ol start="3" style="list-style-type: decimal">
+<li><code>seed</code>: Integer (passed down from <code>run_misty</code>)</li>
+</ol>
+<p>Default seed is 42.</p>
+</div>
+<div id="output" class="section level2">
+<h2>Output</h2>
+<p>The output must be a named list comprising of:</p>
+<ol style="list-style-type: decimal">
+<li><code>unbiased.predictions</code>: Tibble with one column called <code>index</code> for the “cell id” and another column called <code>prediction</code> for the unbiased prediction.</li>
+</ol>
+<p>These unbiased predictions for the specified target can either come from the aggregated out-of-bag (OOB) predictions of a bagged ensembl model or the aggregated predictions for holdout set for k-fold cross-validation.</p>
+<p>The unbiased predictions are needed as input for the linear fusion model, which combined the unbiased predictions from each view-specific model to assess the contribution from each view (using the coefficients).</p>
+<ol start="2" style="list-style-type: decimal">
+<li><code>importances</code> : Named Vector with the importances of the predictors as values and the names of the predictors as names (see the example below)</li>
+</ol>
+<hr />
+<p>For example let’s have a look at the result list returned by the ranger model.</p>
+<pre class="r"><code>res.list &lt;- ranger_model(view_data = misty.views$intraview$data, 
+                         target = &quot;ECM&quot;, 
+                         seed = 42)
+str(res.list)</code></pre>
+<pre><code>List of 2
+ $ unbiased.predictions: tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
+  ..$ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ prediction: num [1:4205] 0.0563 0.0952 0.1236 0.169 0.1617 ...
+ $ importances         : Named num [1:10] 27.5 26.1 43.5 16.3 248.3 ...
+  ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;ligA&quot; &quot;ligB&quot; &quot;ligC&quot; &quot;ligD&quot; ...</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li>Top 6 entries of the <code>unbiased.predictions</code> tibble.</li>
+</ol>
+<pre class="r"><code>res.list$unbiased.predictions %&gt;% slice_head(n = 6)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["index"],"name":[1],"type":["int"],"align":["right"]},{"label":["prediction"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"0.05625033"},{"1":"2","2":"0.09516617"},{"1":"3","2":"0.12360709"},{"1":"4","2":"0.16900870"},{"1":"5","2":"0.16167585"},{"1":"6","2":"0.16937361"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Importances</li>
+</ol>
+<pre class="r"><code>res.list$importances</code></pre>
+<pre><code>     ligA      ligB      ligC      ligD     protE     protF     prodA     prodB 
+ 27.46336  26.12132  43.51203  16.32403 248.34468  71.45277  42.54984  66.75963 
+    prodC     prodD 
+ 42.15216  32.24817 </code></pre>
+</div>
+<div id="example-function" class="section level2">
+<h2>Example Function</h2>
+<p>To showcase how one can construct such a function, we will build a view-specific model based on a decision tree (implemented by <code>rpart</code>)</p>
+<p>To visualize what each step is necessary for, we will use the paraview from above and model “ECM”. So in general our input is going to look somehow like that. We have a tibble with the rows as spatial units (e.g. cells) and the columns are the markers (target or predictors).</p>
+<pre class="r"><code>seed &lt;- 42
+target &lt;- &quot;ECM&quot;
+expr &lt;- misty.views$intraview$data
+target.vector &lt;- expr %&gt;% dplyr::pull(target)
+view_data &lt;- misty.views$paraview.10$data %&gt;%
+  mutate(!!target := target.vector)
+
+view_data %&gt;% slice_head(n=6)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ECM"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["ligA"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["ligB"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["ligC"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["ligD"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["protE"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["protF"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["prodA"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["prodB"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["prodC"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["prodD"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.03854680","2":"13.15935","3":"1.285712","4":"9.557256","5":"17.04973","6":"13.97745","7":"28.12211","8":"4.366114","9":"0.8159148","10":"3.870546","11":"5.637949"},{"1":"0.03266024","2":"12.93732","3":"2.314226","4":"18.517582","5":"15.10552","6":"26.59867","7":"27.74473","8":"5.238444","9":"1.6585141","10":"7.287498","11":"6.013656"},{"1":"0.14441839","2":"13.57398","3":"2.782903","4":"20.417886","5":"16.08916","6":"28.14198","7":"29.03742","8":"5.041102","9":"1.9478960","10":"8.227380","11":"5.975769"},{"1":"0.38700715","2":"14.27625","3":"3.002274","4":"20.974014","5":"16.90832","6":"31.49055","7":"30.87604","8":"5.614053","9":"2.0930029","10":"8.001041","11":"6.506692"},{"1":"0.16346509","2":"14.73801","3":"3.163228","4":"21.988465","5":"17.54009","6":"33.20876","7":"32.66920","8":"5.689368","9":"2.0762916","10":"8.614926","11":"6.644928"},{"1":"0.20329497","2":"15.73162","3":"4.316208","4":"25.595469","5":"19.70285","6":"41.80724","7":"35.88199","8":"5.734761","9":"2.8539163","10":"9.239076","11":"7.115921"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>So in the end the function should call <code>rpart</code> with this formula:</p>
+<pre class="r"><code>as.formula(paste0(target, &quot;~ .&quot;))</code></pre>
+<pre><code>ECM ~ .</code></pre>
+<pre class="r"><code>test.model &lt;- rpart::rpart(formula = as.formula(paste0(target, &quot;~ .&quot;)), 
+                           data = view_data
+)
+summary(test.model)</code></pre>
+<pre><code>Call:
+rpart::rpart(formula = as.formula(paste0(target, &quot;~ .&quot;)), data = view_data)
+  n= 4205 
+
+          CP nsplit rel error    xerror       xstd
+1 0.01500315      0 1.0000000 1.0005807 0.03805187
+2 0.01000000      1 0.9849969 0.9920382 0.03758174
+
+Variable importance
+prodB  ligB protE  ligC prodC protF 
+   37    35     9     8     7     5 
+
+Node number 1: 4205 observations,    complexity param=0.01500315
+  mean=0.2791817, MSE=0.1514427 
+  left son=2 (2438 obs) right son=3 (1767 obs)
+  Primary splits:
+      prodB &lt; 3.818718 to the left,  improve=0.015003150, (0 missing)
+      ligB  &lt; 6.082138 to the left,  improve=0.014464940, (0 missing)
+      prodD &lt; 12.36839 to the right, improve=0.004319322, (0 missing)
+      ligD  &lt; 33.48445 to the right, improve=0.003931746, (0 missing)
+      ligA  &lt; 28.91634 to the right, improve=0.003704822, (0 missing)
+  Surrogate splits:
+      ligB  &lt; 5.705646 to the left,  agree=0.974, adj=0.938, (0 split)
+      protE &lt; 62.60869 to the left,  agree=0.677, adj=0.232, (0 split)
+      ligC  &lt; 47.92661 to the left,  agree=0.673, adj=0.221, (0 split)
+      prodC &lt; 18.17498 to the left,  agree=0.656, adj=0.181, (0 split)
+      protF &lt; 61.76141 to the left,  agree=0.636, adj=0.135, (0 split)
+
+Node number 2: 2438 observations
+  mean=0.2386013, MSE=0.1250542 
+
+Node number 3: 1767 observations
+  mean=0.3351722, MSE=0.1824449 </code></pre>
+<p>Now to get unbiased predictions we need to do cross validation and aggregate the predictions for the holdout instances.</p>
+<p>First we will create the 5 folds using <code>caret::createFolds</code></p>
+<pre class="r"><code>seed &lt;- 42
+k &lt;- 5
+folds &lt;- withr::with_seed(
+  seed,
+  caret::createFolds(seq.int(1, nrow(view_data)), k = k)
+)
+str(folds)</code></pre>
+<pre><code>List of 5
+ $ Fold1: int [1:842] 5 12 17 32 39 50 55 58 66 70 ...
+ $ Fold2: int [1:841] 4 6 13 18 19 20 24 26 36 40 ...
+ $ Fold3: int [1:841] 2 7 9 14 23 27 42 43 57 62 ...
+ $ Fold4: int [1:841] 1 3 11 16 21 29 33 37 48 51 ...
+ $ Fold5: int [1:840] 8 10 15 22 25 28 30 31 34 35 ...</code></pre>
+<p>Next we will train a model for each fold and aggregate the prediction of the holdout instances.</p>
+<pre class="r"><code>holdout.predictions &lt;- purrr::map_dfr(folds, function(holdout) {
+  
+  in.fold &lt;- seq.int(1, nrow(view_data))[!(seq.int(1, nrow(view_data)) %in% holdout)]
+  
+  train &lt;- view_data[in.fold, ]
+  test &lt;- view_data[holdout, ]
+  
+  algo.arguments &lt;- list(formula = as.formula(paste0(target, &quot;~ .&quot;)), 
+                        data = train)
+  
+  model &lt;- do.call(rpart::rpart, algo.arguments)
+  
+  label.hat &lt;- predict(model, test)
+  
+  tibble::tibble(index = holdout, prediction = label.hat)
+}) %&gt;% dplyr::arrange(index)
+str(holdout.predictions)</code></pre>
+<pre><code>tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
+ $ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
+ $ prediction: Named num [1:4205] 0.238 0.237 0.238 0.24 0.236 ...
+  ..- attr(*, &quot;names&quot;)= chr [1:4205] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...</code></pre>
+<p>As described above, apart from the unbiased predictions, we need the importances of the predictors (interpretable model!). Therefore we will train one more model on the whole dataset. And return the importances as named vector.</p>
+<pre class="r"><code>algo.arguments.wm &lt;- list(formula = as.formula(paste0(target, &quot;~ .&quot;)), 
+                          data = view_data)
+  
+whole.model &lt;- do.call(rpart::rpart, algo.arguments.wm)
+
+importances &lt;- whole.model$variable.importance
+importances</code></pre>
+<pre><code>   prodB     ligB    protE     ligC    prodC    protF 
+9.554254 8.964886 2.216890 2.114156 1.724848 1.286877 </code></pre>
+<p>In the end we need to return everything in one list with the following names:</p>
+<pre class="r"><code>list(unbiased.predictions = holdout.predictions, 
+       importances = importances) %&gt;% str # again added str for visualization</code></pre>
+<pre><code>List of 2
+ $ unbiased.predictions: tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
+  ..$ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ prediction: Named num [1:4205] 0.238 0.237 0.238 0.24 0.236 ...
+  .. ..- attr(*, &quot;names&quot;)= chr [1:4205] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+ $ importances         : Named num [1:6] 9.55 8.96 2.22 2.11 1.72 ...
+  ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;prodB&quot; &quot;ligB&quot; &quot;protE&quot; &quot;ligC&quot; ...</code></pre>
+<p>So up to this point our function would look like this.</p>
+<pre class="r"><code>reg_tree_model_1 &lt;- function(view_data, seed = 42, k = 5) {
+  
+  folds &lt;- withr::with_seed(
+  seed,
+  caret::createFolds(seq.int(1, nrow(view_data)), k = k)
+  )
+  
+  holdout.predictions &lt;- purrr::map_dfr(folds, function(holdout) {
+  
+  in.fold &lt;- seq.int(1, nrow(view_data))[!(seq.int(1, nrow(view_data)) %in% holdout)]
+  
+  train &lt;- view_data[in.fold, ]
+  test &lt;- view_data[holdout, ]
+  
+  algo.arguments &lt;- list(formula = as.formula(paste0(target, &quot;~ .&quot;)), 
+                        data = train)
+  
+  model &lt;- do.call(rpart::rpart, algo.arguments)
+  
+  label.hat &lt;- predict(model, test)
+  
+  tibble::tibble(index = holdout, prediction = label.hat)
+}) %&gt;% dplyr::arrange(index)
+  
+  algo.arguments.wm &lt;- list(formula = as.formula(paste0(target, &quot;~ .&quot;)), 
+                          data = view_data)
+  
+  whole.model &lt;- do.call(rpart::rpart, algo.arguments.wm)
+  
+  importances &lt;- whole.model$variable.importance
+  
+  list(unbiased.predictions = holdout.predictions, 
+       importances = importances)
+}</code></pre>
+<p>And it works perfectly.</p>
+<pre class="r"><code>test &lt;- reg_tree_model_1(view_data = view_data)
+str(test)</code></pre>
+<pre><code>List of 2
+ $ unbiased.predictions: tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
+  ..$ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ prediction: Named num [1:4205] 0.238 0.237 0.238 0.24 0.236 ...
+  .. ..- attr(*, &quot;names&quot;)= chr [1:4205] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+ $ importances         : Named num [1:6] 9.55 8.96 2.22 2.11 1.72 ...
+  ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;prodB&quot; &quot;ligB&quot; &quot;protE&quot; &quot;ligC&quot; ...</code></pre>
+<p>Now in the final step we will add the possibility to supply ellipsis arguments to the <code>rpart</code> model.</p>
+<pre class="r"><code>reg_tree_model_2 &lt;- function(view_data, seed = 42, k = 5, ...) {
+  
+  ellipsis.args &lt;- list(...)
+  
+  folds &lt;- withr::with_seed(
+  seed,
+  caret::createFolds(seq.int(1, nrow(view_data)), k = k)
+  )
+  
+  holdout.predictions &lt;- purrr::map_dfr(folds, function(holdout) {
+  
+  in.fold &lt;- seq.int(1, nrow(view_data))[!(seq.int(1, nrow(view_data)) %in% holdout)]
+  
+  train &lt;- view_data[in.fold, ]
+  test &lt;- view_data[holdout, ]
+  
+  algo.arguments &lt;- list(formula = as.formula(paste0(target, &quot;~ .&quot;)), 
+                        data = train)
+  
+  if (!(length(ellipsis.args) == 0)) {
+    algo.arguments &lt;- merge_2(algo.arguments, ellipsis.args)
+  }
+  
+  model &lt;- do.call(rpart::rpart, algo.arguments)
+  
+  label.hat &lt;- predict(model, test)
+  
+  tibble::tibble(index = holdout, prediction = label.hat)
+}) %&gt;% dplyr::arrange(index)
+  
+  algo.arguments.wm &lt;- list(formula = as.formula(paste0(target, &quot;~ .&quot;)), 
+                          data = view_data)
+  
+  if (!(length(ellipsis.args) == 0)) {
+    algo.arguments.wm &lt;- merge_2(algo.arguments.wm, ellipsis.args)
+  }
+  
+  whole.model &lt;- do.call(rpart::rpart, algo.arguments.wm)
+  
+  importances &lt;- whole.model$variable.importance
+  
+  list(unbiased.predictions = holdout.predictions, 
+       importances = importances)
+}</code></pre>
+<p>Now check by supplying some parameters to <code>rpart.control</code>. For example changing the complexity parameter <code>cp</code> from 0.01 to 0.001. In regression setting this means that if a split does not decreae the <span class="math inline">\(R^2\)</span> by at least a factor of <code>cp</code>, the split is not attempted.</p>
+<pre class="r"><code>test2 &lt;- reg_tree_model_2(view_data = view_data, cp = 0.001)
+str(test2)</code></pre>
+<pre><code>List of 2
+ $ unbiased.predictions: tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
+  ..$ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ prediction: Named num [1:4205] 0.154 0.16 0.154 0.209 0.594 ...
+  .. ..- attr(*, &quot;names&quot;)= chr [1:4205] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+ $ importances         : Named num [1:10] 73 68.2 68.1 67.4 63.4 ...
+  ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;protF&quot; &quot;ligD&quot; &quot;ligC&quot; &quot;ligA&quot; ...</code></pre>
+<p>For the sake of it we could compare the performance of both test models.</p>
+<pre class="r"><code># Model 1
+caret::defaultSummary(data = data.frame(obs = target.vector,
+                                        pred = test$unbiased.predictions$prediction))</code></pre>
+<pre><code>       RMSE    Rsquared         MAE 
+0.387809572 0.008688747 0.279142858 </code></pre>
+<pre class="r"><code># Model 2
+caret::defaultSummary(data = data.frame(obs = target.vector,
+                                        pred = test2$unbiased.predictions$prediction))</code></pre>
+<pre><code>      RMSE   Rsquared        MAE 
+0.42890871 0.01542591 0.29069186 </code></pre>
+</div>
+</div>
+<div id="appendix" class="section level1">
+<h1>Appendix</h1>
+<div id="broken-nn-function" class="section level2">
+<h2>Broken NN Function</h2>
+<p>This neural net implementation used to work, when all of a sudded I got this error: "Error in neurons[[i]] %*% weights[[i]] : requires numeric/complex matrix/vector arguments" in the prediction part although all the input was the right size and the predictor columns were present.</p>
+<pre class="r"><code>#&#39; Neural Network Implementation
+#&#39; 
+#&#39; @export
+old_nn_model = function(view_data, target, seed, approx = TRUE, 
+                         approx.frac = 0.2, k = 10, ...) {
+  
+  print(paste0(&quot;---nn_model called for: &quot;, target, &quot; ---&quot;))
+  
+  ellipsis.args &lt;- list(...)
+  
+  if (&quot;k&quot; %in% ellipsis.args) k &lt;- ellipsis.args$k
+  if (&quot;approx.frac&quot; %in% ellipsis.args) approx.frac &lt;- ellipsis.args$approx.frac
+  if (&quot;frac&quot; %in% ellipsis.args) frac &lt;- ellipsis.args$frac
+  
+  folds &lt;- withr::with_seed(
+    seed,
+    caret::createFolds(seq.int(1, nrow(view_data)), k = k)
+  )
+  
+  predictors &lt;- colnames(view_data)[colnames(view_data) != target]
+  predictor.string &lt;- glue::glue_collapse(predictors, sep = &quot; + &quot;)
+  c.formula &lt;- as.formula(paste0(target, &quot; ~ &quot;, predictor.string))
+  
+  # made this an imap to track the folds!
+  holdout.predictions &lt;- purrr::imap_dfr(folds, function(holdout, i) {
+    
+    print(paste0(&quot;Fold: &quot;, i))
+    
+    in.fold &lt;- seq.int(1, nrow(view_data))[!(seq.int(1, nrow(view_data)) %in% holdout)]
+    
+    # subsampling to reduce the computational cost
+    if (approx) in.fold &lt;- in.fold[sample(1:length(in.fold), 
+                                          length(in.fold)*approx.frac)]
+    
+    train &lt;- view_data[in.fold, ]
+    
+    test &lt;- view_data[holdout, ]
+    
+    
+    
+    # Check the the variance is all zero
+    check = all(all(matrixStats::colVars(as.matrix(train)) != 0),
+                all(matrixStats::colVars(as.matrix(test)) != 0),
+                all(colSums(is.na(train)) == 0),
+                all(colSums(is.na(test)) == 0),
+                all(apply(train, 2, is.numeric)),
+                all(apply(test, 2, is.numeric)))
+    print(paste0(&quot;No 0 var, no NAs, no non-numeric: &quot;, check, &quot;; and nrows in train: &quot;, nrow(train)))
+    
+    algo.arguments &lt;- list(
+      formula = c.formula,
+      #as.formula(paste0(target, &quot; ~ .&quot;)),
+      data = train,
+      hidden = c(10),
+      linear.output = FALSE,
+      lifesign = &quot;none&quot;,
+      rep = 1,
+      stepmax = 1e5
+    )
+    
+    if (!(length(ellipsis.args) == 0)) {
+      algo.arguments &lt;- merge_2(algo.arguments, ellipsis.args)
+    }
+    
+    #str(algo.arguments)
+    
+    model &lt;- do.call(neuralnet::neuralnet, algo.arguments)
+    
+    # create data to predict
+    newdata &lt;- test %&gt;% dplyr::select(tidyselect::all_of(model$model.list$variables))
+    
+    # check test data
+    check = all(all(matrixStats::colVars(as.matrix(newdata)) != 0),
+                all(colSums(is.na(newdata)) == 0),
+                all(apply(newdata, 2, is.numeric)))
+    print(paste0(&quot;Second Check: &quot;, check))
+    
+    #prediction &lt;- compute(model, newdata)
+    #prediction &lt;- predict(model, newdata)
+
+    # label.hat &lt;- neuralnet:::predict.nn(
+    #   object = model,
+    #   newdata = newdata
+    #   )
+    
+    label.hat &lt;- predict(model, newdata)
+    
+    print(head(label.hat))
+    
+    #label.hat &lt;- predict(model, test)
+    
+    tibble::tibble(index = holdout, prediction = label.hat)
+  }) %&gt;% dplyr::arrange(index)
+  
+  print(&quot;succesfully computed unbiased predictions&quot;)
+  
+  algo.arguments.wm &lt;- list(
+    formula = c.formula,
+    #as.formula(paste0(target, &quot;~ .&quot;)),
+    data = view_data,
+    hidden = c(10),
+    linear.output = FALSE,
+    lifesign = &quot;none&quot;,
+    rep = 1,
+    stepmax = 1e5
+  )
+  
+  if (!(length(ellipsis.args) == 0)) {
+    algo.arguments.wm &lt;- merge_2(algo.arguments.wm, ellipsis.args)
+  }
+  
+  print(&quot;---whole model---&quot;)
+  
+  whole.model &lt;- do.call(neuralnet::neuralnet, algo.arguments.wm)
+  
+  #print(whole.model$model.list$variables)
+  
+  #print(summary(whole.model))
+  
+  predictor &lt;- iml::Predictor$new(
+    model = whole.model, 
+    data = (view_data %&gt;% dplyr::select(tidyselect::all_of(whole.model$model.list$variables))), 
+    y = (view_data %&gt;% dplyr::pull(tidyselect::all_of(target))))
+  
+  imp &lt;- iml::FeatureImp$new(predictor, loss = &quot;mse&quot;)$results
+  importances &lt;- imp$importance
+  names(importances) &lt;- imp$feature
+  
+  #print(importances)
+  
+  print(&quot;---nn_model done---&quot;)
+  
+  list(unbiased.predictions = holdout.predictions, 
+       importances = importances)
+}</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -786,29 +1916,45 @@ attached base packages:
 other attached packages:
  [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4    
  [5] readr_2.0.2     tidyr_1.1.4     tibble_3.1.5    ggplot2_3.3.5  
- [9] tidyverse_1.3.1 future_1.22.1   mistyR_1.3.1    workflowr_1.6.2
+ [9] tidyverse_1.3.1 future_1.22.1   mistyR_1.3.1   
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.2        sass_0.4.0        jsonlite_1.7.2    R.utils_2.11.0   
- [5] modelr_0.1.8      bslib_0.3.1       assertthat_0.2.1  highr_0.9        
- [9] cellranger_1.1.0  yaml_2.2.1        globals_0.14.0    pillar_1.6.3     
-[13] backports_1.3.0   glue_1.4.2        rlist_0.4.6.2     digest_0.6.28    
-[17] promises_1.2.0.1  rvest_1.0.1       colorspace_2.0-2  htmltools_0.5.2  
-[21] httpuv_1.6.3      R.oo_1.24.0       pkgconfig_2.0.3   broom_0.7.9      
-[25] listenv_0.8.0     haven_2.4.3       scales_1.1.1      whisker_0.4      
-[29] later_1.3.0       tzdb_0.1.2        git2r_0.28.0      farver_2.1.0     
-[33] generics_0.1.0    ellipsis_0.3.2    withr_2.4.2       furrr_0.2.3      
-[37] cli_3.0.1         magrittr_2.0.1    crayon_1.4.1      readxl_1.3.1     
-[41] evaluate_0.14     R.methodsS3_1.8.1 fs_1.5.0          fansi_0.5.0      
-[45] parallelly_1.28.1 xml2_1.3.2        distances_0.1.8   data.table_1.14.2
-[49] tools_4.1.2       hms_1.1.1         lifecycle_1.0.1   munsell_0.5.0    
-[53] reprex_2.0.1      compiler_4.1.2    jquerylib_0.1.4   rlang_0.4.12     
-[57] grid_4.1.2        rstudioapi_0.13   labeling_0.4.2    rmarkdown_2.11   
-[61] gtable_0.3.0      codetools_0.2-18  DBI_1.1.1         R6_2.5.1         
-[65] lubridate_1.8.0   knitr_1.36        fastmap_1.1.0     utf8_1.2.2       
-[69] filelock_1.0.2    rprojroot_2.0.2   stringi_1.7.5     parallel_4.1.2   
-[73] Rcpp_1.0.7        vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1 
-[77] xfun_0.26        </code></pre>
+  [1] colorspace_2.0-2     ellipsis_0.3.2       class_7.3-19        
+  [4] rprojroot_2.0.2      fs_1.5.0             rstudioapi_0.13     
+  [7] listenv_0.8.0        furrr_0.2.3          farver_2.1.0        
+ [10] prodlim_2019.11.13   fansi_0.5.0          lubridate_1.8.0     
+ [13] ranger_0.13.1        xml2_1.3.2           codetools_0.2-18    
+ [16] splines_4.1.2        R.methodsS3_1.8.1    knitr_1.36          
+ [19] rlist_0.4.6.2        jsonlite_1.7.2       workflowr_1.6.2     
+ [22] pROC_1.18.0          caret_6.0-90         broom_0.7.9         
+ [25] dbplyr_2.1.1         R.oo_1.24.0          compiler_4.1.2      
+ [28] httr_1.4.2           tictoc_1.0.1         backports_1.3.0     
+ [31] assertthat_0.2.1     Matrix_1.3-4         fastmap_1.1.0       
+ [34] cli_3.0.1            later_1.3.0          htmltools_0.5.2     
+ [37] tools_4.1.2          gtable_0.3.0         glue_1.4.2          
+ [40] reshape2_1.4.4       Rcpp_1.0.7           cellranger_1.1.0    
+ [43] jquerylib_0.1.4      vctrs_0.3.8          nlme_3.1-152        
+ [46] iterators_1.0.13     timeDate_3043.102    xfun_0.26           
+ [49] gower_0.2.2          globals_0.14.0       rvest_1.0.1         
+ [52] lifecycle_1.0.1      MASS_7.3-54          scales_1.1.1        
+ [55] ipred_0.9-12         hms_1.1.1            promises_1.2.0.1    
+ [58] parallel_4.1.2       RColorBrewer_1.1-2   yaml_2.2.1          
+ [61] sass_0.4.0           rpart_4.1-15         stringi_1.7.5       
+ [64] highr_0.9            distances_0.1.8      foreach_1.5.1       
+ [67] filelock_1.0.2       lava_1.6.10          rlang_0.4.12        
+ [70] pkgconfig_2.0.3      evaluate_0.14        lattice_0.20-45     
+ [73] recipes_0.1.17       labeling_0.4.2       tidyselect_1.1.1    
+ [76] parallelly_1.28.1    plyr_1.8.6           magrittr_2.0.1      
+ [79] R6_2.5.1             generics_0.1.0       DBI_1.1.1           
+ [82] pillar_1.6.3         haven_2.4.3          whisker_0.4         
+ [85] withr_2.4.2          survival_3.2-13      nnet_7.3-16         
+ [88] future.apply_1.8.1   modelr_0.1.8         crayon_1.4.1        
+ [91] utf8_1.2.2           tzdb_0.1.2           rmarkdown_2.11      
+ [94] grid_4.1.2           readxl_1.3.1         data.table_1.14.2   
+ [97] git2r_0.28.0         ModelMetrics_1.2.2.2 reprex_2.0.1        
+[100] digest_0.6.28        httpuv_1.6.3         R.utils_2.11.0      
+[103] stats4_4.1.2         munsell_0.5.0        bslib_0.3.1         </code></pre>
+</div>
 </div>
 </div>
 
