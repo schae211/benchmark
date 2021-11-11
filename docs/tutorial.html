@@ -513,23 +513,22 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688targetblank2d12fa2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688" target="_blank">2d12fa2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4targetblank1b95b7ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4" target="_blank">1b95b7c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688targetblank2d12fa2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4targetblank1b95b7ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/2d12fa2cfed35b2ceea4bc2d7ea885b6bf280688" target="_blank">2d12fa2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4" target="_blank">1b95b7c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
     Ignored:    analysis/results/
     Ignored:    data/coord.RDS
     Ignored:    data/graph.clusters.RDS
@@ -550,13 +549,8 @@ Ignored files:
     Ignored:    misty_results/
     Ignored:    results/
 
-Untracked files:
-    Untracked:  analysis/merfish_prep.Rmd
-    Untracked:  analysis/merfish_test.Rmd
-
 Unstaged changes:
     Modified:   .gitignore
-    Modified:   analysis/index.Rmd
     Modified:   analysis/tutorial.Rmd
 
 </code></pre>
@@ -596,6 +590,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/analysis/tutorial.Rmd" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+<td>
+added tutorial
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/schae211/benchmark/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/tutorial.html" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+<td>
+added tutorial
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -638,7 +666,7 @@ added tutorial
 </div>
 </div>
 <p>Setup.</p>
-<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 knitr::opts_knit$set(root.dir = &quot;~/Saez/workflowr_projects/benchmark&quot;)</code></pre>
 <p>Loaded packages.</p>
 <pre class="r"><code>suppressPackageStartupMessages(library(mistyR))
@@ -662,27 +690,27 @@ plan(&quot;multisession&quot;, workers=14)</code></pre>
 pos &lt;- synthetic$synthetic1 %&gt;% dplyr::select(c(row, col))
 misty.views &lt;- expr %&gt;%
   create_initial_view() %&gt;%
-  add_paraview(l = 10, positions = pos)</code></pre>
-<pre><code>
+  add_paraview(l = 10, positions = pos)
+
 Generating paraview</code></pre>
 </div>
 <div id="running-misty" class="section level2">
 <h2>Running MISty</h2>
 <p>The default ML algorithm is still random forest and thus we do not even have to specify it.</p>
 <pre class="r"><code>misty.run &lt;- misty.views %&gt;%
-  run_misty()</code></pre>
-<pre><code>
+  run_misty()
+
 Training models</code></pre>
 <p>To make things more explicitly the above call is the same as:</p>
 <p>The model.name should be supplied if you want to cache some results (which is not done by default).</p>
 <pre class="r"><code>misty.run &lt;- misty.views %&gt;%
   run_misty(model.function = ranger_model, 
-            model.name = &quot;ranger_model&quot;)</code></pre>
-<pre><code>
+            model.name = &quot;ranger_model&quot;)
+
 Training models</code></pre>
 <p>But what is this <code>ranger_model</code> actually?</p>
-<pre class="r"><code>ranger_model</code></pre>
-<pre><code>function(view_data, target, seed, ...) {
+<pre class="r"><code>ranger_model
+function(view_data, target, seed, ...) {
   
   ellipsis.args &lt;- list(...)
   
@@ -709,7 +737,7 @@ Training models</code></pre>
   list(unbiased.predictions = predictions, 
        importances = model$variable.importance)
 }
-&lt;bytecode: 0x5645bab84148&gt;
+&lt;bytecode: 0x55dc2002cc20&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <p>It is a function that takes in the data of a single view, for example the <code>paraview</code> -</p>
 <pre class="r"><code>misty.views$paraview.10$data %&gt;% slice_head(n=6)</code></pre>
@@ -759,8 +787,8 @@ predictions &lt;- tibble::tibble(index = seq_len(nrow(view_data)),
 
 list(unbiased.predictions = predictions, 
      importances = model$variable.importance) %&gt;%
-  str() # add str here to show output</code></pre>
-<pre><code>List of 2
+  str() # add str here to show output
+List of 2
  $ unbiased.predictions: tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
   ..$ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ prediction: num [1:4205] 0.141 0.115 0.266 0.673 0.494 ...
@@ -771,38 +799,151 @@ list(unbiased.predictions = predictions,
 <pre class="r"><code>tictoc::tic()
 misty.run &lt;- misty.views %&gt;%
   run_misty(model.function = ranger_model, num.trees = 500, 
-            splitrule = &quot;extratrees&quot;)</code></pre>
-<pre><code>
-Training models</code></pre>
-<pre class="r"><code>tictoc::toc()</code></pre>
-<pre><code>4.591 sec elapsed</code></pre>
+            splitrule = &quot;extratrees&quot;)
+
+Training models
+tictoc::toc()
+4.575 sec elapsed</code></pre>
 <pre class="r"><code>tictoc::tic()
 misty.run &lt;- misty.views %&gt;%
   run_misty(model.function = ranger_model, num.trees = 100, 
-            splitrule = &quot;extratrees&quot;)</code></pre>
-<pre><code>
-Training models</code></pre>
-<pre class="r"><code>tictoc::toc()</code></pre>
-<pre><code>1.384 sec elapsed</code></pre>
+            splitrule = &quot;extratrees&quot;)
+
+Training models
+tictoc::toc()
+1.327 sec elapsed</code></pre>
 </div>
 <div id="misty-results" class="section level2">
 <h2>MISTy results</h2>
 <p>On the side of processing and plotting the results nothing has changed.</p>
-<pre class="r"><code>misty.results &lt;- collect_results(misty.run)</code></pre>
-<pre><code>
-Collecting improvements</code></pre>
-<pre><code>
-Collecting contributions</code></pre>
-<pre><code>
-Collecting importances</code></pre>
-<pre><code>
-Aggregating</code></pre>
-<pre class="r"><code>misty.results %&gt;%
+<pre class="r"><code>misty.results &lt;- collect_results(misty.run)
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+misty.results %&gt;%
   plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
   plot_view_contributions() %&gt;%
-  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
-<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
-<p><img src="figure/tutorial.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
+  plot_interaction_heatmap(&quot;para.10&quot;)
+Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-13-1.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-2">
+Past versions of unnamed-chunk-13-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-13-2.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-3">
+Past versions of unnamed-chunk-13-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-13-3.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Below all the supplied function will be desribed in more detail.</p>
 </div>
 </div>
@@ -813,8 +954,8 @@ Aggregating</code></pre>
 <ul>
 <li>Unbiased predictions are based on OOB predictions.</li>
 </ul>
-<pre class="r"><code>ranger_model</code></pre>
-<pre><code>function(view_data, target, seed, ...) {
+<pre class="r"><code>ranger_model
+function(view_data, target, seed, ...) {
   
   ellipsis.args &lt;- list(...)
   
@@ -841,7 +982,7 @@ Aggregating</code></pre>
   list(unbiased.predictions = predictions, 
        importances = model$variable.importance)
 }
-&lt;bytecode: 0x5645bab84148&gt;
+&lt;bytecode: 0x55dc2002cc20&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model</li>
@@ -852,19 +993,132 @@ Aggregating</code></pre>
   collect_results() %&gt;%
   plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
   plot_view_contributions() %&gt;%
-  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
-<pre><code>
-Training models</code></pre>
-<pre><code>
-Collecting improvements</code></pre>
-<pre><code>
-Collecting contributions</code></pre>
-<pre><code>
-Collecting importances</code></pre>
-<pre><code>
-Aggregating</code></pre>
-<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
-<p><img src="figure/tutorial.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-15-3.png" width="672" style="display: block; margin: auto;" /></p>
+  plot_interaction_heatmap(&quot;para.10&quot;)
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-15-1.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-2">
+Past versions of unnamed-chunk-15-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-15-2.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-15-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-3">
+Past versions of unnamed-chunk-15-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-15-3.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="bagged-mars" class="section level2">
 <h2>Bagged MARS</h2>
@@ -873,8 +1127,8 @@ Aggregating</code></pre>
 <li><p>Unbiased predictions are based on OOB predictions.</p></li>
 <li><p>The name <code>bagged_earth_model</code> comes from the fact that the name mars is protected and thus the implementation of the algorithm is called <code>earth</code> (by Stephen Milborrow, derived from mda::mars by Trevor Hastie and Robert Tibshirani)</p></li>
 </ul>
-<pre class="r"><code>bagged_earth_model</code></pre>
-<pre><code>function(view_data, target, seed, n.vars = NULL, 
+<pre class="r"><code>bagged_earth_model
+function(view_data, target, seed, n.vars = NULL, 
                                n.learners = 100, ...) {
   
   ellipsis.args &lt;- list(...)
@@ -939,7 +1193,7 @@ Aggregating</code></pre>
   list(unbiased.predictions = predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x5645c04cc380&gt;
+&lt;bytecode: 0x55dc2774c890&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -950,27 +1204,140 @@ Aggregating</code></pre>
   collect_results() %&gt;%
   plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
   plot_view_contributions() %&gt;%
-  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
-<pre><code>
-Training models</code></pre>
-<pre><code>
-Collecting improvements</code></pre>
-<pre><code>
-Collecting contributions</code></pre>
-<pre><code>
-Collecting importances</code></pre>
-<pre><code>
-Aggregating</code></pre>
-<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
-<p><img src="figure/tutorial.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-17-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-17-3.png" width="672" style="display: block; margin: auto;" /></p>
+  plot_interaction_heatmap(&quot;para.10&quot;)
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-17-1.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-17-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-2">
+Past versions of unnamed-chunk-17-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-17-2.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-17-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-3">
+Past versions of unnamed-chunk-17-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-17-3.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="bagged-linear-model" class="section level2">
 <h2>Bagged Linear Model</h2>
 <ul>
 <li>Unbiased predictions are based on OOB predictions.</li>
 </ul>
-<pre class="r"><code>bagged_linear_model</code></pre>
-<pre><code>function(view_data, target, seed, n.vars = NULL, 
+<pre class="r"><code>bagged_linear_model
+function(view_data, target, seed, n.vars = NULL, 
                                n.learners = 100, ...) {
   
   ellipsis.args &lt;- list(...)
@@ -1036,7 +1403,7 @@ Aggregating</code></pre>
   list(unbiased.predictions = predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x5645bf4f91b8&gt;
+&lt;bytecode: 0x55dc273f3c20&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1047,27 +1414,140 @@ Aggregating</code></pre>
   collect_results() %&gt;%
   plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
   plot_view_contributions() %&gt;%
-  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
-<pre><code>
-Training models</code></pre>
-<pre><code>
-Collecting improvements</code></pre>
-<pre><code>
-Collecting contributions</code></pre>
-<pre><code>
-Collecting importances</code></pre>
-<pre><code>
-Aggregating</code></pre>
-<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
-<p><img src="figure/tutorial.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-19-3.png" width="672" style="display: block; margin: auto;" /></p>
+  plot_interaction_heatmap(&quot;para.10&quot;)
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-19-1.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-2">
+Past versions of unnamed-chunk-19-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-19-2.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-19-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-3">
+Past versions of unnamed-chunk-19-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-19-3.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="boosted-trees" class="section level2">
 <h2>Boosted Trees</h2>
 <ul>
 <li>Unbiased predictions are based on k-fold cross-validation (aggregarted predictions for the holdout sets)</li>
 </ul>
-<pre class="r"><code>boosted_trees_model</code></pre>
-<pre><code>function(view_data, target, seed, k = 10, ...) {
+<pre class="r"><code>boosted_trees_model
+function(view_data, target, seed, k = 10, ...) {
   
   ellipsis.args &lt;- list(...)
   
@@ -1141,7 +1621,7 @@ Aggregating</code></pre>
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x5645b955c388&gt;
+&lt;bytecode: 0x55dc266fa290&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1152,19 +1632,132 @@ Aggregating</code></pre>
   collect_results() %&gt;%
   plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
   plot_view_contributions() %&gt;%
-  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
-<pre><code>
-Training models</code></pre>
-<pre><code>
-Collecting improvements</code></pre>
-<pre><code>
-Collecting contributions</code></pre>
-<pre><code>
-Collecting importances</code></pre>
-<pre><code>
-Aggregating</code></pre>
-<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
-<p><img src="figure/tutorial.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-21-3.png" width="672" style="display: block; margin: auto;" /></p>
+  plot_interaction_heatmap(&quot;para.10&quot;)
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-21-1.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-2">
+Past versions of unnamed-chunk-21-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-21-2.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-21-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-3">
+Past versions of unnamed-chunk-21-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-21-3.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="support-vector-machine" class="section level2">
 <h2>Support Vector Machine</h2>
@@ -1172,8 +1765,8 @@ Aggregating</code></pre>
 <li><p>Unbiased predictions are based on k-fold cross-validation (aggregarted predictions for the holdout sets)</p></li>
 <li><p>Importantly, we added an approximation argument to the implementation which basically says at what fraction of the training instances the SVM will be trained on. This drastically decreases the training time and does not really effect the performance.</p></li>
 </ul>
-<pre class="r"><code>svm_model</code></pre>
-<pre><code>function(view_data, target, seed, approx = TRUE, 
+<pre class="r"><code>svm_model
+function(view_data, target, seed, approx = TRUE, 
                         approx.frac = 0.2, k = 10, ...) {
   
   ellipsis.args &lt;- list(...)
@@ -1236,7 +1829,7 @@ Aggregating</code></pre>
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x5645b6fa7ff8&gt;
+&lt;bytecode: 0x55dc271a80e8&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1247,19 +1840,132 @@ Aggregating</code></pre>
   collect_results() %&gt;%
   plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
   plot_view_contributions() %&gt;%
-  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
-<pre><code>
-Training models</code></pre>
-<pre><code>
-Collecting improvements</code></pre>
-<pre><code>
-Collecting contributions</code></pre>
-<pre><code>
-Collecting importances</code></pre>
-<pre><code>
-Aggregating</code></pre>
-<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
-<p><img src="figure/tutorial.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-23-3.png" width="672" style="display: block; margin: auto;" /></p>
+  plot_interaction_heatmap(&quot;para.10&quot;)
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-23-1.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-2">
+Past versions of unnamed-chunk-23-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-23-2.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-23-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-3">
+Past versions of unnamed-chunk-23-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-23-3.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="neural-network" class="section level2">
 <h2>Neural Network</h2>
@@ -1267,8 +1973,8 @@ Aggregating</code></pre>
 <li><p>Unbiased predictions are based on k-fold cross-validation (aggregarted predictions for the holdout sets)</p></li>
 <li><p>Importantly, the feature importances is here calculated based on a global model agnostic method. More specifically each feature is permuated (one at a time) and then the reduction in preditive performance is used as measure for the variable importance.</p></li>
 </ul>
-<pre class="r"><code>nn_model</code></pre>
-<pre><code>function(view_data, target, seed, approx = TRUE, 
+<pre class="r"><code>nn_model
+function(view_data, target, seed, approx = TRUE, 
                          approx.frac = 0.2, k = 10, ...) {
   
   ellipsis.args &lt;- list(...)
@@ -1344,7 +2050,7 @@ Aggregating</code></pre>
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x5645b7f962a8&gt;
+&lt;bytecode: 0x55dc24c849f0&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1356,19 +2062,132 @@ Aggregating</code></pre>
   collect_results() %&gt;%
   plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
   plot_view_contributions() %&gt;%
-  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
-<pre><code>
-Training models</code></pre>
-<pre><code>
-Collecting improvements</code></pre>
-<pre><code>
-Collecting contributions</code></pre>
-<pre><code>
-Collecting importances</code></pre>
-<pre><code>
-Aggregating</code></pre>
-<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
-<p><img src="figure/tutorial.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-25-3.png" width="672" style="display: block; margin: auto;" /></p>
+  plot_interaction_heatmap(&quot;para.10&quot;)
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-25-1.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-2">
+Past versions of unnamed-chunk-25-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-25-2.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-25-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-3">
+Past versions of unnamed-chunk-25-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-25-3.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="linear-model" class="section level2">
 <h2>Linear Model</h2>
@@ -1376,8 +2195,8 @@ Aggregating</code></pre>
 <li><p>Unbiased predictions are based on k-fold cross-validation (aggregated predictions for the holdout sets)</p></li>
 <li><p>In particular this model was supplied to understand more easily, how a view-specifc model based on cross-validation can be constructed</p></li>
 </ul>
-<pre class="r"><code>linear_model</code></pre>
-<pre><code>function(view_data, target, seed, k = 10, ...) {
+<pre class="r"><code>linear_model
+function(view_data, target, seed, k = 10, ...) {
   
   ellipsis.args &lt;- list(...)
   
@@ -1424,7 +2243,7 @@ Aggregating</code></pre>
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x5645b81ce358&gt;
+&lt;bytecode: 0x55dc25075f70&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1435,19 +2254,132 @@ Aggregating</code></pre>
   collect_results() %&gt;%
   plot_improvement_stats(&quot;gain.R2&quot;) %&gt;%
   plot_view_contributions() %&gt;%
-  plot_interaction_heatmap(&quot;para.10&quot;)</code></pre>
-<pre><code>
-Training models</code></pre>
-<pre><code>
-Collecting improvements</code></pre>
-<pre><code>
-Collecting contributions</code></pre>
-<pre><code>
-Collecting importances</code></pre>
-<pre><code>
-Aggregating</code></pre>
-<pre><code>Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
-<p><img src="figure/tutorial.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/tutorial.Rmd/unnamed-chunk-27-3.png" width="672" style="display: block; margin: auto;" /></p>
+  plot_interaction_heatmap(&quot;para.10&quot;)
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-27-1.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-2">
+Past versions of unnamed-chunk-27-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-27-2.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-27-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-3">
+Past versions of unnamed-chunk-27-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-27-3.png" target="_blank">1b95b7c</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="how-to-construct-you-own-function" class="section level1">
@@ -1494,8 +2426,8 @@ Aggregating</code></pre>
 <pre class="r"><code>res.list &lt;- ranger_model(view_data = misty.views$intraview$data, 
                          target = &quot;ECM&quot;, 
                          seed = 42)
-str(res.list)</code></pre>
-<pre><code>List of 2
+str(res.list)
+List of 2
  $ unbiased.predictions: tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
   ..$ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ prediction: num [1:4205] 0.0563 0.0952 0.1236 0.169 0.1617 ...
@@ -1513,8 +2445,8 @@ str(res.list)</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Importances</li>
 </ol>
-<pre class="r"><code>res.list$importances</code></pre>
-<pre><code>     ligA      ligB      ligC      ligD     protE     protF     prodA     prodB 
+<pre class="r"><code>res.list$importances
+     ligA      ligB      ligC      ligD     protE     protF     prodA     prodB 
  27.46336  26.12132  43.51203  16.32403 248.34468  71.45277  42.54984  66.75963 
     prodC     prodD 
  42.15216  32.24817 </code></pre>
@@ -1537,13 +2469,13 @@ view_data %&gt;% slice_head(n=6)</code></pre>
   </script>
 </div>
 <p>So in the end the function should call <code>rpart</code> with this formula:</p>
-<pre class="r"><code>as.formula(paste0(target, &quot;~ .&quot;))</code></pre>
-<pre><code>ECM ~ .</code></pre>
+<pre class="r"><code>as.formula(paste0(target, &quot;~ .&quot;))
+ECM ~ .</code></pre>
 <pre class="r"><code>test.model &lt;- rpart::rpart(formula = as.formula(paste0(target, &quot;~ .&quot;)), 
                            data = view_data
 )
-summary(test.model)</code></pre>
-<pre><code>Call:
+summary(test.model)
+Call:
 rpart::rpart(formula = as.formula(paste0(target, &quot;~ .&quot;)), data = view_data)
   n= 4205 
 
@@ -1584,8 +2516,8 @@ folds &lt;- withr::with_seed(
   seed,
   caret::createFolds(seq.int(1, nrow(view_data)), k = k)
 )
-str(folds)</code></pre>
-<pre><code>List of 5
+str(folds)
+List of 5
  $ Fold1: int [1:842] 5 12 17 32 39 50 55 58 66 70 ...
  $ Fold2: int [1:841] 4 6 13 18 19 20 24 26 36 40 ...
  $ Fold3: int [1:841] 2 7 9 14 23 27 42 43 57 62 ...
@@ -1608,8 +2540,8 @@ str(folds)</code></pre>
   
   tibble::tibble(index = holdout, prediction = label.hat)
 }) %&gt;% dplyr::arrange(index)
-str(holdout.predictions)</code></pre>
-<pre><code>tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
+str(holdout.predictions)
+tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
  $ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
  $ prediction: Named num [1:4205] 0.238 0.237 0.238 0.24 0.236 ...
   ..- attr(*, &quot;names&quot;)= chr [1:4205] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...</code></pre>
@@ -1620,13 +2552,13 @@ str(holdout.predictions)</code></pre>
 whole.model &lt;- do.call(rpart::rpart, algo.arguments.wm)
 
 importances &lt;- whole.model$variable.importance
-importances</code></pre>
-<pre><code>   prodB     ligB    protE     ligC    prodC    protF 
+importances
+   prodB     ligB    protE     ligC    prodC    protF 
 9.554254 8.964886 2.216890 2.114156 1.724848 1.286877 </code></pre>
 <p>In the end we need to return everything in one list with the following names:</p>
 <pre class="r"><code>list(unbiased.predictions = holdout.predictions, 
-       importances = importances) %&gt;% str # again added str for visualization</code></pre>
-<pre><code>List of 2
+       importances = importances) %&gt;% str # again added str for visualization
+List of 2
  $ unbiased.predictions: tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
   ..$ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ prediction: Named num [1:4205] 0.238 0.237 0.238 0.24 0.236 ...
@@ -1670,8 +2602,8 @@ importances</code></pre>
 }</code></pre>
 <p>And it works perfectly.</p>
 <pre class="r"><code>test &lt;- reg_tree_model_1(view_data = view_data)
-str(test)</code></pre>
-<pre><code>List of 2
+str(test)
+List of 2
  $ unbiased.predictions: tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
   ..$ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ prediction: Named num [1:4205] 0.238 0.237 0.238 0.24 0.236 ...
@@ -1725,8 +2657,8 @@ str(test)</code></pre>
 }</code></pre>
 <p>Now check by supplying some parameters to <code>rpart.control</code>. For example changing the complexity parameter <code>cp</code> from 0.01 to 0.001. In regression setting this means that if a split does not decreae the <span class="math inline">\(R^2\)</span> by at least a factor of <code>cp</code>, the split is not attempted.</p>
 <pre class="r"><code>test2 &lt;- reg_tree_model_2(view_data = view_data, cp = 0.001)
-str(test2)</code></pre>
-<pre><code>List of 2
+str(test2)
+List of 2
  $ unbiased.predictions: tibble [4,205 × 2] (S3: tbl_df/tbl/data.frame)
   ..$ index     : int [1:4205] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ prediction: Named num [1:4205] 0.154 0.16 0.154 0.209 0.594 ...
@@ -1736,13 +2668,13 @@ str(test2)</code></pre>
 <p>For the sake of it we could compare the performance of both test models.</p>
 <pre class="r"><code># Model 1
 caret::defaultSummary(data = data.frame(obs = target.vector,
-                                        pred = test$unbiased.predictions$prediction))</code></pre>
-<pre><code>       RMSE    Rsquared         MAE 
-0.387809572 0.008688747 0.279142858 </code></pre>
-<pre class="r"><code># Model 2
+                                        pred = test$unbiased.predictions$prediction))
+       RMSE    Rsquared         MAE 
+0.387809572 0.008688747 0.279142858 
+# Model 2
 caret::defaultSummary(data = data.frame(obs = target.vector,
-                                        pred = test2$unbiased.predictions$prediction))</code></pre>
-<pre><code>      RMSE   Rsquared        MAE 
+                                        pred = test2$unbiased.predictions$prediction))
+      RMSE   Rsquared        MAE 
 0.42890871 0.01542591 0.29069186 </code></pre>
 </div>
 </div>
@@ -1893,8 +2825,8 @@ old_nn_model = function(view_data, target, seed, approx = TRUE,
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.2 (2021-11-01)
+<pre class="r"><code>sessionInfo()
+R version 4.1.2 (2021-11-01)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 20.04.3 LTS
 
