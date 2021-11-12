@@ -52,14 +52,75 @@ functions <- c("RF" = ranger_model, "BT" = boosted_trees_model,
                "LMBAG" = bagged_linear_model, "LM" = linear_model)
 ```
 
+Running all functions on all samples on all markers.
 
 ```{r}
-misty.function <- map2(functions, names(functions), function(fun, fun.name) {
-  misty.results <- map(misty.views.smp, function(sample.views) {
-  run_misty(views = sample.views, 
-            results.folder = paste0("misty_results/synthetic/",fun.name), 
-            model.function = functions, seed = 42, cv.folds = 10)
+if ("misty.benchmark.synthetic.RDS" %in% list.files("misty_results")) {
+  misty.function <- readRDS("misty_results/misty.benchmark.synthetic.RDS")
+} else {
+  misty.function <- map2(functions, names(functions), function(fun, fun.name) {
+    results.folders <- map2(misty.views.smp, names(misty.views.smp), 
+                          function(sample.views, sample.name) {
+      run_misty(views = sample.views, 
+                results.folder = paste0("misty_results/mibi_tnbc/",
+                                        fun.name,"/",sample.name), 
+                model.function = fun, seed = 42, cv.folds = 10)
+    })
+    misty.results <- collect_results(results.folders)
   })
-})
+  saveRDS(misty.function, "misty_results/misty.benchmark.synthetic.RDS")
+}
+```
+
+Collapsing performance results in one tibble.
+
+```{r}
+misty.function.performance <- map2_dfr(misty.function, names(misty.function), 
+                                       ~ .x$improvements %>% mutate(fun = .y))
+```
+
+Comparing the performances.
+
+```{r}
+# colors
+fun.colors <- c("RF" = "firebrick", "BT" = "blueviolet", "NN" = "steelblue",
+                "SVM" = "orange", "MARS" = "olivedrab", "LMBAG" = "blue",
+                "LM" = "darkgoldenrod")
+```
+
+```{r fig.width=12, fig.height=6}
+misty.function.performance %>%
+  filter(measure == "multi.R2") %>%
+  mutate(fun = factor(fun, levels = c("RF", "BT", "NN", "SVM", "MARS", "LMBAG", "LM")), 
+         sample = NULL, measure = NULL) %>%
+  ggplot() +
+  geom_boxplot(aes(x = target, y = value, col = fun)) +
+  labs(x = "Target", y = "Multi.R2") +
+  scale_color_manual(values = fun.colors)
+```
+
+```{r fig.height=8, fig.width=8}
+misty.function.performance %>%
+  filter(measure == "multi.R2") %>%
+  mutate(fun = factor(fun, levels = c("RF", "BT", "NN", "SVM", "MARS", "LMBAG", "LM")), 
+         sample = NULL, measure = NULL) %>%
+  ggplot() +
+  geom_boxplot(aes(x = fun, y = value, col = fun)) +
+  labs(x = "Target", y = "Multi.R2") +
+  scale_color_manual(values = fun.colors) +
+  facet_wrap(~ target, ncol=3, scale="free") +
+  theme(axis.text.x = element_blank())
+```
+
+Summary statistics
+
+```{r}
+misty.function.performance %>%
+  filter(measure == "multi.R2") %>%
+  mutate(fun = factor(fun, levels = c("RF", "BT", "NN", "SVM", "MARS", "LMBAG", "LM")), 
+         sample = NULL, measure = NULL) %>%
+  group_by(fun) %>%
+  summarise(mean.R2 = mean(value), sd.R2 = sd(value)) %>%
+  arrange(desc(mean.R2))
 ```
 

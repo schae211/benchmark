@@ -44,7 +44,6 @@ if (subsampling) {
 }
 ```
 
-
 # Introduction
 
 To extend the functionality of MISTy a new API was implemented to model
@@ -65,7 +64,41 @@ cv.folds <- 10
 seed <- 42
 ```
 
-TOOD - re-run MISTy with proper function calls!
+# Running MISTy
+
+```{r}
+functions <- c("RF" = ranger_model, "BT" = boosted_trees_model, 
+               "NN" = nn_model, "SVM" = svm_model, "MARS" = bagged_earth_model,
+               "LMBAG" = bagged_linear_model, "LM" = linear_model)
+```
+
+```{r}
+if ("misty.benchmark.mibi_tnbc.RDS" %in% list.files("misty_results")) {
+  misty.function <- readRDS("misty_results/misty.benchmark.mibi_tnbc.RDS")
+} else {
+  misty.function <- map2(functions, names(functions), function(fun, fun.name) {
+    results.folders <- map2(misty.views.smp, names(misty.views.smp), 
+                          function(sample.views, sample.name) {
+      run_misty(views = sample.views, 
+                results.folder = paste0("misty_results/mibi_tnbc/",
+                                        fun.name,"/",sample.name), 
+                model.function = fun, seed = 42, cv.folds = 10)
+    })
+    misty.results <- collect_results(results.folders)
+  })
+  saveRDS(misty.function, "misty_results/misty.benchmark.mibi_tnbc.RDS")
+}
+```
+
+```{r}
+#misty.function ...
+```
+
+
+
+
+
+OLD STUFF BELOW
 
 ## Random Forest
 

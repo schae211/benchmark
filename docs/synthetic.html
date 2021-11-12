@@ -38,6 +38,8 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -347,7 +349,13 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/schae211/benchmark">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -390,10 +398,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-05
+<strong>Last updated:</strong> 2021-11-12
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>benchmark/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -409,12 +417,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -505,24 +513,26 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongba02018"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> ba02018 </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreea3507bd5a761cbeca86d8c4ae2dd4ada9c96f561targetblanka3507bda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561" target="_blank">a3507bd</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongba02018" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreea3507bd5a761cbeca86d8c4ae2dd4ada9c96f561targetblanka3507bda" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version ba02018. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561" target="_blank">a3507bd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/results/
     Ignored:    data/coord.RDS
     Ignored:    data/graph.clusters.RDS
+    Ignored:    data/merfish_benchmark/
     Ignored:    data/mibi_benchmark/
     Ignored:    data/mibi_cellData.csv
     Ignored:    data/mibi_coldata.RDS
@@ -530,15 +540,18 @@ Ignored files:
     Ignored:    data/mibi_expression.RDS
     Ignored:    data/mibi_lmbag.RDS
     Ignored:    data/mibi_misty_views.RDS
+    Ignored:    data/mibi_mmc2.xlsx
     Ignored:    data/mibi_patient_class.csv
     Ignored:    data/mibi_ranger.RDS
     Ignored:    data/mibi_rowdata.RDS
+    Ignored:    data/mibi_tiffs/
     Ignored:    data/mibi_tumor.immune.contacts.RDS
+    Ignored:    misty_results/
+    Ignored:    results/
 
-Untracked files:
-    Untracked:  data/mibi_mmc2.xlsx
-    Untracked:  data/mibi_tiffs/
-    Untracked:  results/
+Unstaged changes:
+    Modified:   analysis/mibi.Rmd
+    Modified:   analysis/synthetic.Rmd
 
 </code></pre>
 <p>
@@ -582,7 +595,41 @@ Message
 Rmd
 </td>
 <td>
-3bc82f0
+<a href="https://github.com/schae211/benchmark/blob/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561/analysis/synthetic.Rmd" target="_blank">a3507bd</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+<td>
+added section of approximations and overfitting nn
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/schae211/benchmark/f6f12c0a7dbb12d724ae0d755f4919ff7a0ee6c4/docs/synthetic.html" target="_blank">f6f12c0</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/3bc82f058bf2fdf08c62be383c69cda9413848be/analysis/synthetic.Rmd" target="_blank">3bc82f0</a>
 </td>
 <td>
 schae211
@@ -612,11 +659,103 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(factoextra))
 plan(&quot;multisession&quot;, workers=14)</code></pre>
 <p>Loading data</p>
-<pre class="r"><code># TODO</code></pre>
+<pre class="r"><code>data(&quot;synthetic&quot;)</code></pre>
 </div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>To extend the functionality of MISTy a new API was implemented to model the different views which are ultimatively combined in a linear meta model. This analysis is supposed to test how these new models work on real-world datasets.</p>
+</div>
+<div id="misty-views" class="section level1">
+<h1>MISTy Views</h1>
+<pre class="r"><code>misty.views.smp &lt;- map(synthetic, function(sample) {
+  sample.expr &lt;- sample %&gt;% select(-c(row, col, type))
+  sample.pos &lt;- sample %&gt;% select(row, col)
+  create_initial_view(sample.expr) %&gt;% add_paraview(sample.pos, l = 10)
+})</code></pre>
+<pre><code>
+Generating paraview
+
+Generating paraview
+
+Generating paraview
+
+Generating paraview
+
+Generating paraview
+
+Generating paraview
+
+Generating paraview
+
+Generating paraview
+
+Generating paraview
+
+Generating paraview</code></pre>
+</div>
+<div id="running-misty" class="section level1">
+<h1>Running MISTy</h1>
+<p>Naming our model functions.</p>
+<pre class="r"><code>functions &lt;- c(&quot;RF&quot; = ranger_model, &quot;BT&quot; = boosted_trees_model, 
+               &quot;NN&quot; = nn_model, &quot;SVM&quot; = svm_model, &quot;MARS&quot; = bagged_earth_model,
+               &quot;LMBAG&quot; = bagged_linear_model, &quot;LM&quot; = linear_model)</code></pre>
+<p>Running all functions on all samples on all markers.</p>
+<pre class="r"><code>if (&quot;misty.benchmark.synthetic.RDS&quot; %in% list.files(&quot;misty_results&quot;)) {
+  misty.function &lt;- readRDS(&quot;misty_results/misty.benchmark.synthetic.RDS&quot;)
+} else {
+  misty.function &lt;- map2(functions, names(functions), function(fun, fun.name) {
+    results.folders &lt;- map2(misty.views.smp, names(misty.views.smp), 
+                          function(sample.views, sample.name) {
+      run_misty(views = sample.views, 
+                results.folder = paste0(&quot;misty_results/mibi_tnbc/&quot;,
+                                        fun.name,&quot;/&quot;,sample.name), 
+                model.function = fun, seed = 42, cv.folds = 10)
+    })
+    misty.results &lt;- collect_results(results.folders)
+  })
+  saveRDS(misty.function, &quot;misty_results/misty.benchmark.synthetic.RDS&quot;)
+}</code></pre>
+<p>Collapsing performance results in one tibble.</p>
+<pre class="r"><code>misty.function.performance &lt;- map2_dfr(misty.function, names(misty.function), 
+                                       ~ .x$improvements %&gt;% mutate(fun = .y))</code></pre>
+<p>Comparing the performances.</p>
+<pre class="r"><code># colors
+fun.colors &lt;- c(&quot;RF&quot; = &quot;firebrick&quot;, &quot;BT&quot; = &quot;blueviolet&quot;, &quot;NN&quot; = &quot;steelblue&quot;,
+                &quot;SVM&quot; = &quot;orange&quot;, &quot;MARS&quot; = &quot;olivedrab&quot;, &quot;LMBAG&quot; = &quot;blue&quot;,
+                &quot;LM&quot; = &quot;darkgoldenrod&quot;)</code></pre>
+<pre class="r"><code>misty.function.performance %&gt;%
+  filter(measure == &quot;multi.R2&quot;) %&gt;%
+  mutate(fun = factor(fun, levels = c(&quot;RF&quot;, &quot;BT&quot;, &quot;NN&quot;, &quot;SVM&quot;, &quot;MARS&quot;, &quot;LMBAG&quot;, &quot;LM&quot;)), 
+         sample = NULL, measure = NULL) %&gt;%
+  ggplot() +
+  geom_boxplot(aes(x = target, y = value, col = fun)) +
+  labs(x = &quot;Target&quot;, y = &quot;Multi.R2&quot;) +
+  scale_color_manual(values = fun.colors)</code></pre>
+<p><img src="figure/synthetic.Rmd/unnamed-chunk-8-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>misty.function.performance %&gt;%
+  filter(measure == &quot;multi.R2&quot;) %&gt;%
+  mutate(fun = factor(fun, levels = c(&quot;RF&quot;, &quot;BT&quot;, &quot;NN&quot;, &quot;SVM&quot;, &quot;MARS&quot;, &quot;LMBAG&quot;, &quot;LM&quot;)), 
+         sample = NULL, measure = NULL) %&gt;%
+  ggplot() +
+  geom_boxplot(aes(x = fun, y = value, col = fun)) +
+  labs(x = &quot;Target&quot;, y = &quot;Multi.R2&quot;) +
+  scale_color_manual(values = fun.colors) +
+  facet_wrap(~ target, ncol=3, scale=&quot;free&quot;) +
+  theme(axis.text.x = element_blank())</code></pre>
+<p><img src="figure/synthetic.Rmd/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Summary statistics</p>
+<pre class="r"><code>misty.function.performance %&gt;%
+  filter(measure == &quot;multi.R2&quot;) %&gt;%
+  mutate(fun = factor(fun, levels = c(&quot;RF&quot;, &quot;BT&quot;, &quot;NN&quot;, &quot;SVM&quot;, &quot;MARS&quot;, &quot;LMBAG&quot;, &quot;LM&quot;)), 
+         sample = NULL, measure = NULL) %&gt;%
+  group_by(fun) %&gt;%
+  summarise(mean.R2 = mean(value), sd.R2 = sd(value)) %&gt;%
+  arrange(desc(mean.R2))</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["fun"],"name":[1],"type":["fct"],"align":["left"]},{"label":["mean.R2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sd.R2"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"RF","2":"96.56229","3":"3.630176"},{"1":"BT","2":"96.14255","3":"4.564308"},{"1":"MARS","2":"93.66407","3":"5.456405"},{"1":"NN","2":"90.66986","3":"7.783347"},{"1":"LMBAG","2":"89.91070","3":"7.520931"},{"1":"LM","2":"89.90869","3":"7.521815"},{"1":"SVM","2":"89.47320","3":"7.903064"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -648,26 +787,28 @@ other attached packages:
  [1] factoextra_1.0.7 forcats_0.5.1    stringr_1.4.0    dplyr_1.0.7     
  [5] purrr_0.3.4      readr_2.0.2      tidyr_1.1.4      tibble_3.1.5    
  [9] ggplot2_3.3.5    tidyverse_1.3.1  future_1.22.1    mistyR_1.3.1    
-[13] workflowr_1.6.2 
 
 loaded via a namespace (and not attached):
- [1] ggrepel_0.9.1     Rcpp_1.0.7        lubridate_1.8.0   listenv_0.8.0    
- [5] assertthat_0.2.1  rprojroot_2.0.2   digest_0.6.28     utf8_1.2.2       
- [9] parallelly_1.28.1 cellranger_1.1.0  R6_2.5.1          backports_1.3.0  
-[13] reprex_2.0.1      evaluate_0.14     httr_1.4.2        highr_0.9        
-[17] pillar_1.6.3      rlang_0.4.12      readxl_1.3.1      rstudioapi_0.13  
-[21] whisker_0.4       jquerylib_0.1.4   rmarkdown_2.11    munsell_0.5.0    
-[25] broom_0.7.9       compiler_4.1.2    httpuv_1.6.3      modelr_0.1.8     
-[29] xfun_0.26         pkgconfig_2.0.3   globals_0.14.0    htmltools_0.5.2  
-[33] tidyselect_1.1.1  codetools_0.2-18  fansi_0.5.0       withr_2.4.2      
-[37] tzdb_0.1.2        crayon_1.4.1      dbplyr_2.1.1      later_1.3.0      
-[41] grid_4.1.2        jsonlite_1.7.2    gtable_0.3.0      lifecycle_1.0.1  
-[45] DBI_1.1.1         git2r_0.28.0      magrittr_2.0.1    scales_1.1.1     
-[49] cli_3.0.1         stringi_1.7.5     fs_1.5.0          promises_1.2.0.1 
-[53] xml2_1.3.2        bslib_0.3.1       ellipsis_0.3.2    generics_0.1.0   
-[57] vctrs_0.3.8       tools_4.1.2       glue_1.4.2        hms_1.1.1        
-[61] parallel_4.1.2    fastmap_1.1.0     yaml_2.2.1        colorspace_2.0-2 
-[65] rvest_1.0.1       knitr_1.36        haven_2.4.3       sass_0.4.0       </code></pre>
+ [1] fs_1.5.0          lubridate_1.8.0   httr_1.4.2        rprojroot_2.0.2  
+ [5] tools_4.1.2       backports_1.3.0   bslib_0.3.1       utf8_1.2.2       
+ [9] R6_2.5.1          DBI_1.1.1         colorspace_2.0-2  withr_2.4.2      
+[13] tidyselect_1.1.1  compiler_4.1.2    git2r_0.28.0      cli_3.0.1        
+[17] rvest_1.0.1       xml2_1.3.2        labeling_0.4.2    sass_0.4.0       
+[21] scales_1.1.1      distances_0.1.8   digest_0.6.28     rmarkdown_2.11   
+[25] R.utils_2.11.0    pkgconfig_2.0.3   htmltools_0.5.2   parallelly_1.28.1
+[29] dbplyr_2.1.1      fastmap_1.1.0     highr_0.9         rlang_0.4.12     
+[33] readxl_1.3.1      rstudioapi_0.13   jquerylib_0.1.4   generics_0.1.0   
+[37] farver_2.1.0      jsonlite_1.7.2    R.oo_1.24.0       magrittr_2.0.1   
+[41] rlist_0.4.6.2     Rcpp_1.0.7        munsell_0.5.0     fansi_0.5.0      
+[45] lifecycle_1.0.1   R.methodsS3_1.8.1 furrr_0.2.3       stringi_1.7.5    
+[49] whisker_0.4       yaml_2.2.1        grid_4.1.2        parallel_4.1.2   
+[53] listenv_0.8.0     promises_1.2.0.1  ggrepel_0.9.1     crayon_1.4.1     
+[57] haven_2.4.3       hms_1.1.1         knitr_1.36        pillar_1.6.3     
+[61] codetools_0.2-18  reprex_2.0.1      glue_1.4.2        evaluate_0.14    
+[65] data.table_1.14.2 modelr_0.1.8      vctrs_0.3.8       tzdb_0.1.2       
+[69] httpuv_1.6.3      cellranger_1.1.0  gtable_0.3.0      assertthat_0.2.1 
+[73] xfun_0.26         broom_0.7.9       later_1.3.0       workflowr_1.6.2  
+[77] globals_0.14.0    ellipsis_0.3.2   </code></pre>
 </div>
 </div>
 
