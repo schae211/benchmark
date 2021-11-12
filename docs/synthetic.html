@@ -513,16 +513,16 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreea3507bd5a761cbeca86d8c4ae2dd4ada9c96f561targetblanka3507bda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561" target="_blank">a3507bd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreefa11e1f3b15cc5a8cd92f3de16d6edeb4de520d9targetblankfa11e1fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/fa11e1f3b15cc5a8cd92f3de16d6edeb4de520d9" target="_blank">fa11e1f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreea3507bd5a761cbeca86d8c4ae2dd4ada9c96f561targetblanka3507bda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreefa11e1f3b15cc5a8cd92f3de16d6edeb4de520d9targetblankfa11e1fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561" target="_blank">a3507bd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/fa11e1f3b15cc5a8cd92f3de16d6edeb4de520d9" target="_blank">fa11e1f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -550,8 +550,8 @@ Ignored files:
     Ignored:    results/
 
 Unstaged changes:
-    Modified:   analysis/mibi.Rmd
     Modified:   analysis/synthetic.Rmd
+    Modified:   analysis/tutorial.Rmd
 
 </code></pre>
 <p>
@@ -590,6 +590,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/fa11e1f3b15cc5a8cd92f3de16d6edeb4de520d9/analysis/synthetic.Rmd" target="_blank">fa11e1f</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+<td>
+ran algorithms on synthetic dataset
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/schae211/benchmark/fa11e1f3b15cc5a8cd92f3de16d6edeb4de520d9/docs/synthetic.html" target="_blank">fa11e1f</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+<td>
+ran algorithms on synthetic dataset
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -697,8 +731,8 @@ Generating paraview</code></pre>
 <h1>Running MISTy</h1>
 <p>Naming our model functions.</p>
 <pre class="r"><code>functions &lt;- c(&quot;RF&quot; = ranger_model, &quot;BT&quot; = boosted_trees_model, 
-               &quot;NN&quot; = nn_model, &quot;SVM&quot; = svm_model, &quot;MARS&quot; = bagged_earth_model,
-               &quot;LMBAG&quot; = bagged_linear_model, &quot;LM&quot; = linear_model)</code></pre>
+               &quot;NN&quot; = nn_model, &quot;SVM&quot; = svm_model, 
+               &quot;MARS&quot; = bagged_earth_model, &quot;LM&quot; = linear_model)</code></pre>
 <p>Running all functions on all samples on all markers.</p>
 <pre class="r"><code>if (&quot;misty.benchmark.synthetic.RDS&quot; %in% list.files(&quot;misty_results&quot;)) {
   misty.function &lt;- readRDS(&quot;misty_results/misty.benchmark.synthetic.RDS&quot;)
@@ -721,20 +755,57 @@ Generating paraview</code></pre>
 <p>Comparing the performances.</p>
 <pre class="r"><code># colors
 fun.colors &lt;- c(&quot;RF&quot; = &quot;firebrick&quot;, &quot;BT&quot; = &quot;blueviolet&quot;, &quot;NN&quot; = &quot;steelblue&quot;,
-                &quot;SVM&quot; = &quot;orange&quot;, &quot;MARS&quot; = &quot;olivedrab&quot;, &quot;LMBAG&quot; = &quot;blue&quot;,
-                &quot;LM&quot; = &quot;darkgoldenrod&quot;)</code></pre>
+                &quot;SVM&quot; = &quot;orange&quot;, &quot;MARS&quot; = &quot;olivedrab&quot;, &quot;LM&quot; = &quot;darkgoldenrod&quot;)
+order &lt;- c(&quot;RF&quot;, &quot;BT&quot;, &quot;MARS&quot;, &quot;NN&quot;, &quot;SVM&quot;, &quot;LM&quot;)</code></pre>
 <pre class="r"><code>misty.function.performance %&gt;%
   filter(measure == &quot;multi.R2&quot;) %&gt;%
-  mutate(fun = factor(fun, levels = c(&quot;RF&quot;, &quot;BT&quot;, &quot;NN&quot;, &quot;SVM&quot;, &quot;MARS&quot;, &quot;LMBAG&quot;, &quot;LM&quot;)), 
+  mutate(fun = factor(fun, levels = order), 
          sample = NULL, measure = NULL) %&gt;%
   ggplot() +
   geom_boxplot(aes(x = target, y = value, col = fun)) +
   labs(x = &quot;Target&quot;, y = &quot;Multi.R2&quot;) +
   scale_color_manual(values = fun.colors)</code></pre>
 <p><img src="figure/synthetic.Rmd/unnamed-chunk-8-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/fa11e1f3b15cc5a8cd92f3de16d6edeb4de520d9/docs/figure/synthetic.Rmd/unnamed-chunk-8-1.png" target="_blank">fa11e1f</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>misty.function.performance %&gt;%
   filter(measure == &quot;multi.R2&quot;) %&gt;%
-  mutate(fun = factor(fun, levels = c(&quot;RF&quot;, &quot;BT&quot;, &quot;NN&quot;, &quot;SVM&quot;, &quot;MARS&quot;, &quot;LMBAG&quot;, &quot;LM&quot;)), 
+  mutate(fun = factor(fun, levels = order), 
          sample = NULL, measure = NULL) %&gt;%
   ggplot() +
   geom_boxplot(aes(x = fun, y = value, col = fun)) +
@@ -743,17 +814,54 @@ fun.colors &lt;- c(&quot;RF&quot; = &quot;firebrick&quot;, &quot;BT&quot; = &quo
   facet_wrap(~ target, ncol=3, scale=&quot;free&quot;) +
   theme(axis.text.x = element_blank())</code></pre>
 <p><img src="figure/synthetic.Rmd/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/fa11e1f3b15cc5a8cd92f3de16d6edeb4de520d9/docs/figure/synthetic.Rmd/unnamed-chunk-9-1.png" target="_blank">fa11e1f</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Summary statistics</p>
 <pre class="r"><code>misty.function.performance %&gt;%
   filter(measure == &quot;multi.R2&quot;) %&gt;%
-  mutate(fun = factor(fun, levels = c(&quot;RF&quot;, &quot;BT&quot;, &quot;NN&quot;, &quot;SVM&quot;, &quot;MARS&quot;, &quot;LMBAG&quot;, &quot;LM&quot;)), 
+  mutate(fun = factor(fun, levels = c(&quot;RF&quot;, &quot;BT&quot;, &quot;NN&quot;, &quot;SVM&quot;, &quot;MARS&quot;, &quot;LM&quot;)), 
          sample = NULL, measure = NULL) %&gt;%
   group_by(fun) %&gt;%
   summarise(mean.R2 = mean(value), sd.R2 = sd(value)) %&gt;%
   arrange(desc(mean.R2))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["fun"],"name":[1],"type":["fct"],"align":["left"]},{"label":["mean.R2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sd.R2"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"RF","2":"96.56229","3":"3.630176"},{"1":"BT","2":"96.14255","3":"4.564308"},{"1":"MARS","2":"93.66407","3":"5.456405"},{"1":"NN","2":"90.66986","3":"7.783347"},{"1":"LMBAG","2":"89.91070","3":"7.520931"},{"1":"LM","2":"89.90869","3":"7.521815"},{"1":"SVM","2":"89.47320","3":"7.903064"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["fun"],"name":[1],"type":["fct"],"align":["left"]},{"label":["mean.R2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sd.R2"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"RF","2":"96.56229","3":"3.630176"},{"1":"MARS","2":"96.53293","3":"4.486362"},{"1":"BT","2":"96.14255","3":"4.564308"},{"1":"NN","2":"90.67428","3":"7.794228"},{"1":"LM","2":"89.90869","3":"7.521815"},{"1":"SVM","2":"89.47307","3":"7.898946"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <br>

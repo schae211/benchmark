@@ -719,6 +719,98 @@ overfit.nn.impro %>%
   facet_wrap(~ target, scales="free")
 ```
 
+## How many variables to consider for bagged models
+
+### Linear Bagged Model
+
+```{r}
+max.num <- misty.views$intraview$data %>% ncol - 1
+nums <- floor(seq(2, max.num, l = 6))
+num.test.lm <- map(nums, function(n) {
+  misty.views %>%
+    run_misty(model.function = bagged_linear_model, n.vars = n) %>%
+    collect_results()
+})
+num.lm.performance <- map2_dfr(num.test.lm, nums, 
+                            ~ .x$improvements %>% mutate(n.vars = .y))
+```
+
+```{r}
+num.lm.performance %>%
+  filter(measure == "multi.R2") %>%
+  mutate(n.vars = factor(n.vars, levels = nums), sample = NULL, measure = NULL) %>%
+  ggplot() +
+  geom_point(aes(x = n.vars, y = value, col = n.vars)) +
+  facet_wrap(~ target, scales = "free")
+```
+
+### Bagged MARS
+
+```{r}
+max.num <- misty.views$intraview$data %>% ncol - 1
+nums <- floor(seq(2, max.num, l = 6))
+num.test.mars <- map(nums, function(n) {
+  misty.views %>%
+    run_misty(model.function = bagged_earth_model, n.vars = n) %>%
+    collect_results()
+})
+num.mars.performance <- map2_dfr(num.test.mars, nums, 
+                            ~ .x$improvements %>% mutate(n.vars = .y))
+```
+
+```{r}
+num.mars.performance %>%
+  filter(measure == "multi.R2") %>%
+  mutate(n.vars = factor(n.vars, levels = nums), sample = NULL, measure = NULL) %>%
+  ggplot() +
+  geom_point(aes(x = n.vars, y = value, col = n.vars)) +
+  facet_wrap(~ target, scales = "free")
+```
+
+## Hyperparameters
+
+### Interaction Terms MARS
+
+degree: The maximum degree of interaction. Default is 1, 
+use 2 for first-order interactions of the hinge functions.
+
+First-order interaction mean products of hinge function without squaring
+any thing, e.g. $f(x) = ax_1 + bx_2 + cx_1x_2 + d$.
+
+From “Notes on the earth package”:
+
+"For interaction terms, each variable gets credit for the entire term — thus
+interaction terms are counted more than once and get a total higher weighting 
+than additive terms (questionably). Each variable gets equal credit in interaction
+terms even though one variable in that term may be far more important than the
+other."
+
+```{r}
+degrees <- seq.int(1, 4)
+deg.test <- map(degrees, function(n) {
+  misty.views %>%
+    run_misty(model.function = bagged_earth_model, degree = n) %>%
+    collect_results()
+})
+deg.test.performance <- map2_dfr(deg.test, degrees, 
+                            ~ .x$improvements %>% mutate(degree = .y))
+```
+
+Adding interactions terms improves the performance of MARS a lot! But does
+this go at the cost of reducing the interpretability (see the above note).
+
+However, I think it may be smart to change the default degree to 2.
+
+```{r}
+deg.test.performance %>%
+  filter(measure == "multi.R2") %>%
+  mutate(degree = factor(degree, levels = degrees), 
+         sample = NULL, measure = NULL) %>%
+  ggplot() +
+  geom_point(aes(x = target, y = value, col = degree))
+```
+
+
 ## Broken NN Function
 
 This neural net implementation used to work, when all of a sudded I got
