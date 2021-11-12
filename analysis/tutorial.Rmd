@@ -767,6 +767,27 @@ num.mars.performance %>%
   facet_wrap(~ target, scales = "free")
 ```
 
+## Run Times
+
+```{r}
+functions <- c("RF" = ranger_model, "BT" = boosted_trees_model, 
+               "NN" = nn_model, "SVM" = svm_model, 
+               "MARS" = bagged_earth_model, "LM" = linear_model)
+```
+
+```{r}
+timing <- map2_dfr(functions, names(functions), function(fun, fun.name) {
+  start <- Sys.time()
+  misty.views %>% run_misty(model.function = fun)
+  end <- Sys.time()
+  tibble::tibble(model.function = fun.name, time = (end - start))
+})
+rf <- timing %>% filter(model.function == "RF") %>% pull(time) %>% as.numeric
+timing %>%
+  arrange(desc(time)) %>% 
+  mutate(rel.to.rf = round(as.numeric(time) / rf, 2))
+```
+
 ## Hyperparameters
 
 ### Interaction Terms MARS

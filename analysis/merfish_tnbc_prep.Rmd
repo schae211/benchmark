@@ -1,0 +1,33 @@
+---
+title: "EDA MERFISH TNBC"
+---
+
+# Set up
+
+Messages will be hidden and the output collapsed to make the Rmd more clear.
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Saez/workflowr_projects/benchmark")
+```
+
+Loaded Packages.
+
+```{r}
+suppressPackageStartupMessages(library(mistyR))
+suppressPackageStartupMessages(library(future))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(R.matlab))
+plan("multisession", workers=12)
+```
+
+# Introduction
+
+TODO
+
+# Data
+
+```{r}
+"/"
+```
+

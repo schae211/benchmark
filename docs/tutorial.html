@@ -513,22 +513,23 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreebdf4ae3cbfbe247f0aa09379fbaa071c735eeb8dtargetblankbdf4ae3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/bdf4ae3cbfbe247f0aa09379fbaa071c735eeb8d" target="_blank">bdf4ae3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree9c8a86406f80ff7b9639246d813aba7a1129c28ctargetblank9c8a864a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/9c8a86406f80ff7b9639246d813aba7a1129c28c" target="_blank">9c8a864</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreebdf4ae3cbfbe247f0aa09379fbaa071c735eeb8dtargetblankbdf4ae3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree9c8a86406f80ff7b9639246d813aba7a1129c28ctargetblank9c8a864a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/bdf4ae3cbfbe247f0aa09379fbaa071c735eeb8d" target="_blank">bdf4ae3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/9c8a86406f80ff7b9639246d813aba7a1129c28c" target="_blank">9c8a864</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/figure/
     Ignored:    analysis/results/
     Ignored:    data/coord.RDS
     Ignored:    data/graph.clusters.RDS
@@ -550,6 +551,7 @@ Ignored files:
     Ignored:    results/
 
 Unstaged changes:
+    Modified:   analysis/synthetic.Rmd
     Modified:   analysis/tutorial.Rmd
 
 </code></pre>
@@ -589,6 +591,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/1f5858213d2c048df565da3168bf277ac7e3be7c/analysis/tutorial.Rmd" target="_blank">1f58582</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+<td>
+added degree = 2 as default arg for earth
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561/analysis/tutorial.Rmd" target="_blank">a3507bd</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+<td>
+added section of approximations and overfitting nn
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/schae211/benchmark/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561/docs/tutorial.html" target="_blank">a3507bd</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+<td>
+added section of approximations and overfitting nn
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -802,7 +855,7 @@ function(view_data, target, seed, ...) {
   list(unbiased.predictions = predictions, 
        importances = model$variable.importance)
 }
-&lt;bytecode: 0x55811ef0a650&gt;
+&lt;bytecode: 0x55647283a0b0&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <p>It is a function that takes in the data of a single view, for example the <code>paraview</code> -</p>
 <pre class="r"><code>misty.views$paraview.10$data %&gt;% slice_head(n=6)</code></pre>
@@ -868,7 +921,7 @@ misty.run &lt;- misty.views %&gt;%
 
 Training models
 tictoc::toc()
-4.664 sec elapsed</code></pre>
+4.702 sec elapsed</code></pre>
 <pre class="r"><code>tictoc::tic()
 misty.run &lt;- misty.views %&gt;%
   run_misty(model.function = ranger_model, num.trees = 100, 
@@ -876,7 +929,7 @@ misty.run &lt;- misty.views %&gt;%
 
 Training models
 tictoc::toc()
-1.438 sec elapsed</code></pre>
+1.463 sec elapsed</code></pre>
 </div>
 <div id="misty-results" class="section level2">
 <h2>MISTy results</h2>
@@ -1047,7 +1100,7 @@ function(view_data, target, seed, ...) {
   list(unbiased.predictions = predictions, 
        importances = model$variable.importance)
 }
-&lt;bytecode: 0x55811ef0a650&gt;
+&lt;bytecode: 0x55647283a0b0&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model</li>
@@ -1219,7 +1272,8 @@ function(view_data, target, seed, n.vars = NULL,
     
     algo.arguments &lt;- list(
       formula = stats::as.formula(paste0(target, &quot; ~ .&quot;)),
-      data = view_data[bag, c(target, vars)]
+      data = view_data[bag, c(target, vars)],
+      degree = 2
     )
     
     if (!(length(ellipsis.args) == 0)) {
@@ -1257,7 +1311,7 @@ function(view_data, target, seed, n.vars = NULL,
   list(unbiased.predictions = predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x558124e519a0&gt;
+&lt;bytecode: 0x556475d738c8&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1462,11 +1516,10 @@ function(view_data, target, seed, n.vars = NULL,
     coefs[names(coefs) != &quot;(Intercept)&quot;]
   }) %&gt;% colMeans(na.rm = TRUE)
   
-  
   list(unbiased.predictions = predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x558123d2d8d0&gt;
+&lt;bytecode: 0x556473cf0050&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1683,7 +1736,7 @@ function(view_data, target, seed, k = 10, ...) {
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x5581212a3cf8&gt;
+&lt;bytecode: 0x55646e25c208&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1890,7 +1943,7 @@ function(view_data, target, seed, approx = TRUE,
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x558122b5ffe8&gt;
+&lt;bytecode: 0x55646f963898&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1937,6 +1990,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/schae211/benchmark/blob/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561/docs/figure/tutorial.Rmd/unnamed-chunk-23-1.png" target="_blank">a3507bd</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-23-1.png" target="_blank">1b95b7c</a>
 </td>
 <td>
@@ -1975,6 +2039,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/schae211/benchmark/blob/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561/docs/figure/tutorial.Rmd/unnamed-chunk-23-2.png" target="_blank">a3507bd</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-23-2.png" target="_blank">1b95b7c</a>
 </td>
 <td>
@@ -2011,6 +2086,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561/docs/figure/tutorial.Rmd/unnamed-chunk-23-3.png" target="_blank">a3507bd</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-23-3.png" target="_blank">1b95b7c</a>
@@ -2110,7 +2196,7 @@ function(view_data, target, seed, approx = TRUE,
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x558124c963c0&gt;
+&lt;bytecode: 0x55646e6e7df8&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -2302,7 +2388,7 @@ function(view_data, target, seed, k = 10, ...) {
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x55812617c180&gt;
+&lt;bytecode: 0x55647ced41b0&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -2872,6 +2958,43 @@ svm.improvements %&gt;%
   geom_point(aes(x = approx.frac, y = value)) +
   facet_wrap(~ target, scales=&quot;free&quot;)</code></pre>
 <p><img src="figure/tutorial.Rmd/unnamed-chunk-45-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-45-1">
+Past versions of unnamed-chunk-45-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-45-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561/docs/figure/tutorial.Rmd/unnamed-chunk-45-1.png" target="_blank">a3507bd</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="nn" class="section level3">
 <h3>NN</h3>
@@ -3003,6 +3126,43 @@ nn.improvements %&gt;%
   geom_point(aes(x = approx.frac, y = value)) +
   facet_wrap(~ target, scales=&quot;free&quot;)</code></pre>
 <p><img src="figure/tutorial.Rmd/unnamed-chunk-47-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-47-1">
+Past versions of unnamed-chunk-47-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-47-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561/docs/figure/tutorial.Rmd/unnamed-chunk-47-1.png" target="_blank">a3507bd</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="overfitting-the-nn-function" class="section level2">
@@ -3092,6 +3252,304 @@ overfit.nn.impro %&gt;%
   geom_point(aes(x = size, y = value)) +
   facet_wrap(~ target, scales=&quot;free&quot;)</code></pre>
 <p><img src="figure/tutorial.Rmd/unnamed-chunk-49-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-49-1">
+Past versions of unnamed-chunk-49-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-49-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/a3507bd5a761cbeca86d8c4ae2dd4ada9c96f561/docs/figure/tutorial.Rmd/unnamed-chunk-49-1.png" target="_blank">a3507bd</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="how-many-variables-to-consider-for-bagged-models" class="section level2">
+<h2>How many variables to consider for bagged models</h2>
+<div id="linear-bagged-model" class="section level3">
+<h3>Linear Bagged Model</h3>
+<pre class="r"><code>max.num &lt;- misty.views$intraview$data %&gt;% ncol - 1
+nums &lt;- floor(seq(2, max.num, l = 6))
+num.test.lm &lt;- map(nums, function(n) {
+  misty.views %&gt;%
+    run_misty(model.function = bagged_linear_model, n.vars = n) %&gt;%
+    collect_results()
+})
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+num.lm.performance &lt;- map2_dfr(num.test.lm, nums, 
+                            ~ .x$improvements %&gt;% mutate(n.vars = .y))</code></pre>
+<pre class="r"><code>num.lm.performance %&gt;%
+  filter(measure == &quot;multi.R2&quot;) %&gt;%
+  mutate(n.vars = factor(n.vars, levels = nums), sample = NULL, measure = NULL) %&gt;%
+  ggplot() +
+  geom_point(aes(x = n.vars, y = value, col = n.vars)) +
+  facet_wrap(~ target, scales = &quot;free&quot;)</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="bagged-mars-1" class="section level3">
+<h3>Bagged MARS</h3>
+<pre class="r"><code>max.num &lt;- misty.views$intraview$data %&gt;% ncol - 1
+nums &lt;- floor(seq(2, max.num, l = 6))
+num.test.mars &lt;- map(nums, function(n) {
+  misty.views %&gt;%
+    run_misty(model.function = bagged_earth_model, n.vars = n) %&gt;%
+    collect_results()
+})
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+num.mars.performance &lt;- map2_dfr(num.test.mars, nums, 
+                            ~ .x$improvements %&gt;% mutate(n.vars = .y))</code></pre>
+<pre class="r"><code>num.mars.performance %&gt;%
+  filter(measure == &quot;multi.R2&quot;) %&gt;%
+  mutate(n.vars = factor(n.vars, levels = nums), sample = NULL, measure = NULL) %&gt;%
+  ggplot() +
+  geom_point(aes(x = n.vars, y = value, col = n.vars)) +
+  facet_wrap(~ target, scales = &quot;free&quot;)</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-53-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="run-times" class="section level2">
+<h2>Run Times</h2>
+<pre class="r"><code>functions &lt;- c(&quot;RF&quot; = ranger_model, &quot;BT&quot; = boosted_trees_model, 
+               &quot;NN&quot; = nn_model, &quot;SVM&quot; = svm_model, 
+               &quot;MARS&quot; = bagged_earth_model, &quot;LM&quot; = linear_model)</code></pre>
+<pre class="r"><code>timing &lt;- map2_dfr(functions, names(functions), function(fun, fun.name) {
+  start &lt;- Sys.time()
+  misty.views %&gt;% run_misty(model.function = fun)
+  end &lt;- Sys.time()
+  tibble::tibble(model.function = fun.name, time = (end - start))
+})
+
+Training models
+
+Training models
+
+Training models
+
+Training models
+
+Training models
+
+Training models
+rf &lt;- timing %&gt;% filter(model.function == &quot;RF&quot;) %&gt;% pull(time) %&gt;% as.numeric
+timing %&gt;%
+  arrange(desc(time)) %&gt;% 
+  mutate(rel.to.rf = round(as.numeric(time) / rf, 2))</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["model.function"],"name":[1],"type":["chr"],"align":["left"]},{"label":["time"],"name":[2],"type":["drtn"],"align":["right"]},{"label":["rel.to.rf"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"MARS","2":"31.5333648 secs","3":"16.95"},{"1":"NN","2":"18.1444604 secs","3":"9.75"},{"1":"SVM","2":"7.8138678 secs","3":"4.20"},{"1":"BT","2":"2.2195311 secs","3":"1.19"},{"1":"RF","2":"1.8607659 secs","3":"1.00"},{"1":"LM","2":"0.7080829 secs","3":"0.38"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="hyperparameters" class="section level2">
+<h2>Hyperparameters</h2>
+<div id="interaction-terms-mars" class="section level3">
+<h3>Interaction Terms MARS</h3>
+<p>degree: The maximum degree of interaction. Default is 1, use 2 for first-order interactions of the hinge functions.</p>
+<p>First-order interaction mean products of hinge function without squaring any thing, e.g. <span class="math inline">\(f(x) = ax_1 + bx_2 + cx_1x_2 + d\)</span>.</p>
+<p>From “Notes on the earth package”:</p>
+<p>“For interaction terms, each variable gets credit for the entire term — thus interaction terms are counted more than once and get a total higher weighting than additive terms (questionably). Each variable gets equal credit in interaction terms even though one variable in that term may be far more important than the other.”</p>
+<pre class="r"><code>degrees &lt;- seq.int(1, 4)
+deg.test &lt;- map(degrees, function(n) {
+  misty.views %&gt;%
+    run_misty(model.function = bagged_earth_model, degree = n) %&gt;%
+    collect_results()
+})
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+
+Training models
+
+Collecting improvements
+
+Collecting contributions
+
+Collecting importances
+
+Aggregating
+deg.test.performance &lt;- map2_dfr(deg.test, degrees, 
+                            ~ .x$improvements %&gt;% mutate(degree = .y))</code></pre>
+<p>Adding interactions terms improves the performance of MARS a lot! But does this go at the cost of reducing the interpretability (see the above note).</p>
+<p>However, I think it may be smart to change the default degree to 2.</p>
+<pre class="r"><code>deg.test.performance %&gt;%
+  filter(measure == &quot;multi.R2&quot;) %&gt;%
+  mutate(degree = factor(degree, levels = degrees), 
+         sample = NULL, measure = NULL) %&gt;%
+  ggplot() +
+  geom_point(aes(x = target, y = value, col = degree))</code></pre>
+<p><img src="figure/tutorial.Rmd/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="broken-nn-function" class="section level2">
 <h2>Broken NN Function</h2>
