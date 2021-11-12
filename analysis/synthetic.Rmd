@@ -22,7 +22,7 @@ plan("multisession", workers=14)
 Loading data
 
 ```{r}
-# TODO
+data("synthetic")
 ```
 
 # Introduction
@@ -31,3 +31,35 @@ To extend the functionality of MISTy a new API was implemented to model
 the different views which are ultimatively combined in a linear meta model.
 This analysis is supposed to test how these new models work on real-world 
 datasets.
+
+# MISTy Views
+
+```{r}
+misty.views.smp <- map(synthetic, function(sample) {
+  sample.expr <- sample %>% select(-c(row, col, type))
+  sample.pos <- sample %>% select(row, col)
+  create_initial_view(sample.expr) %>% add_paraview(sample.pos, l = 10)
+})
+```
+
+# Running MISTy
+
+Naming our model functions.
+
+```{r}
+functions <- c("RF" = ranger_model, "BT" = boosted_trees_model, 
+               "NN" = nn_model, "SVM" = svm_model, "MARS" = bagged_earth_model,
+               "LMBAG" = bagged_linear_model, "LM" = linear_model)
+```
+
+
+```{r}
+misty.function <- map2(functions, names(functions), function(fun, fun.name) {
+  misty.results <- map(misty.views.smp, function(sample.views) {
+  run_misty(views = sample.views, 
+            results.folder = paste0("misty_results/synthetic/",fun.name), 
+            model.function = functions, seed = 42, cv.folds = 10)
+  })
+})
+```
+

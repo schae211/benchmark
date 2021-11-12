@@ -626,6 +626,99 @@ caret::defaultSummary(data = data.frame(obs = target.vector,
 
 # Appendix
 
+## What effect do the approximations have on the predictive performance?
+
+The possibility for subsampling the training set was introduced to 
+reduce the training time, since MISTy is often applied to large
+datasets where the modelling of each view should not take too long.
+
+Since the approximation only affects the computation of the unbiased 
+prediction, we only need to have a look at the performance estimation
+
+### SVM
+
+```{r}
+approx.results.svm <- map(seq(0.1, 1, l = 10), function(frac) {
+  print(frac)
+  misty.views %>%
+  run_misty(model.function = svm_model, approx = TRUE, approx.frac = frac) %>%
+  collect_results()
+})
+```
+
+I guess based on those results a default approximation fraction of **0.4** would 
+make sense.
+
+```{r fig.height=6, fig.width=12}
+svm.improvements <- map2_dfr(approx.results.svm, 
+                             seq(0.1, 1, l = 10), function(misty.results, frac) {
+  misty.results$improvements %>% mutate(approx.frac = frac)
+})
+svm.improvements %>%
+  mutate(approx.frac = factor(approx.frac, levels = seq(0.1, 1, l = 10))) %>%
+  filter(measure == "multi.R2") %>%
+  ggplot() +
+  geom_point(aes(x = approx.frac, y = value)) +
+  facet_wrap(~ target, scales="free")
+```
+
+### NN
+
+```{r}
+approc.results.nn <- map(seq(0.1, 1, l = 10), function(frac) {
+  print(frac)
+  misty.views %>%
+  run_misty(model.function = nn_model, approx = TRUE, approx.frac = frac) %>%
+  collect_results()
+})
+```
+
+I guess based on those results a default approximation fraction of **0.6** would 
+make sense.
+
+```{r fig.height=6, fig.width=12}
+nn.improvements <- map2_dfr(approc.results.nn, 
+                             seq(0.1, 1, l = 10), function(misty.results, frac) {
+  misty.results$improvements %>% mutate(approx.frac = frac)
+})
+nn.improvements %>%
+  mutate(approx.frac = factor(approx.frac, levels = seq(0.1, 1, l = 10))) %>%
+  filter(measure == "multi.R2") %>%
+  ggplot() +
+  geom_point(aes(x = approx.frac, y = value)) +
+  facet_wrap(~ target, scales="free")
+```
+
+## Overfitting the NN Function
+
+```{r}
+sizes = list("5" = c(5), "10" = c(10), "2x10" = c(10, 10), "3x10" = c(10, 10, 10),
+             "3x16" = c(16, 16, 16))
+overfit.nn.results <- map(sizes, function(s) {
+  print(s)
+  misty.views %>%
+  run_misty(model.function = nn_model, approx = TRUE, approx.frac = 0.6,
+            size = s) %>%
+  collect_results()
+})
+```
+
+And we basically see that the landscape is highly heterogeneous depending
+on the target. Sometimes a more complex model is helpful and sometimes not! 
+
+```{r fig.height=6, fig.width=12}
+overfit.nn.impro <- map2_dfr(overfit.nn.results, 
+                             names(sizes), function(misty.results, s) {
+  misty.results$improvements %>% mutate(size = s)
+})
+overfit.nn.impro %>%
+  filter(measure == "multi.R2") %>%
+  mutate(size = factor(size, levels = names(sizes))) %>%
+  ggplot() +
+  geom_point(aes(x = size, y = value)) +
+  facet_wrap(~ target, scales="free")
+```
+
 ## Broken NN Function
 
 This neural net implementation used to work, when all of a sudded I got
