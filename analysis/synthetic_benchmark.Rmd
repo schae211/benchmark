@@ -62,7 +62,7 @@ if ("misty.benchmark.synthetic.RDS" %in% list.files("misty_results")) {
     results.folders <- map2(misty.views.smp, names(misty.views.smp), 
                           function(sample.views, sample.name) {
       run_misty(views = sample.views, 
-                results.folder = paste0("misty_results/mibi_tnbc/",
+                results.folder = paste0("misty_results/synthetic/",
                                         fun.name,"/",sample.name), 
                 model.function = fun, seed = 42, cv.folds = 10)
     })
@@ -83,7 +83,7 @@ Comparing the performances.
 
 ```{r}
 # colors
-fun.colors <- c("RF" = "firebrick", "BT" = "bluevio5let", "MARS" = "olivedrab",
+fun.colors <- c("RF" = "firebrick", "BT" = "blueviolet", "MARS" = "olivedrab",
                 "NN" = "steelblue", "SVM" = "orange", "LM" = "darkgoldenrod")
 order <- c("RF", "BT", "MARS", "NN", "SVM", "LM")
 ```
@@ -99,8 +99,8 @@ misty.function.performance %>%
   scale_color_manual(values = fun.colors)
 ```
 
-```{r fig.height=8, fig.width=8}
-misty.function.performance %>%
+```{r fig.height=3, fig.width=9}
+plot <- misty.function.performance %>%
   filter(measure == "multi.R2") %>%
   mutate(fun = factor(fun, levels = order), 
          sample = NULL, measure = NULL) %>%
@@ -108,8 +108,11 @@ misty.function.performance %>%
   geom_boxplot(aes(x = fun, y = value, col = fun)) +
   labs(x = "Target", y = "Multi.R2") +
   scale_color_manual(values = fun.colors) +
-  facet_wrap(~ target, ncol=3, scale="free") +
+  facet_wrap(~ target, ncol=6, scale="free") +
+  theme_light() +
   theme(axis.text.x = element_blank())
+plot
+ggsave("plot1.png", plot=plot, dpi=300, width=9, height=3)
 ```
 
 Summary statistics

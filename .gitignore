@@ -16,3 +16,4 @@ analysis/results
 data/mibi_tiffs
 results
 misty_results
+*.png

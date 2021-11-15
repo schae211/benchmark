@@ -27,7 +27,7 @@ meta.smp <- readRDS("data/mibi_coldata.RDS")
 misty.views.smp <- readRDS("data/mibi_misty_views.RDS")
 ```
 
-```{r hide=TRUE}
+```{r eval=FALSE, include=FALSE}
 # subsampling
 subsampling <- FALSE
 if (subsampling) {
@@ -70,13 +70,17 @@ seed <- 42
 functions <- c("RF" = ranger_model, "BT" = boosted_trees_model, 
                "NN" = nn_model, "SVM" = svm_model, "MARS" = bagged_earth_model,
                "LMBAG" = bagged_linear_model, "LM" = linear_model)
+# without SVM works better (I had a crash somehow)
+functions <- c("RF" = ranger_model, "BT" = boosted_trees_model, 
+               "NN" = nn_model, "MARS" = bagged_earth_model,
+               "LM" = linear_model)
 ```
 
-```{r eval=FALSE}
+```{r}
 if ("misty.benchmark.mibi_tnbc.RDS" %in% list.files("misty_results")) {
-  misty.function <- readRDS("misty_results/misty.benchmark.mibi_tnbc.RDS")
+  results.all.functions <- readRDS("misty_results/misty.benchmark.mibi_tnbc.RDS")
 } else {
-  misty.function <- map2(functions, names(functions), function(fun, fun.name) {
+  results.all.functions <- map2(functions, names(functions), function(fun, fun.name) {
     results.folders <- map2(misty.views.smp, names(misty.views.smp), 
                           function(sample.views, sample.name) {
       run_misty(views = sample.views, 
@@ -86,11 +90,11 @@ if ("misty.benchmark.mibi_tnbc.RDS" %in% list.files("misty_results")) {
     })
     misty.results <- collect_results(results.folders)
   })
-  saveRDS(misty.function, "misty_results/misty.benchmark.mibi_tnbc.RDS")
+  saveRDS(results.all.functions, "misty_results/misty.benchmark.mibi_tnbc.RDS")
 }
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 # not collecting the results, but writing to the right path!
 functions <- functions[names(functions) %in% c("MARS", "LMBAG", "LM")]
 misty.function <- map2(functions, names(functions), function(fun, fun.name) {
@@ -102,5 +106,84 @@ misty.function <- map2(functions, names(functions), function(fun, fun.name) {
               model.function = fun, seed = 42, cv.folds = 10)
   })
 })
+```
+
+```{r eval=FALSE, include=FALSE}
+# Reading in the data
+results.all.functions <- map(names(functions), function(fun.name) {
+  misty.results <- map_chr(names(misty.views.smp), function(sample.name) {
+    paste0("misty_results/mibi_tnbc/", fun.name,"/",sample.name)
+  })
+  collect_results(misty.results)
+})
+```
+
+```{r}
+misty.function.performance <- map2_dfr(results.all.functions, names(functions), 
+                                       ~ .x$improvements %>% mutate(fun = .y))
+plot_improvement_stats(results.all.functions[[1]], "multi.R2")
+```
+
+```{r}
+# colors
+fun.colors <- c("RF" = "firebrick", "BT" = "blueviolet", "MARS" = "olivedrab",
+                "NN" = "steelblue", "LM" = "darkgoldenrod")
+order <- c("RF", "BT", "MARS", "NN", "LM")
+```
+
+```{r fig.width=9, fig.height=3}
+target.subs <- c("CD138", "CD209", "phospho.S6", "IDO", "CD20",
+                 "EGFR", "Keratin17", "CD11c", "PD.L1", "HLA.DR",
+                 "CD31", "CD63")
+
+
+plot <- misty.function.performance %>%
+  filter(measure == "multi.R2") %>%
+  filter(target %in% target.subs) %>%
+  mutate(fun = factor(fun, levels = order), 
+         sample = NULL, measure = NULL) %>%
+  ggplot() +
+  geom_boxplot(aes(x = fun, y = value, col = fun)) +
+  labs(x = "Target", y = "Multi.R2") +
+  scale_color_manual(values = fun.colors) +
+  facet_wrap(~ target, ncol=6, scale="free") +
+  theme_light() +
+  theme(axis.text.x = element_blank())
+plot
+ggsave("mibi_perf_comp.png", plot=plot, dpi=300, width=9, height=3)
+```
+
+```{r fig.width=9, fig.height=3}
+target.subs <- c("CD45", "CD45RO", "H3K27me3", "HLA_Class_1", "CD3", "H3K9ac",
+                 "Pan.Keratin", "HLA.DR", "Keratin6", "Beta.catenin", 
+                 "phospho.S6", "CD4")
+
+
+plot <- misty.function.performance %>%
+  filter(measure == "multi.R2") %>%
+  filter(target %in% target.subs) %>%
+  mutate(fun = factor(fun, levels = order), 
+         sample = NULL, measure = NULL) %>%
+  ggplot() +
+  geom_boxplot(aes(x = fun, y = value, col = fun)) +
+  labs(x = "Target", y = "Multi.R2") +
+  scale_color_manual(values = fun.colors) +
+  facet_wrap(~ target, ncol=6, scale="free") +
+  theme_light() +
+  theme(axis.text.x = element_blank())
+plot
+ggsave("mibi_perf_comp2.png", plot=plot, dpi=300, width=9, height=3)
+```
+
+Summary statistics
+
+```{r}
+misty.function.performance %>%
+  filter(measure == "multi.R2") %>%
+  mutate(fun = factor(fun, levels = c("RF", "BT", "NN", "MARS", "LM")), 
+         sample = NULL, measure = NULL) %>%
+  group_by(fun) %>%
+  summarise(mean.R2 = mean(value), sd.R2 = sd(value)) %>%
+  arrange(desc(mean.R2))
 ```
 
