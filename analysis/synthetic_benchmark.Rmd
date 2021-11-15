@@ -83,7 +83,7 @@ Comparing the performances.
 
 ```{r}
 # colors
-fun.colors <- c("RF" = "firebrick", "BT" = "blueviolet", "MARS" = "olivedrab",
+fun.colors <- c("RF" = "firebrick", "BT" = "bluevio5let", "MARS" = "olivedrab",
                 "NN" = "steelblue", "SVM" = "orange", "LM" = "darkgoldenrod")
 order <- c("RF", "BT", "MARS", "NN", "SVM", "LM")
 ```

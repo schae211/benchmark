@@ -398,10 +398,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-12
+<strong>Last updated:</strong> 2021-11-15
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>benchmark/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -417,12 +417,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -513,24 +513,22 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree9c8a86406f80ff7b9639246d813aba7a1129c28ctargetblank9c8a864a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/9c8a86406f80ff7b9639246d813aba7a1129c28c" target="_blank">9c8a864</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreeaf20d84d9941a5a5e75c9f7ff842868c2e2e1fbatargetblankaf20d84a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba" target="_blank">af20d84</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktree9c8a86406f80ff7b9639246d813aba7a1129c28ctargetblank9c8a864a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreeaf20d84d9941a5a5e75c9f7ff842868c2e2e1fbatargetblankaf20d84a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/9c8a86406f80ff7b9639246d813aba7a1129c28c" target="_blank">9c8a864</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba" target="_blank">af20d84</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
-    Ignored:    analysis/results/
     Ignored:    data/coord.RDS
     Ignored:    data/graph.clusters.RDS
     Ignored:    data/merfish_benchmark/
@@ -548,11 +546,9 @@ Ignored files:
     Ignored:    data/mibi_tiffs/
     Ignored:    data/mibi_tumor.immune.contacts.RDS
     Ignored:    misty_results/
-    Ignored:    results/
 
 Unstaged changes:
-    Modified:   analysis/synthetic.Rmd
-    Modified:   analysis/tutorial.Rmd
+    Modified:   analysis/mibi_TNBC_benchmark.Rmd
 
 </code></pre>
 <p>
@@ -591,6 +587,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba/analysis/tutorial.Rmd" target="_blank">af20d84</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+<td>
+appending to the tutorial
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/schae211/benchmark/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba/docs/tutorial.html" target="_blank">af20d84</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+<td>
+appending to the tutorial
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -855,7 +885,7 @@ function(view_data, target, seed, ...) {
   list(unbiased.predictions = predictions, 
        importances = model$variable.importance)
 }
-&lt;bytecode: 0x55647283a0b0&gt;
+&lt;bytecode: 0x55b371a1cf40&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <p>It is a function that takes in the data of a single view, for example the <code>paraview</code> -</p>
 <pre class="r"><code>misty.views$paraview.10$data %&gt;% slice_head(n=6)</code></pre>
@@ -921,7 +951,7 @@ misty.run &lt;- misty.views %&gt;%
 
 Training models
 tictoc::toc()
-4.702 sec elapsed</code></pre>
+4.634 sec elapsed</code></pre>
 <pre class="r"><code>tictoc::tic()
 misty.run &lt;- misty.views %&gt;%
   run_misty(model.function = ranger_model, num.trees = 100, 
@@ -929,7 +959,7 @@ misty.run &lt;- misty.views %&gt;%
 
 Training models
 tictoc::toc()
-1.463 sec elapsed</code></pre>
+1.448 sec elapsed</code></pre>
 </div>
 <div id="misty-results" class="section level2">
 <h2>MISTy results</h2>
@@ -1100,7 +1130,7 @@ function(view_data, target, seed, ...) {
   list(unbiased.predictions = predictions, 
        importances = model$variable.importance)
 }
-&lt;bytecode: 0x55647283a0b0&gt;
+&lt;bytecode: 0x55b371a1cf40&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model</li>
@@ -1246,7 +1276,7 @@ schae211
 </ul>
 <pre class="r"><code>bagged_earth_model
 function(view_data, target, seed, n.vars = NULL, 
-                               n.learners = 100, ...) {
+                               n.learners = 50, ...) {
   
   ellipsis.args &lt;- list(...)
   
@@ -1311,7 +1341,7 @@ function(view_data, target, seed, n.vars = NULL,
   list(unbiased.predictions = predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x556475d738c8&gt;
+&lt;bytecode: 0x55b3751a45b0&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1358,6 +1388,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/schae211/benchmark/blob/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba/docs/figure/tutorial.Rmd/unnamed-chunk-17-1.png" target="_blank">af20d84</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-17-1.png" target="_blank">1b95b7c</a>
 </td>
 <td>
@@ -1396,6 +1437,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/schae211/benchmark/blob/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba/docs/figure/tutorial.Rmd/unnamed-chunk-17-2.png" target="_blank">af20d84</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-17-2.png" target="_blank">1b95b7c</a>
 </td>
 <td>
@@ -1432,6 +1484,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba/docs/figure/tutorial.Rmd/unnamed-chunk-17-3.png" target="_blank">af20d84</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/schae211/benchmark/blob/1b95b7c7d7a5dfdd46d8a1d183fe4825756469c4/docs/figure/tutorial.Rmd/unnamed-chunk-17-3.png" target="_blank">1b95b7c</a>
@@ -1519,7 +1582,7 @@ function(view_data, target, seed, n.vars = NULL,
   list(unbiased.predictions = predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x556473cf0050&gt;
+&lt;bytecode: 0x55b377bdeac8&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1736,7 +1799,7 @@ function(view_data, target, seed, k = 10, ...) {
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x55646e25c208&gt;
+&lt;bytecode: 0x55b372955d90&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -1755,6 +1818,12 @@ Collecting improvements
 Collecting contributions
 
 Collecting importances
+Warning: UNRELIABLE VALUE: Future (&#39;&lt;none&gt;&#39;) unexpectedly generated random
+numbers without specifying argument &#39;seed&#39;. There is a risk that those random
+numbers are not statistically sound and the overall results might be invalid.
+To fix this, specify &#39;seed=TRUE&#39;. This ensures that proper, parallel-safe random
+numbers are produced via the L&#39;Ecuyer-CMRG method. To disable this check, use
+&#39;seed=NULL&#39;, or set option &#39;future.rng.onMisuse&#39; to &quot;ignore&quot;.
 
 Aggregating
 Warning: Removed 11 rows containing missing values (geom_segment).</code></pre>
@@ -1943,7 +2012,7 @@ function(view_data, target, seed, approx = TRUE,
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x55646f963898&gt;
+&lt;bytecode: 0x55b36ff7e410&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -2196,7 +2265,7 @@ function(view_data, target, seed, approx = TRUE,
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x55646e6e7df8&gt;
+&lt;bytecode: 0x55b37117b100&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -2388,7 +2457,7 @@ function(view_data, target, seed, k = 10, ...) {
   list(unbiased.predictions = holdout.predictions, 
        importances = importances)
 }
-&lt;bytecode: 0x55647ced41b0&gt;
+&lt;bytecode: 0x55b37c25cb60&gt;
 &lt;environment: namespace:mistyR&gt;</code></pre>
 <ul>
 <li>Running the model:</li>
@@ -3370,6 +3439,43 @@ num.lm.performance &lt;- map2_dfr(num.test.lm, nums,
   geom_point(aes(x = n.vars, y = value, col = n.vars)) +
   facet_wrap(~ target, scales = &quot;free&quot;)</code></pre>
 <p><img src="figure/tutorial.Rmd/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-51-1">
+Past versions of unnamed-chunk-51-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-51-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba/docs/figure/tutorial.Rmd/unnamed-chunk-51-1.png" target="_blank">af20d84</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="bagged-mars-1" class="section level3">
 <h3>Bagged MARS</h3>
@@ -3449,6 +3555,43 @@ num.mars.performance &lt;- map2_dfr(num.test.mars, nums,
   geom_point(aes(x = n.vars, y = value, col = n.vars)) +
   facet_wrap(~ target, scales = &quot;free&quot;)</code></pre>
 <p><img src="figure/tutorial.Rmd/unnamed-chunk-53-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-53-1">
+Past versions of unnamed-chunk-53-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-53-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba/docs/figure/tutorial.Rmd/unnamed-chunk-53-1.png" target="_blank">af20d84</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="run-times" class="section level2">
@@ -3480,7 +3623,7 @@ timing %&gt;%
   mutate(rel.to.rf = round(as.numeric(time) / rf, 2))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["model.function"],"name":[1],"type":["chr"],"align":["left"]},{"label":["time"],"name":[2],"type":["drtn"],"align":["right"]},{"label":["rel.to.rf"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"MARS","2":"31.5333648 secs","3":"16.95"},{"1":"NN","2":"18.1444604 secs","3":"9.75"},{"1":"SVM","2":"7.8138678 secs","3":"4.20"},{"1":"BT","2":"2.2195311 secs","3":"1.19"},{"1":"RF","2":"1.8607659 secs","3":"1.00"},{"1":"LM","2":"0.7080829 secs","3":"0.38"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["model.function"],"name":[1],"type":["chr"],"align":["left"]},{"label":["time"],"name":[2],"type":["drtn"],"align":["right"]},{"label":["rel.to.rf"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"NN","2":"17.6032331 secs","3":"8.95"},{"1":"MARS","2":"15.6296954 secs","3":"7.95"},{"1":"SVM","2":"7.8878863 secs","3":"4.01"},{"1":"BT","2":"2.1767955 secs","3":"1.11"},{"1":"RF","2":"1.9669554 secs","3":"1.00"},{"1":"LM","2":"0.8764434 secs","3":"0.45"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -3549,6 +3692,43 @@ deg.test.performance &lt;- map2_dfr(deg.test, degrees,
   ggplot() +
   geom_point(aes(x = target, y = value, col = degree))</code></pre>
 <p><img src="figure/tutorial.Rmd/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-57-1">
+Past versions of unnamed-chunk-57-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-57-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba/docs/figure/tutorial.Rmd/unnamed-chunk-57-1.png" target="_blank">af20d84</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="broken-nn-function" class="section level2">

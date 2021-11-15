@@ -15,7 +15,7 @@ Loaded packages.
 suppressPackageStartupMessages(library(mistyR))
 suppressPackageStartupMessages(library(future))
 suppressPackageStartupMessages(library(tidyverse))
-plan("multisession", workers=14)
+plan("multisession", workers=12)
 ```
 
 Loading data generated in MIBI_Analysis.Rmd
@@ -72,7 +72,7 @@ functions <- c("RF" = ranger_model, "BT" = boosted_trees_model,
                "LMBAG" = bagged_linear_model, "LM" = linear_model)
 ```
 
-```{r}
+```{r eval=FALSE}
 if ("misty.benchmark.mibi_tnbc.RDS" %in% list.files("misty_results")) {
   misty.function <- readRDS("misty_results/misty.benchmark.mibi_tnbc.RDS")
 } else {
@@ -91,190 +91,16 @@ if ("misty.benchmark.mibi_tnbc.RDS" %in% list.files("misty_results")) {
 ```
 
 ```{r}
-#misty.function ...
-```
-
-
-
-
-
-OLD STUFF BELOW
-
-## Random Forest
-
-```{r warning=FALSE}
-if ("mibi_ranger.RDS" %in% list.files("data/mibi_benchmark")) {
-  ranger.results <- readRDS("data/mibi_benchmark/mibi_ranger.RDS")
-} else {
-  cv.folds = 10
-  ranger.results.folders <- map2(
-    misty.views.smp, names(misty.views.smp), function(smp, name) {
-      
-      smp %>% run_misty(results.folder = paste0("analysis/results/ranger_", name),
-                        cv.folds = cv.folds, seed = seed, model.function = ranger_model,
-                        model.name = "ranger")
-    })
-  ranger.results <- collect_results(ranger.results.folders)
-  saveRDS(ranger.results, "data/mibi_benchmark/mibi_ranger.RDS")
-}
-```
-
-```{r}
-mistyR::plot_improvement_stats(ranger.results)
-```
-
-## MARS (Multivariante Adaptive Regression Splines)
-
-Running with MARS as ML algorithm to build the view-specific models.
-
-```{r warning=FALSE}
-if ("mibi_earth.RDS" %in% list.files("data/mibi_benchmark")) {
-  earth.results <- readRDS("data/mibi_benchmark/mibi_earth.RDS")
-} else {
-  cv.folds = 10
-  earth.results.folders <- map2(
-    misty.views.smp, names(misty.views.smp), function(smp, name) {
-    
-      smp %>% run_misty(results.folder = paste0("analysis/results/earth_", name),
-                        cv.folds = cv.folds, seed = seed, model.function = bagged_earth_model,
-                        model.name = "earth", n.learners = 100)
-      
-    })
-  earth.results <- collect_results(earth.results.folders)
-  saveRDS(earth.results, "data/mibi_benchmark/mibi_earth.RDS")
-}
-```
-
-```{r}
-mistyR::plot_improvement_stats(earth.results)
-```
-
-## Linear Bagged Model
-
-```{r warning=FALSE}
-plan("multisession", workers = 8)
-if ("mibi_lmbag.RDS" %in% list.files("data/mibi_benchmark")) {
-  lmbag.results <- readRDS("data/mibi_benchmark/mibi_lmbag.RDS")
-} else {
-  cv.folds = 10
-  lmbag.results.folders <- map2(
-    misty.views.smp, names(misty.views.smp), function(smp, name) {
-
-      smp %>% run_misty(results.folder = paste0("analysis/results/earth_", name),
-                  cv.folds = cv.folds, seed = seed, model.function = bagged_linear_model,
-                  model.name = "lmbag", n.learners = 100)
-    })
-  lmbag.results <- collect_results(lmbag.results.folders)
-  saveRDS(lmbag.results, "data/mibi_benchmark/mibi_lmbag.RDS")
-}
-```
-
-```{r}
-mistyR::plot_improvement_stats(lmbag.results)
-```
-
-# Comparing the results
-
-## Improvements
-
-```{r fig.width=12, fig.height=14}
-colors <- c("earth" = "forestgreen", "ranger" = "blue1", "lm" = "red4")
-
-all.improvements <- rbind(
-  ranger.results$improvements %>% mutate(method = "ranger"),
-  earth.results$improvements %>% mutate(method = "earth"),
-  lmbag.results$improvements %>% mutate(method = "lm")
-)
-
-all.improvements %>%
-  filter(measure %in% c("gain.R2", "multi.R2", "intra.R2")) %>%
-  mutate(measure = factor(measure, 
-                          levels = c("gain.R2", "multi.R2", "intra.R2"))) %>%
-  ggplot() +
-  geom_boxplot(aes(x=target, y=value, col = method)) +
-  facet_wrap(~ measure, ncol = 1, scales = "free") +
-  theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1),
-        plot.title = element_text(hjust = 0.5),
-        axis.text.x.bottom = element_text(vjust = 0.4)) +
-  scale_colour_manual(values = colors)
-```
-
-## View Contributions
-
-Random Forest (ranger):
-
-```{r}
-mistyR::plot_view_contributions(ranger.results)
-```
-
-Boxplot to look at the variability
-
-```{r fig.width=6, fig.height=6}
-ranger.results$contributions %>%
-  filter(!str_starts(view, "p\\."), view != "intercept") %>%
-  ggplot() +
-  geom_boxplot(aes(x = target, y = value)) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  facet_wrap(~ view, ncol = 1)
-```
-
-Bagged MARS (earth):
-
-```{r}
-mistyR::plot_view_contributions(earth.results)
-```
-
-Boxplot to look at the variability
-
-```{r fig.width=6, fig.height=6}
-earth.results$contributions %>%
-  filter(!str_starts(view, "p\\."), view != "intercept") %>%
-  ggplot() +
-  geom_boxplot(aes(x = target, y = value)) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  facet_wrap(~ view, ncol = 1)
-```
-
-Bagged Linear Model
-
-```{r}
-mistyR::plot_view_contributions(lmbag.results)
-```
-
-Boxplot to look at the variability
-
-```{r fig.width=6, fig.height=6}
-lmbag.results$contributions %>%
-  filter(!str_starts(view, "p\\."), view != "intercept") %>%
-  ggplot() +
-  geom_boxplot(aes(x = target, y = value)) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  facet_wrap(~ view, ncol = 1)
-```
-
-## Importances
-
-Random Forest
-
-```{r fig.width=6, fig.height=6}
-mistyR::plot_interaction_heatmap(ranger.results, view = "intra", clean = TRUE)
-mistyR::plot_interaction_heatmap(ranger.results, view = "juxta.40", clean = TRUE)
-mistyR::plot_interaction_heatmap(ranger.results, view = "para.120", clean = TRUE)
-```
-
-Bagged MARS
-
-```{r fig.width=6, fig.height=6}
-mistyR::plot_interaction_heatmap(earth.results, view = "intra", clean = TRUE)
-mistyR::plot_interaction_heatmap(earth.results, view = "juxta.40", clean = TRUE)
-mistyR::plot_interaction_heatmap(earth.results, view = "para.120", clean = TRUE)
-```
-
-Bagged Linear Model
-
-```{r fig.width=6, fig.height=6}
-mistyR::plot_interaction_heatmap(lmbag.results, view = "intra", clean = TRUE)
-mistyR::plot_interaction_heatmap(lmbag.results, view = "juxta.40", clean = TRUE)
-mistyR::plot_interaction_heatmap(lmbag.results, view = "para.120", clean = TRUE)
+# not collecting the results, but writing to the right path!
+functions <- functions[names(functions) %in% c("MARS", "LMBAG", "LM")]
+misty.function <- map2(functions, names(functions), function(fun, fun.name) {
+  results.folders <- map2(misty.views.smp, names(misty.views.smp), 
+                        function(sample.views, sample.name) {
+    run_misty(views = sample.views, 
+              results.folder = paste0("misty_results/mibi_tnbc/",
+                                      fun.name,"/",sample.name), 
+              model.function = fun, seed = 42, cv.folds = 10)
+  })
+})
 ```
 
