@@ -788,6 +788,28 @@ timing %>%
   mutate(rel.to.rf = round(as.numeric(time) / rf, 2))
 ```
 
+```{r eval=FALSE, include=FALSE}
+misty.views.smp <- map(synthetic, function(smp) {
+  expr <- smp %>% select(-c(row, col, type))
+  pos <- smp %>% select(c(row, col))
+  misty.views <- create_initial_view(expr) %>%
+    add_paraview(positions = pos, l = 10)
+})
+
+timing <- map2_dfr(functions, names(functions), function(fun, fun.name) {
+  start <- Sys.time()
+  misty.results.string <- map_chr(misty.views.smp, function(ms) {
+    ms %>% run_misty(model.function = fun)
+  })
+  end <- Sys.time()
+  tibble::tibble(model.function = fun.name, time = (end - start))
+})
+rf <- timing %>% filter(model.function == "RF") %>% pull(time) %>% as.numeric
+timing %>%
+  arrange(desc(time)) %>% 
+  mutate(rel.to.rf = round(as.numeric(time) / rf, 2))
+```
+
 ## Hyperparameters
 
 ### Interaction Terms MARS
