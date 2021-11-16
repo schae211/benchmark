@@ -398,7 +398,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-15
+<strong>Last updated:</strong> 2021-11-16
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -513,22 +513,23 @@ relative
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreeaf20d84d9941a5a5e75c9f7ff842868c2e2e1fbatargetblankaf20d84a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba" target="_blank">af20d84</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreea2447469f96a315973f8f68122227c2cbdb68fe2targetblanka244746a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/schae211/benchmark/tree/a2447469f96a315973f8f68122227c2cbdb68fe2" target="_blank">a244746</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreeaf20d84d9941a5a5e75c9f7ff842868c2e2e1fbatargetblankaf20d84a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomschae211benchmarktreea2447469f96a315973f8f68122227c2cbdb68fe2targetblanka244746a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/af20d84d9941a5a5e75c9f7ff842868c2e2e1fba" target="_blank">af20d84</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/schae211/benchmark/tree/a2447469f96a315973f8f68122227c2cbdb68fe2" target="_blank">a244746</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/synthetic_benchmark.html
     Ignored:    data/coord.RDS
     Ignored:    data/graph.clusters.RDS
     Ignored:    data/merfish_benchmark/
@@ -545,11 +546,14 @@ Ignored files:
     Ignored:    data/mibi_rowdata.RDS
     Ignored:    data/mibi_tiffs/
     Ignored:    data/mibi_tumor.immune.contacts.RDS
+    Ignored:    mibi_perf_comp.png
+    Ignored:    mibi_perf_comp2.png
     Ignored:    misty_results/
+    Ignored:    plot1.png
     Ignored:    results/
 
 Unstaged changes:
-    Modified:   analysis/mibi_TNBC_benchmark.Rmd
+    Modified:   analysis/tutorial.Rmd
 
 </code></pre>
 <p>
@@ -588,6 +592,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/24355fdd8947235f1b35f511628b729670e10a1b/analysis/synthetic_benchmark.Rmd" target="_blank">24355fd</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-15
+</td>
+<td>
+mibi tnbc benchmark done without SVM
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/39f797fa7d63b846dfa1e983b388c2b495b1d505/analysis/synthetic_benchmark.Rmd" target="_blank">39f797f</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-15
+</td>
+<td>
+new default nbags for mars
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/schae211/benchmark/39f797fa7d63b846dfa1e983b388c2b495b1d505/docs/synthetic_benchmark.html" target="_blank">39f797f</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-15
+</td>
+<td>
+new default nbags for mars
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -671,7 +726,7 @@ Generating paraview</code></pre>
     results.folders &lt;- map2(misty.views.smp, names(misty.views.smp), 
                           function(sample.views, sample.name) {
       run_misty(views = sample.views, 
-                results.folder = paste0(&quot;misty_results/mibi_tnbc/&quot;,
+                results.folder = paste0(&quot;misty_results/synthetic/&quot;,
                                         fun.name,&quot;/&quot;,sample.name), 
                 model.function = fun, seed = 42, cv.folds = 10)
     })
@@ -696,7 +751,44 @@ order &lt;- c(&quot;RF&quot;, &quot;BT&quot;, &quot;MARS&quot;, &quot;NN&quot;, 
   labs(x = &quot;Target&quot;, y = &quot;Multi.R2&quot;) +
   scale_color_manual(values = fun.colors)</code></pre>
 <p><img src="figure/synthetic_benchmark.Rmd/unnamed-chunk-8-1.png" width="1152" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>misty.function.performance %&gt;%
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/39f797fa7d63b846dfa1e983b388c2b495b1d505/docs/figure/synthetic_benchmark.Rmd/unnamed-chunk-8-1.png" target="_blank">39f797f</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot &lt;- misty.function.performance %&gt;%
   filter(measure == &quot;multi.R2&quot;) %&gt;%
   mutate(fun = factor(fun, levels = order), 
          sample = NULL, measure = NULL) %&gt;%
@@ -704,9 +796,49 @@ order &lt;- c(&quot;RF&quot;, &quot;BT&quot;, &quot;MARS&quot;, &quot;NN&quot;, 
   geom_boxplot(aes(x = fun, y = value, col = fun)) +
   labs(x = &quot;Target&quot;, y = &quot;Multi.R2&quot;) +
   scale_color_manual(values = fun.colors) +
-  facet_wrap(~ target, ncol=3, scale=&quot;free&quot;) +
-  theme(axis.text.x = element_blank())</code></pre>
-<p><img src="figure/synthetic_benchmark.Rmd/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;" /></p>
+  facet_wrap(~ target, ncol=6, scale=&quot;free&quot;) +
+  theme_light() +
+  theme(axis.text.x = element_blank())
+plot</code></pre>
+<p><img src="figure/synthetic_benchmark.Rmd/unnamed-chunk-9-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/schae211/benchmark/blob/39f797fa7d63b846dfa1e983b388c2b495b1d505/docs/figure/synthetic_benchmark.Rmd/unnamed-chunk-9-1.png" target="_blank">39f797f</a>
+</td>
+<td>
+schae211
+</td>
+<td>
+2021-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggsave(&quot;plot1.png&quot;, plot=plot, dpi=300, width=9, height=3)</code></pre>
 <p>Summary statistics</p>
 <pre class="r"><code>misty.function.performance %&gt;%
   filter(measure == &quot;multi.R2&quot;) %&gt;%
@@ -717,7 +849,7 @@ order &lt;- c(&quot;RF&quot;, &quot;BT&quot;, &quot;MARS&quot;, &quot;NN&quot;, 
   arrange(desc(mean.R2))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["fun"],"name":[1],"type":["fct"],"align":["left"]},{"label":["mean.R2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sd.R2"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"RF","2":"96.56229","3":"3.630176"},{"1":"MARS","2":"96.53293","3":"4.486362"},{"1":"BT","2":"96.14255","3":"4.564308"},{"1":"NN","2":"90.67428","3":"7.794228"},{"1":"LM","2":"89.90869","3":"7.521815"},{"1":"SVM","2":"89.47307","3":"7.898946"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["fun"],"name":[1],"type":["fct"],"align":["left"]},{"label":["mean.R2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sd.R2"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"RF","2":"96.56229","3":"3.630176"},{"1":"MARS","2":"96.51289","3":"4.496174"},{"1":"BT","2":"96.14255","3":"4.564308"},{"1":"NN","2":"90.68445","3":"7.796698"},{"1":"LM","2":"89.90869","3":"7.521815"},{"1":"SVM","2":"89.48618","3":"7.892362"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <br>
@@ -751,6 +883,7 @@ other attached packages:
  [1] factoextra_1.0.7 forcats_0.5.1    stringr_1.4.0    dplyr_1.0.7     
  [5] purrr_0.3.4      readr_2.0.2      tidyr_1.1.4      tibble_3.1.5    
  [9] ggplot2_3.3.5    tidyverse_1.3.1  future_1.22.1    mistyR_1.3.1    
+[13] workflowr_1.6.2 
 
 loaded via a namespace (and not attached):
  [1] fs_1.5.0          lubridate_1.8.0   httr_1.4.2        rprojroot_2.0.2  
@@ -771,8 +904,8 @@ loaded via a namespace (and not attached):
 [61] codetools_0.2-18  reprex_2.0.1      glue_1.4.2        evaluate_0.14    
 [65] data.table_1.14.2 modelr_0.1.8      vctrs_0.3.8       tzdb_0.1.2       
 [69] httpuv_1.6.3      cellranger_1.1.0  gtable_0.3.0      assertthat_0.2.1 
-[73] xfun_0.26         broom_0.7.9       later_1.3.0       workflowr_1.6.2  
-[77] globals_0.14.0    ellipsis_0.3.2   </code></pre>
+[73] xfun_0.26         broom_0.7.9       later_1.3.0       globals_0.14.0   
+[77] ellipsis_0.3.2   </code></pre>
 </div>
 </div>
 
@@ -827,7 +960,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
+  window.initializeCodeFolding("show" === "show");
 });
 </script>
 
